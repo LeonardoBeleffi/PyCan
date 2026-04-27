@@ -1,13 +1,16 @@
 """ TODO
-    - isIdle better in Canbus or Ecu?
+    - isIdle better in Canbus, Ecu or _CanController?
     - Ecu automatic retransmission upon error
-    - auto_retransmission in Ecu or CanController?
+    - auto_retransmission in Ecu or _CanController?
     - check if the callbacks are enough
     - is CanMessage necessary?
+    - add Extended Frame format
 """
 
 from dataclasses import dataclass
 from typing import Callable
+
+__all__ = ['Canbus', 'Ecu']
 
 @dataclass
 class CanMessage:
@@ -16,7 +19,7 @@ class CanMessage:
     data: bytearray
 
 
-class CanController:
+class _CanController:
     """A class used to model the low-level CAN hardware.
 
     This class enforces the physical rules of the CAN protocol, maintains the
@@ -24,17 +27,15 @@ class CanController:
     exposes valid hardware registers to the software (Ecu).
 
     Attributes:
-        name (str): The name of the controller for debugging.
         auto_retransmit (bool): Hardware register to toggle automatic retries.
     """
 
-    def __init__(self, name: str):
-        self._name = name
+    def __init__(self, auto_retransmit: bool = True):
         self._tec = 0
         self._rec = 0
 
         # Valid Hardware Registers an attacker can manipulate
-        self.auto_retransmit = True
+        self._auto_retransmit = auto_retransmit
 
         self._tx_mailbox: CanMessage | None = None
 
@@ -48,10 +49,6 @@ class CanController:
         self._on_tx_error_callback = on_tx_error
 
     # --- Hardware Registers (Software API) ---
-    def set_auto_retransmit(self, enabled: bool) -> None:
-        """Hardware register to enable/disable automatic retransmissions."""
-        self.auto_retransmit = enabled
-
     def clear_tx_buffer(self) -> None:
         """Flushes the hardware transmit mailbox."""
         self._tx_mailbox = None
@@ -89,14 +86,15 @@ class Ecu:
     Attributes:
         id (int): Logical identifier for the ECU.
         name (str): Human-readable name.
+        auto_retransmit (bool): Hardware register to toggle automatic retries.
     """
 
-    def __init__(self, ecu_id: int, name: str):
+    def __init__(self, ecu_id: int, name: str, auto_retransmit: bool = True):
         self._id = ecu_id
         self._name = name
 
-        # The ECU inherently owns its CanController (hardware)
-        self._controller = CanController(name)
+        # The ECU inherently owns its _CanController (hardware)
+        self._controller = _CanController(name, auto_retransmit = auto_retransmit)
         self._controller.bind_callbacks(
                 on_rx=self.on_message_received,
                 on_tx_error=self.on_transmit_error
@@ -132,16 +130,16 @@ class Canbus:
 
     Attributes:
         baud_rate (int): frequency of bits sent every second.
-        ecus (set[Ecu] | list[Ecu]): The ecus registered to this CAN BUS.
+        ecus (list[Ecu]): The ecus registered to this CAN BUS.
     """
 
-    def __init__(self, baud_rate: int, ecus: set[Ecu] | list[Ecu]):
+    def __init__(self, baud_rate: int, ecus: list[Ecu]):
         self._current_bit = 1
         self._baud_rate = baud_rate
 
         for ecu in ecus:
-            assert isinstance(ecu, Ecu), ("A list (set) of ecus was expected, " +
-                                          "but at least one item was not an Ecu")
+            assert isinstance(ecu, Ecu), ("A list of ecus was expected, but " +
+                                          "at least one item was not an Ecu")
         self._ecus = set(ecus)
 
     def startSimulation(self) -> None:
