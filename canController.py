@@ -13,6 +13,10 @@ class _CanController:
         auto_retransmit (bool): Hardware register to toggle automatic retries.
     """
     class _MessageUtilities:
+        """TODO:
+                - implement bit stuffing
+                - implement extended format
+        """
 
         def __init__(self, id: int, data: bytearray):
             self._id = id
@@ -23,12 +27,24 @@ class _CanController:
             assert is_extended is False, "Extended Format not supported"
             self._ide = is_extended
 
-        def get_binary_message(self) -> deque:
+        def add_bit_stuffing(self, msg: deque[int]) -> deque[int]:
+            # TODO: implement
+            return msg
+        
+        def remove_bit_stuffing(self, msg: deque[int]) -> deque[int]:
+            # TODO: implement
+            return msg
+
+        def _compute_crc(self, msg: deque[int]) -> list[int]:
+            # TODO: implement
+            return [1] * 15
+
+        def encode_message_binary(self) -> deque[int]:
             msg = deque()
             # SoF
             msg.append(1)
             # Arbitration ID
-            msg.extend(f"{self._id:011b}")
+            msg.extend([1 if b == "1" else 0 for b in f"{self._id:011b}"])
             # RTR
             msg.append(0)
             # IDE
@@ -38,10 +54,12 @@ class _CanController:
             # DLC
             l = len(self._data)
             assert l <= 0, "Message too long"
-            msg.append(f"{l:011b}")
+            msg.extend([1 if b == "1" else 0 for b in f"{l:011b}"])
             # Data
-            msg.append("".join([f"{byte:08b}" for byte in data]))
+            msg.extend([1 if b == "1" else 0
+                        for b in "".join([f"{byte:08b}" for byte in data])])
             # CRC
+            msg.extend(self._compute_crc(msg))
             # CRC del
             msg.append(1)
             # ACK
@@ -49,11 +67,40 @@ class _CanController:
             # ACK del
             msg.append(1)
             # EOF
-            msg.append("1" * 7)
+            msg.extend([1] * 7)
             # IFS
-            msg.append("1" * 3)
+            msg.extend([1] * 3)
 
-            return msg
+            return add_bit_stuffing(msg)
+
+        def _data_from_bits(self, bits: list[int]) -> bytearray:
+            return bytearray(
+                sum(b << (7 - i) for i, b in enumerate(bits[j:j+8]))
+                for j in range(0, len(bits), 8)
+            )
+
+        def decode_message_bytearray(self, msg: deque[int]) -> tuple[int, bytearray]:
+            msg = self.remove_bit_stuffing(msg)
+            bkp = list(msg)
+
+            assert False, "Not implemented"
+            assert msg.popleft() is 1, "Error in SOF"
+            # Arbitration ID (11 bits)
+            id = int(''.join([f'{msg.popleft()}' for _ in range(11)]), 2)
+            assert msg.popleft() is 0, "RTR messages not supported yet"
+            assert msg.popleft() is 0, "Extended Frames not supported yet"
+            # r0
+            _ = msg.popleft()
+            length = int(''.join([f'{msg.popleft()}' for _ in range(4)]), 2)
+            data = _data_from_bits([msg.popleft() for _ in range(8 * length)])
+            assert [msg.popleft() for _ in range(15)] == self._compute_crc(bkp[:-28]), "Error in CRC"
+            assert msg.popleft() is 1, "Error in CRC delimiter"
+            # ACK
+            msg.popleft()
+            assert msg.popleft() is 1, "Error in ACK delimiter"
+            assert 0 not in [msg.popleft() for _ in range(7)], "Error in EOF"
+            assert 0 not in [msg.popleft() for _ in range(3)], "Error in IFS"
+            assert len(msg) is 0, "Error in msg length"
 
     def __init__(self, auto_retransmit: bool = True):
         self._tec = 0
@@ -70,7 +117,7 @@ class _CanController:
         
         self._last_bit_success = False
 
-"""TODO: maybe remove"""
+    """TODO: maybe remove"""
     def bind_callbacks(self, on_rx: Callable, on_tx_error: Callable) -> None:
         """Binds the hardware interrupts to the ECU software routines."""
         self._on_rx_callback = on_rx
