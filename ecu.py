@@ -1,5 +1,6 @@
 from canController import _CanController
 from canMessage import CanMessage
+import math
 
 class Ecu:
     """A class used to model the High-Level ECU software.
@@ -10,42 +11,80 @@ class Ecu:
     Attributes:
         id (int): Logical identifier for the ECU.
         name (str): Human-readable name.
+        message (dict): the dictionary keys are the messages id, meanwhile the values are the message info (e.g. msg frequence) 
         auto_retransmit (bool): Hardware register to toggle automatic retries.
     """
 
-    def __init__(self, ecu_id: int, name: str, auto_retransmit: bool = True):
+    def __init__(self, ecu_id: int, name: str, messages: dict, auto_retransmit: bool = True):
         self._id = ecu_id
         self._name = name
+        self._time = 0
+        self._messages = messages
+        # timestamp for when last busoff occurred
+        self._last_busoff = 0
+
+        for msg_id in self._messages.keys():
+            self._messages[msg_id]["timer"] = 0
 
         # The ECU inherently owns its _CanController (hardware)
         self._controller = _CanController(name, auto_retransmit = auto_retransmit)
-        self._controller.bind_callbacks(
-                on_rx=self.on_message_received,
-                on_tx_error=self.on_transmit_error
-                )
+
 
     # --- Internal Bit-Level API (Called strictly by Canbus) ---
-    def _get_tx_bit(self) -> int | None:
+    def _get_tx_bit(self) -> int:
         return self._controller.get_next_bit()
 
     def _rx_bit(self, bit: int) -> None:
-        self._controller.process_received_bit(bit)
+        rBit = self._controller.process_received_bit(bit)
 
-    # --- Public API for User to Override ---
-    def setup(self) -> None:
-        """Called once when the simulation starts."""
-        pass
+        # bit read is the sent one and message is finished
+        # TODO check that you finished to send the message
+        if rBit:
+            # TODO get last sent message id
+            msg_id = 1
+            self._messages[msg_id]["timer"] = self._time
 
-    def on_message_received(self, message: CanMessage) -> None:
-        """Interrupt triggered when a valid frame arrives."""
-        pass
+    
+    '''
+        increase the ECU time. Required to simulate the ECU clock.
 
-    def on_transmit_error(self) -> None:
-        """Interrupt triggered if the hardware detects an error while sending."""
-        pass
+        Parameters:
+            time_delta(int): determines how much the time increments
+    '''
+    def increase_time(self, time_delta: int = 10):
+        if time_delta < 0:
+            time_delta = 0
+        self._time += time_delta
 
-    def send(self, message: CanMessage) -> None:
-        """High-level method to send a CAN message."""
-        self._controller.queue_tx(message)
+    # returns the id of the next message to send
+    def get_next_message_id(self):
+        min = math.inf
+        for msg_id in self._messages:
+            if self._messages[msg_id]["timer"] - self._time >= self._messages["msg_id"]["frequence"] and msg_id < min:
+                min = msg_id
+        return min
+
+    # TODO implement putting data in the message
+    def _create_message(self):
+        return None
+    
+    def check_message_transmission(self,bus_idle:bool):
+        
+        # cannot send messages to controller because the bus is not idle
+        # TODO add check if I'm in bus off status and eventually snap out of it
+        if not bus_idle:
+            return
+        
+        # bus is idle
+        msg_id = self.get_next_message_id()
+        if bus_idle and msg_id != math.inf:
+            message = self._create_message()
+            self._controller.queue_tx(message)
+        
 
 
+# workflow modification:
+# if canbus is idle -> put message in controller buffer
+#                        else -> I don't put anything
+# on _get_tx_bit the canbus receive -> my message bit if I'm sending something
+#                                   -> 1 if I'm not sending any message (in and with the other bits, it is not influent) 
