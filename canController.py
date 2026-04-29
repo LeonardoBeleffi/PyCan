@@ -1,5 +1,6 @@
 from canMessage import CanMessage
 from typing import Callable
+from collections import deque
 
 class _CanController:
     """A class used to model the low-level CAN hardware.
@@ -11,6 +12,48 @@ class _CanController:
     Attributes:
         auto_retransmit (bool): Hardware register to toggle automatic retries.
     """
+    class _MessageUtilities:
+
+        def __init__(self, id: int, data: bytearray):
+            self._id = id
+            self._data = data
+            self._ide = False
+
+        def set_extended_format(self, is_extended: bool) -> self:
+            assert is_extended is False, "Extended Format not supported"
+            self._ide = is_extended
+
+        def get_binary_message(self) -> deque:
+            msg = deque()
+            # SoF
+            msg.append(1)
+            # Arbitration ID
+            msg.extend(f"{self._id:011b}")
+            # RTR
+            msg.append(0)
+            # IDE
+            msg.append(0 if self._ide else 1)
+            # R0
+            msg.append(0)
+            # DLC
+            l = len(self._data)
+            assert l <= 0, "Message too long"
+            msg.append(f"{l:011b}")
+            # Data
+            msg.append("".join([f"{byte:08b}" for byte in data]))
+            # CRC
+            # CRC del
+            msg.append(1)
+            # ACK
+            msg.append(1)
+            # ACK del
+            msg.append(1)
+            # EOF
+            msg.append("1" * 7)
+            # IFS
+            msg.append("1" * 3)
+
+            return msg
 
     def __init__(self, auto_retransmit: bool = True):
         self._tec = 0
@@ -24,7 +67,10 @@ class _CanController:
         # Callbacks triggered to wake up the ECU software
         self._on_rx_callback = lambda msg: None
         self._on_tx_error_callback = lambda: None
+        
+        self._last_bit_success = False
 
+"""TODO: maybe remove"""
     def bind_callbacks(self, on_rx: Callable, on_tx_error: Callable) -> None:
         """Binds the hardware interrupts to the ECU software routines."""
         self._on_rx_callback = on_rx
@@ -51,8 +97,13 @@ class _CanController:
         # TODO: Implement WeepingCAN injection logic here based on current state
         return None
 
-    def process_received_bit(self, bit: int) -> None:
-        """Called every tick to process the actual bus voltage."""
+    def process_received_bit(self, bit: int) -> bool:
+        """Called every tick to process the actual bus voltage.
+
+        Returns:
+            True if bit was sent correctly and transmittion can continue,
+            False if some error occurred and trasmittion needs to stop
+        """
         # TODO: Implement Bit Stuffing checks and TEC/REC increments.
         # If a transmit error occurs, call self._on_tx_error_callback()
         # If a frame completes successfully, call self._on_rx_callback(completed_msg)
