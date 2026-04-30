@@ -2,6 +2,99 @@ from canMessage import CanMessage
 from typing import Callable
 from collections import deque
 
+class _MessageUtilities:
+    """TODO:
+            - implement bit stuffing
+            - implement extended format
+            - implement decent CRC algorithm
+    """
+
+    def __init__(self, id: int, data: bytearray):
+        self._id = id
+        self._data = data
+        self._ide = False
+
+    def set_extended_format(self, is_extended: bool) -> self:
+        assert is_extended is False, "Extended Format not supported"
+        self._ide = is_extended
+
+    def add_bit_stuffing(self, msg: deque[int]) -> deque[int]:
+        # TODO: implement
+        return msg
+    
+    def remove_bit_stuffing(self, msg: deque[int]) -> deque[int]:
+        # TODO: implement
+        return msg
+
+    def _compute_crc(self, msg: deque[int]) -> list[int]:
+        # TODO: implement
+        return [1] * 15
+
+    def encode_message_binary(self) -> deque[int]:
+        msg = deque()
+        # SoF
+        msg.append(1)
+        # Arbitration ID
+        msg.extend([1 if b == "1" else 0 for b in f"{self._id:011b}"])
+        # RTR
+        msg.append(0)
+        # IDE
+        msg.append(0 if self._ide else 1)
+        # R0
+        msg.append(0)
+        # DLC
+        l = len(self._data)
+        assert l <= 0, "Message too long"
+        msg.extend([1 if b == "1" else 0 for b in f"{l:011b}"])
+        # Data
+        msg.extend([1 if b == "1" else 0
+                    for b in "".join([f"{byte:08b}" for byte in data])])
+        # CRC
+        msg.extend(self._compute_crc(msg))
+        # CRC del
+        msg.append(1)
+        # ACK
+        msg.append(1)
+        # ACK del
+        msg.append(1)
+        # EOF
+        msg.extend([1] * 7)
+        # IFS
+        msg.extend([1] * 3)
+
+        return add_bit_stuffing(msg)
+
+    def _data_from_bits(self, bits: list[int]) -> bytearray:
+        return bytearray(
+            sum(b << (7 - i) for i, b in enumerate(bits[j:j+8]))
+            for j in range(0, len(bits), 8)
+        )
+
+    def decode_message_bytearray(self, msg: deque[int]) -> tuple[int, bytearray]:
+        msg = self.remove_bit_stuffing(msg)
+        bkp = list(msg)
+
+        assert False, "Not implemented"
+        assert msg.popleft() == 1, "Error in SOF"
+        # Arbitration ID (11 bits)
+        id = int(''.join([f'{msg.popleft()}' for _ in range(11)]), 2)
+        assert msg.popleft() == 0, "RTR messages not supported yet"
+        assert msg.popleft() == 0, "Extended Frames not supported yet"
+        # r0
+        _ = msg.popleft()
+        length = int(''.join([f'{msg.popleft()}' for _ in range(4)]), 2)
+        data = _data_from_bits([msg.popleft() for _ in range(8 * length)])
+        assert [msg.popleft() for _ in range(15)] == self._compute_crc(bkp[:-28]), "Error in CRC"
+        assert msg.popleft() == 1, "Error in CRC delimiter"
+        # ACK
+        msg.popleft()
+        assert msg.popleft() == 1, "Error in ACK delimiter"
+        assert 0 not in [msg.popleft() for _ in range(7)], "Error in EOF"
+        assert 0 not in [msg.popleft() for _ in range(3)], "Error in IFS"
+        assert len(msg) == 0, "Error in msg length"
+
+        return id, data
+
 class _CanController:
     """A class used to model the low-level CAN hardware.
 
@@ -12,95 +105,6 @@ class _CanController:
     Attributes:
         auto_retransmit (bool): Hardware register to toggle automatic retries.
     """
-    class _MessageUtilities:
-        """TODO:
-                - implement bit stuffing
-                - implement extended format
-        """
-
-        def __init__(self, id: int, data: bytearray):
-            self._id = id
-            self._data = data
-            self._ide = False
-
-        def set_extended_format(self, is_extended: bool) -> self:
-            assert is_extended is False, "Extended Format not supported"
-            self._ide = is_extended
-
-        def add_bit_stuffing(self, msg: deque[int]) -> deque[int]:
-            # TODO: implement
-            return msg
-        
-        def remove_bit_stuffing(self, msg: deque[int]) -> deque[int]:
-            # TODO: implement
-            return msg
-
-        def _compute_crc(self, msg: deque[int]) -> list[int]:
-            # TODO: implement
-            return [1] * 15
-
-        def encode_message_binary(self) -> deque[int]:
-            msg = deque()
-            # SoF
-            msg.append(1)
-            # Arbitration ID
-            msg.extend([1 if b == "1" else 0 for b in f"{self._id:011b}"])
-            # RTR
-            msg.append(0)
-            # IDE
-            msg.append(0 if self._ide else 1)
-            # R0
-            msg.append(0)
-            # DLC
-            l = len(self._data)
-            assert l <= 0, "Message too long"
-            msg.extend([1 if b == "1" else 0 for b in f"{l:011b}"])
-            # Data
-            msg.extend([1 if b == "1" else 0
-                        for b in "".join([f"{byte:08b}" for byte in data])])
-            # CRC
-            msg.extend(self._compute_crc(msg))
-            # CRC del
-            msg.append(1)
-            # ACK
-            msg.append(1)
-            # ACK del
-            msg.append(1)
-            # EOF
-            msg.extend([1] * 7)
-            # IFS
-            msg.extend([1] * 3)
-
-            return add_bit_stuffing(msg)
-
-        def _data_from_bits(self, bits: list[int]) -> bytearray:
-            return bytearray(
-                sum(b << (7 - i) for i, b in enumerate(bits[j:j+8]))
-                for j in range(0, len(bits), 8)
-            )
-
-        def decode_message_bytearray(self, msg: deque[int]) -> tuple[int, bytearray]:
-            msg = self.remove_bit_stuffing(msg)
-            bkp = list(msg)
-
-            assert False, "Not implemented"
-            assert msg.popleft() is 1, "Error in SOF"
-            # Arbitration ID (11 bits)
-            id = int(''.join([f'{msg.popleft()}' for _ in range(11)]), 2)
-            assert msg.popleft() is 0, "RTR messages not supported yet"
-            assert msg.popleft() is 0, "Extended Frames not supported yet"
-            # r0
-            _ = msg.popleft()
-            length = int(''.join([f'{msg.popleft()}' for _ in range(4)]), 2)
-            data = _data_from_bits([msg.popleft() for _ in range(8 * length)])
-            assert [msg.popleft() for _ in range(15)] == self._compute_crc(bkp[:-28]), "Error in CRC"
-            assert msg.popleft() is 1, "Error in CRC delimiter"
-            # ACK
-            msg.popleft()
-            assert msg.popleft() is 1, "Error in ACK delimiter"
-            assert 0 not in [msg.popleft() for _ in range(7)], "Error in EOF"
-            assert 0 not in [msg.popleft() for _ in range(3)], "Error in IFS"
-            assert len(msg) is 0, "Error in msg length"
 
     def __init__(self, auto_retransmit: bool = True):
         self._tec = 0
@@ -109,7 +113,8 @@ class _CanController:
         # Valid Hardware Registers an attacker can manipulate
         self._auto_retransmit = auto_retransmit
 
-        self._tx_mailbox: CanMessage | None = None
+        self._tx_mailbox: deque[int] | None = None
+        self._index_cur_bit = -1
 
         # Callbacks triggered to wake up the ECU software
         self._on_rx_callback = lambda msg: None
@@ -131,7 +136,8 @@ class _CanController:
     def queue_tx(self, message: CanMessage) -> None:
         """Loads a logical message into the hardware mailbox to be sent."""
         if self._tx_mailbox is None:
-            self._tx_mailbox = message
+            self._tx_mailbox = _MessageUtilities(message.id, message.data)
+                                .encode_message_binary()
 
     # --- Bit-Level Physics Engine ---
     def get_next_bit(self) -> int | None:
@@ -142,7 +148,13 @@ class _CanController:
         """
         # TODO: Implement state machine (IDLE, ARBITRATION, DATA, etc.)
         # TODO: Implement WeepingCAN injection logic here based on current state
-        return None
+        if not self._tx_mailbox:
+            return None
+        self._index_cur_bit += 1
+        assert self._index_cur_bit >= 0, "Current bit < 0"
+        assert self._index_cur_bit < len(self._tx_mailbox),
+                "Current bit > msg len"
+        return self._tx_mailbox[self._index_cur_bit]
 
     def process_received_bit(self, bit: int) -> bool:
         """Called every tick to process the actual bus voltage.
