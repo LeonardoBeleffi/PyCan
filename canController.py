@@ -95,6 +95,14 @@ class _MessageUtilities:
 
         return id, data
 
+    @staticmethod
+    def is_arbitration(msg: deque[int], index: int):
+        assert False, "Not implemented"
+
+    @staticmethod
+    def is_ack(msg: deque[int], index: int):
+        assert False, "Not implemented"
+
 class _CanController:
     """A class used to model the low-level CAN hardware.
 
@@ -121,6 +129,7 @@ class _CanController:
         self._on_tx_error_callback = lambda: None
         
         self._last_bit_success = False
+        self._last_message_sent = False
 
     """TODO: maybe remove"""
     def bind_callbacks(self, on_rx: Callable, on_tx_error: Callable) -> None:
@@ -169,5 +178,13 @@ class _CanController:
         if bit == self._tx_mailbox[self._index_cur_bit]:
             return True
 
-        if self._tx_mailbox.is_arbitration(self._index_cur_bit):
+        # check if is error
+        if _MessageUtilities.is_error(self._tx_mailbox, self._index_cur_bit):
+            return True
+
+        if _MessageUtilities.is_arbitration(self._tx_mailbox, self._index_cur_bit):
+            self._last_message_sent = False
+            return False
+
+        if _MessageUtilities.is_ack(self._tx_mailbox, self._index_cur_bit):
             return True
