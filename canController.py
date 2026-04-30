@@ -33,22 +33,22 @@ class _MessageUtilities:
     def encode_message_binary(self) -> deque[int]:
         msg = deque()
         # SoF
-        msg.append(1)
+        msg.append(0)
         # Arbitration ID
         msg.extend([1 if b == "1" else 0 for b in f"{self._id:011b}"])
         # RTR
         msg.append(0)
         # IDE
-        msg.append(0 if self._ide else 1)
+        msg.append(1 if self._ide else 0)
         # R0
         msg.append(0)
         # DLC
         l = len(self._data)
-        assert l <= 0, "Message too long"
-        msg.extend([1 if b == "1" else 0 for b in f"{l:011b}"])
+        assert l <= 8, "Message too long"
+        msg.extend([1 if b == "1" else 0 for b in f"{l:04b}"])
         # Data
         msg.extend([1 if b == "1" else 0
-                    for b in "".join([f"{byte:08b}" for byte in data])])
+                    for b in "".join([f"{byte:08b}" for byte in self._data])])
         # CRC
         msg.extend(self._compute_crc(msg))
         # CRC del
@@ -163,9 +163,11 @@ class _CanController:
             True if bit was sent correctly and transmittion can continue,
             False if some error occurred and trasmittion needs to stop
         """
-        # TODO: Implement Bit Stuffing checks and TEC/REC increments.
+        # TODO: Implement and TEC/REC increments.
         # If a transmit error occurs, call self._on_tx_error_callback()
         # If a frame completes successfully, call self._on_rx_callback(completed_msg)
-        pass
+        if bit == self._tx_mailbox[self._index_cur_bit]:
+            return True
 
-
+        if self._tx_mailbox.is_arbitration(self._index_cur_bit):
+            return True
