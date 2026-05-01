@@ -31,17 +31,15 @@ class Ecu:
 
 
     # --- Internal Bit-Level API (Called strictly by Canbus) ---
-    def _get_tx_bit(self) -> int:
+    def get_tx_bit(self) -> int:
         return self._controller.get_next_bit()
 
-    def _rx_bit(self, bit: int) -> None:
+    def rx_bit(self, bit: int) -> None:
         rBit = self._controller.process_received_bit(bit)
 
         # bit read is the sent one and message is finished
-        # TODO check that you finished to send the message
         if rBit:
-            # TODO get last sent message id
-            msg_id = 1
+            msg_id = self._controller.get_last_message_id()
             self._messages[msg_id]["timer"] = self._time
 
     
