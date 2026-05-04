@@ -1,6 +1,7 @@
 from canController import _CanController
 from canMessage import CanMessage
 import math
+import random
 
 class Ecu:
     """A class used to model the High-Level ECU software.
@@ -58,13 +59,20 @@ class Ecu:
     def get_next_message_id(self):
         min = math.inf
         for msg_id in self._messages:
-            if self._messages[msg_id]["timer"] - self._time >= self._messages["msg_id"]["frequence"] and msg_id < min:
+            if self._messages[msg_id]["timer"] - self._time >= self._messages[msg_id]["frequence"] and msg_id < min:
                 min = msg_id
         return min
 
-    # TODO implement putting data in the message
-    def _create_message(self):
-        return None
+    # create message data
+    def _create_message(self, msg_id) -> CanMessage:
+        eib = [0]
+        data_length = [0] * 2 + [1] * 2
+        data = [random.randint(0, 1) for _ in range(24)]
+
+        # Combine all parts
+        msg_data = bytearray(eib + data_length + data)
+        msg = CanMessage(msg_id,msg_data)
+        return msg
     
     def check_message_transmission(self,bus_idle:bool):
         
@@ -76,7 +84,7 @@ class Ecu:
         # bus is idle
         msg_id = self.get_next_message_id()
         if bus_idle and msg_id != math.inf:
-            message = self._create_message()
+            message = self._create_message(msg_id)
             self._controller.queue_tx(message)
         
 
