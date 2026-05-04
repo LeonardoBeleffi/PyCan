@@ -12,7 +12,9 @@ class Canbus:
 
     def __init__(self, sleep_us: int, ecus: list[Ecu]):
         self._sleep_us = sleep_us
-        self._last_bits = deque([1 for i in range(11)])
+        self.IDLE_COUNTER_THRESHOLD = 11
+        self.__idle_counter = self.IDLE_COUNTER_THRESHOLD
+        self.last_bit = 1
 
         for ecu in ecus:
             assert isinstance(ecu, Ecu), ("A list of ecus was expected, but " +
@@ -26,7 +28,7 @@ class Canbus:
             True if the bus is idle (last 11 bits = 1)
             False otherwise
         """
-        return 0 in self._last_bits
+        return self.__idle_counter >= self.IDLE_COUNTER_THRESHOLD
 
     def startSimulation(self) -> None:
         """Start the can tick action cycle.
@@ -37,11 +39,9 @@ class Canbus:
         """
         try:
             while True:
-                self._last_bits.popleft()
-                self._last_bits.append(1)
 
-                self._update_ecus_time()
-                self._update_current_bit()
+                self.update_ecus_time()
+                self.__update_current_bit()
                 self._send_updated_bit_value_to_ecus()
 
                 time.sleep(self._sleep_us/1_000_000.0)
@@ -50,24 +50,30 @@ class Canbus:
             print("Exiting...")
             return
 
-    def _update_ecus_time(self) -> None:
+    def update_ecus_time(self) -> None:
         """Propagate the progression of time to all ecus"""
         for ecu in self._ecus:
-            ecu.advance_time()
+            ecu.increase_time()
 
-    def _update_current_bit(self) -> None:
+    def __update_current_bit(self) -> None:
         """Update the current bit.
 
         Computes the wiredAND and updates the bus value by iterating over
         the registered ecus and retrieving the value they want to send.
         """
+        self.last_bit = 1
         for ecu in self._ecus:
-            received = ecu._get_tx_bit()
-            if received is None:
-                continue
+            ecu.check_message_transmission(self.isIdle())
+            received = ecu.get_tx_bit()
 
             assert received in [0, 1], f"Expected 0 or 1. Received {received}."
-            self._last_bits[-1] &= received
+            self.last_bit &= received
+
+        # manage 1s counter for idle state
+        if self.last_bit == 1:
+            self.__idle_counter += 1
+        else:
+            self.__idle_counter = 0
 
     def _send_updated_bit_value_to_ecus(self) -> None:
         """Propagate the current bit to the ecus.
@@ -75,5 +81,5 @@ class Canbus:
         Sends the newly computed bit value to all the registered ecus.
         """
         for ecu in self._ecus:
-            ecu._rx_bit(self._last_bits[-1])
+            ecu.rx_bit(self.last_bit)
 
