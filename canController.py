@@ -63,7 +63,7 @@ class _CanFrame:
         # IFS
         msg.extend([1] * 3)
 
-        return add_bit_stuffing(msg)
+        return self.add_bit_stuffing(msg)
 
     def _data_from_bits(self, bits: list[int]) -> bytearray:
         return bytearray(
@@ -73,7 +73,7 @@ class _CanFrame:
 
     @staticmethod
     def decode_message_bytearray(msg: deque[int]) -> tuple[int, bytearray, bool]:
-        msg = self.remove_bit_stuffing(msg)
+        msg = _CanFrame.destuff(msg)
         bkp = list(msg)
 
         assert False, "Not implemented"
@@ -148,25 +148,88 @@ class _CanFrame:
         return False
 
     @staticmethod
-    def is_form_error(msg: deque[int]) -> bool:
-        # TODO:
-        #   - RTR not implemented
-        #   - Extended Frames not implemented
-        #   - r0 not clear
+    def destuff(bits: deque[int]) -> deque[int]:
+        out = deque()
+        last = None
+        count = 0
+    
+        it = iter(bits)
+    
+        for b in it:
+            out.append(b)
+    
+            if b == last:
+                count += 1
+            else:
+                last = b
+                count = 1
+    
+            if count == 5:
+                # next bit should be stuffed (opposite)
+                try:
+                    stuffed = next(it)
+                except StopIteration:
+                    break  # incomplete → just stop cleanly
+    
+                # skip stuffed bit (do NOT append it)
+                last = None
+                count = 0
+    
+        return out
 
-        for i in range(len(msg)):
-            if msg[0] == 1:
+    @staticmethod
+    def is_form_error(msg: deque[int]) -> bool:
+        bits = list(destuff(msg))
+
+        # need at least enough to read DLC
+        if len(bits) < 19:
+            return False
+
+        # detect format
+        ide = bits[13]  # 0=std, 1=extended
+
+        if ide == 0:
+            base = 19
+            dlc_bits = bits[15:19]
+        else:
+            if len(bits) < 39:
+                return False
+            base = 39
+            dlc_bits = bits[35:39]
+
+        dlc = int("".join(str(b) for b in dlc_bits), 2)
+
+        # compute key indices
+        crc_end = base + (8 * dlc) + 14
+        crc_del = crc_end + 1
+        ack     = crc_del + 1
+        ack_del = ack + 1
+        eof_start = ack_del + 1
+        eof_end = eof_start + 7
+        ifs_start = eof_end
+        ifs_end   = ifs_start + 3
+
+        # check only if bits are present
+
+        # CRC delimiter
+        if len(bits) > crc_del and bits[crc_del] != 1:
+            return True
+
+        # ACK delimiter
+        if len(bits) > ack_del and bits[ack_del] != 1:
+            return True
+
+        # EOF (all must be 1)
+        if len(bits) >= eof_end:
+            if any(b != 1 for b in bits[eof_start:eof_end]):
                 return True
-            if msg[0] == 1:
+
+        # IFS (3 recessive bits)
+        if len(bits) >= ifs_end:
+            if any(b != 1 for b in bits[ifs_start:ifs_end]):
                 return True
-            if msg[0] == 1:
-                return True
-            if msg[0] == 1:
-                return True
-            if msg[0] == 1:
-                return True
-            if msg[0] == 1:
-                return True
+
+        return False
 
     @staticmethod
     def is_bit_ack(msg: deque[int], index: int) -> bool:
@@ -179,6 +242,38 @@ class _CanFrame:
         else:
             base = 19
         return base + (8 * data_len) + 16 == index
+
+    @staticmethod
+    def is_bit_stuffing_wrong(msg: deque[int]) -> bool:
+        last = None
+        count = 0
+
+        it = iter(msg)
+
+        for b in it:
+            if b == last:
+                count += 1
+            else:
+                last = b
+                count = 1
+
+            if count == 5:
+                # next bit must exist and be opposite
+                try:
+                    nxt = next(it)
+                except StopIteration:
+                    # incomplete → cannot conclude error
+                    return False
+
+                if nxt == last:
+                    # violation: same bit instead of stuffed opposite
+                    return True
+
+                # stuffed bit is correct → reset sequence
+                last = None
+                count = 0
+
+        return False
 
 class _State(Enum):
     ERROR_ACTIVE = 0
