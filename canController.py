@@ -1,8 +1,9 @@
 from canMessage import CanMessage
 from typing import Callable
 from collections import deque
+from enum import Enum
 
-class _MessageUtilities:
+class _CanFrame:
     """TODO:
             - implement bit stuffing
             - implement extended format
@@ -70,7 +71,8 @@ class _MessageUtilities:
             for j in range(0, len(bits), 8)
         )
 
-    def decode_message_bytearray(self, msg: deque[int]) -> tuple[int, bytearray]:
+    @staticmethod
+    def decode_message_bytearray(msg: deque[int]) -> tuple[int, bytearray, bool]:
         msg = self.remove_bit_stuffing(msg)
         bkp = list(msg)
 
@@ -79,7 +81,8 @@ class _MessageUtilities:
         # Arbitration ID (11 bits)
         id = int(''.join([f'{msg.popleft()}' for _ in range(11)]), 2)
         assert msg.popleft() == 0, "RTR messages not supported yet"
-        assert msg.popleft() == 0, "Extended Frames not supported yet"
+        ide = msg.popleft()
+        assert ide == 0, "Extended Frames not supported yet"
         # r0
         _ = msg.popleft()
         length = int(''.join([f'{msg.popleft()}' for _ in range(4)]), 2)
@@ -93,15 +96,94 @@ class _MessageUtilities:
         assert 0 not in [msg.popleft() for _ in range(3)], "Error in IFS"
         assert len(msg) == 0, "Error in msg length"
 
-        return id, data
+        return id, data, ide
 
     @staticmethod
-    def is_arbitration(msg: deque[int], index: int):
-        assert False, "Not implemented"
+    def encode_from_CanMessage(msg: CanMessage) -> deque[int]:
+        return _CanFrame(msg.id, msg.data).encode_message_binary()
 
     @staticmethod
-    def is_ack(msg: deque[int], index: int):
+    def is_frame_extended(msg: deque[int]) -> bool:
+        assert len(msg) > 13, "Frame Not Valid"
+        return msg[13] == 1
+
+    @staticmethod
+    def error_in_bitStuffing(msg: deque[int]) -> bool:
         assert False, "Not implemented"
+        assert len(msg) > 0, "Error in msg length"
+
+        _, data, ide = _CanFrame.decode_message_bytearray(msg)
+        data_len = len(data)
+        if ide:
+            base = 39
+        else:
+            base = 19
+        l = base + (8 * data_len) + 15 == index
+        msg = msg[:l]
+
+        lastBit = None
+        consecutive_bits = 0
+        for b in msg:
+            if b == lastBit:
+                consecutive_bits += 1
+            else:
+                lastBit = b
+                consecutive_bits = 1
+
+            if consecutive_bits > 5:
+                return True
+        return False
+
+    @staticmethod
+    def is_bit_arbitration(msg: deque[int], index: int) -> bool:
+        assert len(msg) > 13, "Frame Not Valid"
+        if msg[13] == 1:
+            # Extended Frame
+            return index <= 32
+        # Base Frame
+        return index <= 12
+
+    @staticmethod
+    def is_crc_error(msg: deque[int]) -> bool:
+        return False
+
+    @staticmethod
+    def is_form_error(msg: deque[int]) -> bool:
+        # TODO:
+        #   - RTR not implemented
+        #   - Extended Frames not implemented
+        #   - r0 not clear
+
+        for i in range(len(msg)):
+            if msg[0] == 1:
+                return True
+            if msg[0] == 1:
+                return True
+            if msg[0] == 1:
+                return True
+            if msg[0] == 1:
+                return True
+            if msg[0] == 1:
+                return True
+            if msg[0] == 1:
+                return True
+
+    @staticmethod
+    def is_bit_ack(msg: deque[int], index: int) -> bool:
+        # TODO: not working
+        return False
+        _, data, ide = _CanFrame.decode_message_bytearray(msg)
+        data_len = len(data)
+        if ide:
+            base = 39
+        else:
+            base = 19
+        return base + (8 * data_len) + 16 == index
+
+class _State(Enum):
+    ERROR_ACTIVE = 0
+    ERROR_PASSIVE = 1
+    BUS_OFF = 2
 
 class _CanController:
     """A class used to model the low-level CAN hardware.
@@ -112,79 +194,159 @@ class _CanController:
 
     Attributes:
         auto_retransmit (bool): Hardware register to toggle automatic retries.
+
+    TODO:
+        - implement error check in reading
+        - implement error frame sending
+        - implement ack signaling
     """
 
-    def __init__(self, auto_retransmit: bool = True):
-        self._tec = 0
-        self._rec = 0
+    def __init__(self):
+        self._last_message_id = False
+        self._receiving_frame = False
+        self._last_message = None
 
-        # Valid Hardware Registers an attacker can manipulate
-        self._auto_retransmit = auto_retransmit
+        self.reset_state()
+        self.clear_tx_buffer()
+        self.clear_rx_buffer()
 
-        self._tx_mailbox: deque[int] | None = None
-        self._index_cur_bit = -1
+    def clear_rx_buffer(self) -> None:
+        """Flushes the hardware receive mailbox."""
+        self._rx_buffer = deque()
 
-        # Callbacks triggered to wake up the ECU software
-        self._on_rx_callback = lambda msg: None
-        self._on_tx_error_callback = lambda: None
-        
-        self._last_bit_success = False
-        self._last_message_sent = False
-
-    """TODO: maybe remove"""
-    def bind_callbacks(self, on_rx: Callable, on_tx_error: Callable) -> None:
-        """Binds the hardware interrupts to the ECU software routines."""
-        self._on_rx_callback = on_rx
-        self._on_tx_error_callback = on_tx_error
-
-    # --- Hardware Registers (Software API) ---
     def clear_tx_buffer(self) -> None:
         """Flushes the hardware transmit mailbox."""
-        self._tx_mailbox = None
+        self._tx_buffer = None
+        self._index_cur_bit = -1
+        self._sending = False
 
-    def queue_tx(self, message: CanMessage) -> None:
+    def queue_tx(self, msg: CanMessage) -> None:
         """Loads a logical message into the hardware mailbox to be sent."""
-        if self._tx_mailbox is None:
-            self._tx_mailbox = _MessageUtilities(message.id, message.data)
-                                .encode_message_binary()
+        if self._tx_buffer is None:
+            self._index_cur_bit = -1
+            self._sending = True
+            self._last_message_id = msg.id
+            self._tx_buffer = _CanFrame.encode_from_CanMessage(msg)
+    
+    def reset_state(self) -> None:
+        self._tec = self._rec = 0
+        self._state = _State.ERROR_ACTIVE
 
-    # --- Bit-Level Physics Engine ---
-    def get_next_bit(self) -> int | None:
+    def get_error_state(self) -> _State:
+        return self._state
+
+    def get_last_message_id(self) -> int:
+        return self._last_message_id
+
+    def frame_error(self, error_during_tx: bool = True) -> False:
+        # TODO
+        return False
+
+    def get_next_bit(self) -> int:
         """Called every tick to get the controller's driven voltage.
 
         Returns:
-            0 (Dominant), 1 (Recessive), or None (Listening).
+            0 (Dominant), 1 (Recessive).
         """
-        # TODO: Implement state machine (IDLE, ARBITRATION, DATA, etc.)
-        # TODO: Implement WeepingCAN injection logic here based on current state
-        if not self._tx_mailbox:
-            return None
+        if not self._tx_buffer:
+            return 1
+        if self._state == _State.BUS_OFF:
+            return 1
+        if (self._state == _State.ERROR_PASSIVE or
+            self._error_buffer):
+            return self._error_buffer.popleft()
+
         self._index_cur_bit += 1
+
+        if self._index_cur_bit == len(self._tx_buffer):
+            self.clear_tx_buffer()
+            return 1
         assert self._index_cur_bit >= 0, "Current bit < 0"
-        assert self._index_cur_bit < len(self._tx_mailbox),
-                "Current bit > msg len"
-        return self._tx_mailbox[self._index_cur_bit]
+        return self._tx_buffer[self._index_cur_bit]
+
+    def _process_received_bit_on_receival_ecu(self, bit):
+        if not self._rx_buffer and bit == 1:
+            # First bit of a message has to be 0
+            return
+        if _CanFrame.is_message_complete(self._rx_buffer):
+            self._rec = max(0, self._rec - 1)
+            self._last_message = self._rx_buffer
+            self.clear_rx_buffer()
+            if self._tx_buffer:
+                self._index_cur_bit = -1
+                self._sending = True
+            return
+
+        self._rx_buffer.append(bit)
+
+        if (
+                _CanFrame.is_bit_stuffing_wrong(self._rx_buffer) or
+                _CanFrame.is_form_error(self._rx_buffer) or
+                _CanFrame.is_crc_error(self._rx_buffer)
+        ):
+            self._raise_error(sending = False)
+
+
+    def _raise_error_during_sending(self, sending: bool = True) -> None:
+        if sending:
+            self.clear_tx_buffer()
+            self._tec = min(self._tec + 8, 255)
+        else:
+            self.clear_rx_buffer()
+            self._rec = min(self._rec + 1, 255)
+
+        if self._tec >= 255:
+            self._state = _State.BUS_OFF
+        elif self._rec >= 128 or self._tec >= 128:
+            self._state = _State.ERROR_PASSIVE
+            self._error_buffer = [1] * 6
+        else:
+            self._error_buffer = [0] * 6
 
     def process_received_bit(self, bit: int) -> bool:
         """Called every tick to process the actual bus voltage.
 
         Returns:
-            True if bit was sent correctly and transmittion can continue,
-            False if some error occurred and trasmittion needs to stop
+            True if message is finished (_index_cur_bit = len(_tx_buffer) -1)
+            False otherwise
         """
-        # TODO: Implement and TEC/REC increments.
-        # If a transmit error occurs, call self._on_tx_error_callback()
-        # If a frame completes successfully, call self._on_rx_callback(completed_msg)
-        if bit == self._tx_mailbox[self._index_cur_bit]:
-            return True
+        # TODO:
+        #   - Implement ACK.
+        #   - Implement CRC.
+        #   - Implement Reception-only errors
 
-        # check if is error
-        if _MessageUtilities.is_error(self._tx_mailbox, self._index_cur_bit):
-            return True
 
-        if _MessageUtilities.is_arbitration(self._tx_mailbox, self._index_cur_bit):
-            self._last_message_sent = False
+        if self._error_buffer:
             return False
 
-        if _MessageUtilities.is_ack(self._tx_mailbox, self._index_cur_bit):
+        if not self._sending:
+            self._process_received_bit_on_receival_ecu(bit)
+            return False
+        
+        cur_msg = deque(list(self._tx_buffer[:self._index_cur_bit]))
+
+        if (
+                # (bit == 1 and _CanFrame.is_bit_ack(cur_msg, self._index_cur_bit)) or
+                _CanFrame.is_bit_stuffing_wrong(cur_msg) or
+                _CanFrame.is_form_error(cur_msg) or
+                _CanFrame.is_crc_error(cur_msg)
+        ):
+            self._raise_error_during_sending()
+            return False
+
+        if bit != self._tx_buffer[self._index_cur_bit]:
+            if _CanFrame.is_bit_arbitration(self._tx_buffer, self._index_cur_bit):
+                # Lost arbitration
+                self._index_cur_bit = -1
+                self._sending = False
+            else:
+                self._raise_error_during_sending()
+            return False
+
+        if _CanFrame.is_message_complete(cur_msg):
+            self._tec = max(0, self._tec - 1)
+            self.clear_tx_buffer()
             return True
+
+        return False
+
