@@ -44,7 +44,7 @@ class Canbus:
                 self.__update_current_bit()
                 self._send_updated_bit_value_to_ecus()
 
-                time.sleep(self._sleep_us/1_000_000.0)
+                time.sleep(self._sleep_us/1_000.0)
 
         except KeyboardInterrupt:
             print("Exiting...")
@@ -74,6 +74,7 @@ class Canbus:
             self.__idle_counter += 1
         else:
             self.__idle_counter = 0
+        print(self.__idle_counter, self.isIdle())
 
     def _send_updated_bit_value_to_ecus(self) -> None:
         """Propagate the current bit to the ecus.

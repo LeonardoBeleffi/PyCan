@@ -3,7 +3,7 @@ from typing import Callable
 from collections import deque
 from enum import Enum
 
-class _CanFrame:
+class CanFrame:
     """TODO:
             - implement bit stuffing
             - implement extended format
@@ -15,7 +15,7 @@ class _CanFrame:
         self._data = data
         self._ide = False
 
-    def set_extended_format(self, is_extended: bool) -> self:
+    def set_extended_format(self, is_extended: bool):
         assert is_extended is False, "Extended Format not supported"
         self._ide = is_extended
 
@@ -71,9 +71,125 @@ class _CanFrame:
             for j in range(0, len(bits), 8)
         )
 
+    # TODO implement
+    @staticmethod
+    def is_message_complete(msg:deque[int]) -> bool:
+        it = iter(msg)
+        last = None
+        run = 0
+
+        def next_destuffed():
+            nonlocal last, run
+
+            try:
+                b = next(it)
+            except StopIteration:
+                return None
+
+            if b == last:
+                run += 1
+            else:
+                last = b
+                run = 1
+
+            if run == 5:
+                try:
+                    stuffed = next(it)
+                except StopIteration:
+                    return None
+
+                if stuffed == last:
+                    # invalid stuffing → but message is still "complete"
+                    # completeness ≠ correctness
+                    return None
+
+                last = None
+                run = 0
+
+            return b
+
+        # --- parse until CRC end (destuffed) ---
+
+        # SOF
+        if next_destuffed() is None:
+            return False
+
+        # ID A
+        for _ in range(11):
+            if next_destuffed() is None:
+                return False
+
+        # RTR/SRR
+        if next_destuffed() is None:
+            return False
+
+        # IDE
+        ide = next_destuffed()
+        if ide is None:
+            return False
+
+        if ide == 0:
+            # r0
+            if next_destuffed() is None:
+                return False
+
+            # DLC
+            dlc_bits = []
+            for _ in range(4):
+                b = next_destuffed()
+                if b is None:
+                    return False
+                dlc_bits.append(b)
+
+        else:
+            # ID B
+            for _ in range(18):
+                if next_destuffed() is None:
+                    return False
+
+            # RTR
+            if next_destuffed() is None:
+                return False
+
+            # r1, r0
+            for _ in range(2):
+                if next_destuffed() is None:
+                    return False
+
+            # DLC
+            dlc_bits = []
+            for _ in range(4):
+                b = next_destuffed()
+                if b is None:
+                    return False
+                dlc_bits.append(b)
+
+        # DLC value
+        dlc = 0
+        for b in dlc_bits:
+            dlc = (dlc << 1) | b
+
+        # DATA
+        for _ in range(8 * dlc):
+            if next_destuffed() is None:
+                return False
+
+        # CRC (15 bits)
+        for _ in range(15):
+            if next_destuffed() is None:
+                return False
+
+        # --- now remaining bits are NOT stuffed ---
+
+        # Need 13 bits:
+        # CRC del (1) + ACK (1) + ACK del (1) + EOF (7) + IFS (3)
+        remaining = list(it)
+
+        return len(remaining) >= 13
+    
     @staticmethod
     def decode_message_bytearray(msg: deque[int]) -> tuple[int, bytearray, bool]:
-        msg = _CanFrame.destuff(msg)
+        msg = CanFrame.destuff(msg)
         bkp = list(msg)
 
         assert False, "Not implemented"
@@ -100,7 +216,7 @@ class _CanFrame:
 
     @staticmethod
     def encode_from_CanMessage(msg: CanMessage) -> deque[int]:
-        return _CanFrame(msg.id, msg.data).encode_message_binary()
+        return CanFrame(msg.id, msg.data).encode_message_binary()
 
     @staticmethod
     def is_frame_extended(msg: deque[int]) -> bool:
@@ -112,7 +228,7 @@ class _CanFrame:
         assert False, "Not implemented"
         assert len(msg) > 0, "Error in msg length"
 
-        _, data, ide = _CanFrame.decode_message_bytearray(msg)
+        _, data, ide = CanFrame.decode_message_bytearray(msg)
         data_len = len(data)
         if ide:
             base = 39
@@ -179,7 +295,7 @@ class _CanFrame:
 
     @staticmethod
     def is_form_error(msg: deque[int]) -> bool:
-        bits = list(destuff(msg))
+        bits = list(CanFrame.destuff(msg))
 
         # need at least enough to read DLC
         if len(bits) < 19:
@@ -235,7 +351,7 @@ class _CanFrame:
     def is_bit_ack(msg: deque[int], index: int) -> bool:
         # TODO: not working
         return False
-        _, data, ide = _CanFrame.decode_message_bytearray(msg)
+        _, data, ide = CanFrame.decode_message_bytearray(msg)
         data_len = len(data)
         if ide:
             base = 39
@@ -280,7 +396,7 @@ class _State(Enum):
     ERROR_PASSIVE = 1
     BUS_OFF = 2
 
-class _CanController:
+class CanController:
     """A class used to model the low-level CAN hardware.
 
     This class enforces the physical rules of the CAN protocol, maintains the
@@ -300,6 +416,7 @@ class _CanController:
         self._last_message_id = False
         self._receiving_frame = False
         self._last_message = None
+        self._error_buffer = deque()
 
         self.reset_state()
         self.clear_tx_buffer()
@@ -321,7 +438,8 @@ class _CanController:
             self._index_cur_bit = -1
             self._sending = True
             self._last_message_id = msg.id
-            self._tx_buffer = _CanFrame.encode_from_CanMessage(msg)
+            self._tx_buffer = CanFrame.encode_from_CanMessage(msg)
+            print(self._tx_buffer, msg.data)
     
     def reset_state(self) -> None:
         self._tec = self._rec = 0
@@ -357,13 +475,14 @@ class _CanController:
             self.clear_tx_buffer()
             return 1
         assert self._index_cur_bit >= 0, "Current bit < 0"
+        print ("curbit:",self._index_cur_bit, self._tx_buffer[self._index_cur_bit])
         return self._tx_buffer[self._index_cur_bit]
 
     def _process_received_bit_on_receival_ecu(self, bit):
         if not self._rx_buffer and bit == 1:
             # First bit of a message has to be 0
             return
-        if _CanFrame.is_message_complete(self._rx_buffer):
+        if CanFrame.is_message_complete(self._rx_buffer):
             self._rec = max(0, self._rec - 1)
             self._last_message = self._rx_buffer
             self.clear_rx_buffer()
@@ -375,12 +494,11 @@ class _CanController:
         self._rx_buffer.append(bit)
 
         if (
-                _CanFrame.is_bit_stuffing_wrong(self._rx_buffer) or
-                _CanFrame.is_form_error(self._rx_buffer) or
-                _CanFrame.is_crc_error(self._rx_buffer)
+                CanFrame.is_bit_stuffing_wrong(self._rx_buffer) or
+                CanFrame.is_form_error(self._rx_buffer) or
+                CanFrame.is_crc_error(self._rx_buffer)
         ):
             self._raise_error(sending = False)
-
 
     def _raise_error_during_sending(self, sending: bool = True) -> None:
         if sending:
@@ -394,9 +512,10 @@ class _CanController:
             self._state = _State.BUS_OFF
         elif self._rec >= 128 or self._tec >= 128:
             self._state = _State.ERROR_PASSIVE
-            self._error_buffer = [1] * 6
+            self._error_buffer = deque([1] * 6)
         else:
-            self._error_buffer = [0] * 6
+            self._error_buffer = deque([0] * 6)
+
 
     def process_received_bit(self, bit: int) -> bool:
         """Called every tick to process the actual bus voltage.
@@ -410,7 +529,10 @@ class _CanController:
         #   - Implement CRC.
         #   - Implement Reception-only errors
 
-
+        if self._tx_buffer:
+            print(self._tx_buffer)
+        else:
+            print("EMPTY BUFFER")
         if self._error_buffer:
             return False
 
@@ -418,19 +540,19 @@ class _CanController:
             self._process_received_bit_on_receival_ecu(bit)
             return False
         
-        cur_msg = deque(list(self._tx_buffer[:self._index_cur_bit]))
+        cur_msg = deque(list(self._tx_buffer)[:self._index_cur_bit])
 
         if (
-                # (bit == 1 and _CanFrame.is_bit_ack(cur_msg, self._index_cur_bit)) or
-                _CanFrame.is_bit_stuffing_wrong(cur_msg) or
-                _CanFrame.is_form_error(cur_msg) or
-                _CanFrame.is_crc_error(cur_msg)
+                # (bit == 1 and CanFrame.is_bit_ack(cur_msg, self._index_cur_bit)) or
+                CanFrame.is_bit_stuffing_wrong(cur_msg) or
+                CanFrame.is_form_error(cur_msg) or
+                CanFrame.is_crc_error(cur_msg)
         ):
             self._raise_error_during_sending()
             return False
 
         if bit != self._tx_buffer[self._index_cur_bit]:
-            if _CanFrame.is_bit_arbitration(self._tx_buffer, self._index_cur_bit):
+            if CanFrame.is_bit_arbitration(self._tx_buffer, self._index_cur_bit):
                 # Lost arbitration
                 self._index_cur_bit = -1
                 self._sending = False
@@ -438,7 +560,7 @@ class _CanController:
                 self._raise_error_during_sending()
             return False
 
-        if _CanFrame.is_message_complete(cur_msg):
+        if CanFrame.is_message_complete(cur_msg):
             self._tec = max(0, self._tec - 1)
             self.clear_tx_buffer()
             return True

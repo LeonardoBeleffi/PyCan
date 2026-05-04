@@ -1,4 +1,4 @@
-from canController import _CanController
+from canController import CanController
 from canMessage import CanMessage
 import math
 import random
@@ -16,7 +16,7 @@ class Ecu:
         auto_retransmit (bool): Hardware register to toggle automatic retries.
     """
 
-    def __init__(self, ecu_id: int, name: str, messages: dict, auto_retransmit: bool = True):
+    def __init__(self, ecu_id: int, name: str, messages: dict):
         self._id = ecu_id
         self._name = name
         self._time = 0
@@ -27,8 +27,8 @@ class Ecu:
         for msg_id in self._messages.keys():
             self._messages[msg_id]["timer"] = 0
 
-        # The ECU inherently owns its _CanController (hardware)
-        self._controller = _CanController(name, auto_retransmit = auto_retransmit)
+        # The ECU inherently owns its CanController (hardware)
+        self._controller = CanController()
 
 
     # --- Internal Bit-Level API (Called strictly by Canbus) ---
@@ -37,10 +37,10 @@ class Ecu:
 
     def rx_bit(self, bit: int) -> None:
         rBit = self._controller.process_received_bit(bit)
-
         # bit read is the sent one and message is finished
         if rBit:
             msg_id = self._controller.get_last_message_id()
+            print(f"ECU {self._id} sent message {msg_id}")
             self._messages[msg_id]["timer"] = self._time
 
     
@@ -59,18 +59,15 @@ class Ecu:
     def get_next_message_id(self):
         min = math.inf
         for msg_id in self._messages:
-            if self._messages[msg_id]["timer"] - self._time >= self._messages[msg_id]["frequence"] and msg_id < min:
+            if self._time - self._messages[msg_id]["timer"]  >= self._messages[msg_id]["frequence"] and msg_id < min:
                 min = msg_id
         return min
 
     # create message data
     def _create_message(self, msg_id) -> CanMessage:
-        eib = [0]
-        data_length = [0] * 2 + [1] * 2
-        data = [random.randint(0, 1) for _ in range(24)]
+        data = [random.randint(0, 1) for _ in range(random.randint(4,8))]
 
-        # Combine all parts
-        msg_data = bytearray(eib + data_length + data)
+        msg_data = bytearray(data)
         msg = CanMessage(msg_id,msg_data)
         return msg
     
@@ -86,6 +83,7 @@ class Ecu:
         if bus_idle and msg_id != math.inf:
             message = self._create_message(msg_id)
             self._controller.queue_tx(message)
+            print(f"ECU {msg_id} is trying to send message {msg_id}")
         
 
 
