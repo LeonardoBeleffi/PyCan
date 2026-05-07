@@ -99,8 +99,8 @@ class CanFrame:
 
         # CRC del
         msg.append(1)
-        # ACK
-        msg.append(1)
+        # ACK already done
+        msg.append(0)
         # ACK del
         msg.append(1)
         # EOF
@@ -279,16 +279,71 @@ class CanFrame:
         return out
 
     @staticmethod
+    def _destuff_and_split(msg: deque[int]) -> list[int]:
+        """
+        Returns a logical bit list where:
+          - the stuffable region (SOF → CRC) has been destuffed, and
+          - the fixed tail (CRC delimiter onward) is appended as-is.
+    
+        This is the correct input for any function that works on logical
+        (unstuffed) indices, because the tail is never stuffed and must
+        not be processed by the destuffing logic.
+        """
+        logical_bits:            list[int]       = []
+        stuffable_limit_logical: int | None      = None
+        stuffable_limit_stuffed: int | None      = None
+        consecutive:             int             = 1
+        last_bit:                int | None      = None
+        expect_stuff:            bool            = False
+    
+        for stuffed_idx, bit in enumerate(msg):
+    
+            # Once we know the stuffable boundary in stuffed-space, stop destuffing
+            if stuffable_limit_stuffed is not None and stuffed_idx >= stuffable_limit_stuffed:
+                # Append the remainder of the message (tail) raw, then exit
+                logical_bits += list(msg)[stuffed_idx:]
+                return logical_bits
+    
+            if expect_stuff:
+                # Stuff bit: drop from logical stream, reset run
+                expect_stuff = False
+                last_bit     = bit
+                consecutive  = 1
+                continue
+    
+            logical_bits.append(bit)
+    
+            if bit == last_bit:
+                consecutive += 1
+            else:
+                consecutive = 1
+                last_bit    = bit
+    
+            if consecutive == 5:
+                expect_stuff = True
+    
+            # Try to resolve the stuffable region boundary
+            if stuffable_limit_logical is None:
+                stuffable_limit_logical = CanFrame._try_get_stuffable_region_limit(logical_bits)
+                if stuffable_limit_logical is not None:
+                    # Convert the logical limit to its stuffed index so we know
+                    # exactly where to stop the destuffing walk above
+                    stuffable_limit_stuffed = CanFrame._logical_to_stuffed_index(
+                        msg, stuffable_limit_logical
+                    )
+    
+        return logical_bits  # Message incomplete — return what we have
+    
+    
+    @staticmethod
     def is_form_error(msg: deque[int]) -> bool:
-        bits = list(CanFrame.destuff(msg))
-
+        bits = CanFrame._destuff_and_split(msg)  # ← only change to the original
+    
         # need at least enough to read DLC
         if len(bits) < 19:
             return False
-
         # detect format
         ide = bits[13]  # 0=std, 1=extended
-
         if ide == 0:
             base = 19
             dlc_bits = bits[15:19]
@@ -297,39 +352,35 @@ class CanFrame:
                 return False
             base = 39
             dlc_bits = bits[35:39]
-
         dlc = int("".join(str(b) for b in dlc_bits), 2)
-
         # compute key indices
-        crc_end = base + (8 * dlc) + 14
-        crc_del = crc_end + 1
-        ack     = crc_del + 1
-        ack_del = ack + 1
+        crc_end   = base + (8 * dlc) + 14
+        crc_del   = crc_end + 1
+        ack       = crc_del + 1
+        ack_del   = ack + 1
         eof_start = ack_del + 1
-        eof_end = eof_start + 7
+        eof_end   = eof_start + 7
         ifs_start = eof_end
         ifs_end   = ifs_start + 3
-
         # check only if bits are present
-
         # CRC delimiter
         if len(bits) > crc_del and bits[crc_del] != 1:
+            print("err crc")
             return True
-
         # ACK delimiter
         if len(bits) > ack_del and bits[ack_del] != 1:
+            print("err ack")
             return True
-
         # EOF (all must be 1)
         if len(bits) >= eof_end:
             if any(b != 1 for b in bits[eof_start:eof_end]):
+                print("err eof")
                 return True
-
         # IFS (3 recessive bits)
         if len(bits) >= ifs_end:
             if any(b != 1 for b in bits[ifs_start:ifs_end]):
+                print("err ifs")
                 return True
-
         return False
 
     @staticmethod
