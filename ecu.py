@@ -40,7 +40,7 @@ class Ecu:
         # bit read is the sent one and message is finished
         if rBit:
             msg_id = self._controller.get_last_message_id()
-            print(f"ECU {self._id} sent message {msg_id}")
+            print(f"{self._name} (ID:{self._id}) sent message {msg_id}")
             self._messages[msg_id]["timer"] = self._time
 
     
@@ -83,7 +83,7 @@ class Ecu:
         if bus_idle and msg_id != math.inf:
             message = self._create_message(msg_id)
             self._controller.queue_tx(message)
-            print(f"ECU {msg_id} is trying to send message {msg_id}")
+            print(f"{self._name} (ID:{self._id}) is trying to send message {msg_id}")
         
 
 
