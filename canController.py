@@ -22,7 +22,7 @@ class CanFrame:
     def add_bit_stuffing(self, msg: deque[int]) -> deque[int]:
         # TODO: implement
         return msg
-    
+
     def remove_bit_stuffing(self, msg: deque[int]) -> deque[int]:
         # TODO: implement
         return msg
@@ -186,7 +186,7 @@ class CanFrame:
         remaining = list(it)
 
         return len(remaining) >= 13
-    
+
     @staticmethod
     def decode_message_bytearray(msg: deque[int]) -> tuple[int, bytearray, bool]:
         msg = CanFrame.destuff(msg)
@@ -268,29 +268,29 @@ class CanFrame:
         out = deque()
         last = None
         count = 0
-    
+
         it = iter(bits)
-    
+
         for b in it:
             out.append(b)
-    
+
             if b == last:
                 count += 1
             else:
                 last = b
                 count = 1
-    
+
             if count == 5:
                 # next bit should be stuffed (opposite)
                 try:
                     stuffed = next(it)
                 except StopIteration:
                     break  # incomplete → just stop cleanly
-    
+
                 # skip stuffed bit (do NOT append it)
                 last = None
                 count = 0
-    
+
         return out
 
     @staticmethod
@@ -361,6 +361,7 @@ class CanFrame:
 
     @staticmethod
     def is_bit_stuffing_wrong(msg: deque[int]) -> bool:
+        return False
         last = None
         count = 0
 
@@ -440,7 +441,7 @@ class CanController:
             self._last_message_id = msg.id
             self._tx_buffer = CanFrame.encode_from_CanMessage(msg)
             print(self._tx_buffer, msg.data)
-    
+
     def reset_state(self) -> None:
         self._tec = self._rec = 0
         self._state = _State.ERROR_ACTIVE
@@ -498,7 +499,7 @@ class CanController:
                 CanFrame.is_form_error(self._rx_buffer) or
                 CanFrame.is_crc_error(self._rx_buffer)
         ):
-            self._raise_error(sending = False)
+            self._raise_error_during_sending(sending = False)
 
     def _raise_error_during_sending(self, sending: bool = True) -> None:
         if sending:
@@ -539,7 +540,7 @@ class CanController:
         if not self._sending:
             self._process_received_bit_on_receival_ecu(bit)
             return False
-        
+
         cur_msg = deque(list(self._tx_buffer)[:self._index_cur_bit])
 
         if (

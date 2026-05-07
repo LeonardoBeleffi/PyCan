@@ -16,5 +16,5 @@ if __name__ == "__main__":
         }
     })
 
-    canbus = Canbus(1000,[ecu1,ecu2])
+    canbus = Canbus(100,[ecu1,ecu2])
     canbus.startSimulation()
