@@ -12,7 +12,7 @@ class Canbus:
 
     def __init__(self, sleep_us: int, ecus: list[Ecu]):
         self._sleep_us = sleep_us
-        self.IDLE_COUNTER_THRESHOLD = 11
+        self.IDLE_COUNTER_THRESHOLD = 13
         self.__idle_counter = self.IDLE_COUNTER_THRESHOLD
         self.last_bit = 1
 
@@ -25,7 +25,7 @@ class Canbus:
         """Bus Idle condition check
 
         Returns:
-            True if the bus is idle (last 11 bits = 1)
+            True if the bus is idle (last 13 bits = 1)
             False otherwise
         """
         return self.__idle_counter >= self.IDLE_COUNTER_THRESHOLD

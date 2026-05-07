@@ -116,122 +116,6 @@ class CanFrame:
             for j in range(0, len(bits), 8)
         )
 
-    # TODO implement
-    @staticmethod
-    def is_message_complete(msg:deque[int]) -> bool:
-        it = iter(msg)
-        last = None
-        run = 0
-
-        def next_destuffed():
-            nonlocal last, run
-
-            try:
-                b = next(it)
-            except StopIteration:
-                return None
-
-            if b == last:
-                run += 1
-            else:
-                last = b
-                run = 1
-
-            if run == 5:
-                try:
-                    stuffed = next(it)
-                except StopIteration:
-                    return None
-
-                if stuffed == last:
-                    # invalid stuffing → but message is still "complete"
-                    # completeness ≠ correctness
-                    return None
-
-                last = None
-                run = 0
-
-            return b
-
-        # --- parse until CRC end (destuffed) ---
-
-        # SOF
-        if next_destuffed() is None:
-            return False
-
-        # ID A
-        for _ in range(11):
-            if next_destuffed() is None:
-                return False
-
-        # RTR/SRR
-        if next_destuffed() is None:
-            return False
-
-        # IDE
-        ide = next_destuffed()
-        if ide is None:
-            return False
-
-        if ide == 0:
-            # r0
-            if next_destuffed() is None:
-                return False
-
-            # DLC
-            dlc_bits = []
-            for _ in range(4):
-                b = next_destuffed()
-                if b is None:
-                    return False
-                dlc_bits.append(b)
-
-        else:
-            # ID B
-            for _ in range(18):
-                if next_destuffed() is None:
-                    return False
-
-            # RTR
-            if next_destuffed() is None:
-                return False
-
-            # r1, r0
-            for _ in range(2):
-                if next_destuffed() is None:
-                    return False
-
-            # DLC
-            dlc_bits = []
-            for _ in range(4):
-                b = next_destuffed()
-                if b is None:
-                    return False
-                dlc_bits.append(b)
-
-        # DLC value
-        dlc = 0
-        for b in dlc_bits:
-            dlc = (dlc << 1) | b
-
-        # DATA
-        for _ in range(8 * dlc):
-            if next_destuffed() is None:
-                return False
-
-        # CRC (15 bits)
-        for _ in range(15):
-            if next_destuffed() is None:
-                return False
-
-        # --- now remaining bits are NOT stuffed ---
-
-        # Need 13 bits:
-        # CRC del (1) + ACK (1) + ACK del (1) + EOF (7) + IFS (3)
-        remaining = list(it)
-
-        return len(remaining) >= 13
-
     @staticmethod
     def decode_message_bytearray(msg: deque[int]) -> tuple[int, bytearray, bool]:
         msg = CanFrame.destuff(msg)
@@ -264,6 +148,43 @@ class CanFrame:
         return CanFrame(msg.id, msg.data).encode_message_binary()
 
     @staticmethod
+    def _logical_to_stuffed_index(msg: deque[int], logical_target: int) -> int:
+        """
+        Returns the stuffed index corresponding to a given logical (unstuffed)
+        bit position. Stuff bits are skipped and do not count toward logical_target.
+    
+        Returns -1 if the logical position is not reached (message too short).
+        """
+        logical_count = 0
+        consecutive   = 1
+        last_bit      = None
+        expect_stuff  = False
+    
+        for stuffed_idx, bit in enumerate(msg):
+            if expect_stuff:
+                # This is a stuff bit — skip it logically, but still track the run
+                expect_stuff = False
+                last_bit     = bit
+                consecutive  = 1
+                continue
+    
+            if logical_count == logical_target:
+                return stuffed_idx
+    
+            logical_count += 1
+    
+            if bit == last_bit:
+                consecutive += 1
+            else:
+                consecutive = 1
+                last_bit    = bit
+    
+            if consecutive == 5:
+                expect_stuff = True
+    
+        return -1  # logical_target beyond the message
+    
+    @staticmethod
     def is_frame_extended(msg: deque[int]) -> bool:
         assert len(msg) > 13, "Frame Not Valid"
         return msg[13] == 1
@@ -294,15 +215,34 @@ class CanFrame:
             if consecutive_bits > 5:
                 return True
         return False
-
+    
     @staticmethod
     def is_bit_arbitration(msg: deque[int], index: int) -> bool:
-        assert len(msg) > 13, "Frame Not Valid"
-        if msg[13] == 1:
-            # Extended Frame
-            return index <= 32
-        # Base Frame
-        return index <= 12
+        """
+        Returns True if `index` (position in the STUFFED message) falls within
+        the arbitration field of the frame.
+    
+        Arbitration field:
+            Base frame     — SOF + 11-bit ID + RTR         → logical indices 0-12
+            Extended frame — SOF + 11-bit ID + SRR + IDE
+                               + 18-bit ext. ID + RTR      → logical indices 0-32
+    
+        The IDE bit sits at logical index 13 in both frame types:
+            Base frame:     IDE = 0 (dominant)
+            Extended frame: IDE = 1 (recessive)
+        """
+        ide_stuffed_pos = CanFrame._logical_to_stuffed_index(msg, 13)
+        assert ide_stuffed_pos != -1, "Frame too short to determine type (IDE bit not reached)"
+    
+        if msg[ide_stuffed_pos] == 1:
+            # Extended frame — arbitration ends at logical index 32
+            arb_end = CanFrame._logical_to_stuffed_index(msg, 32)
+        else:
+            # Base frame — arbitration ends at logical index 12
+            arb_end = CanFrame._logical_to_stuffed_index(msg, 12)
+    
+        assert arb_end != -1, "Frame too short to contain full arbitration field"
+        return index <= arb_end
 
     @staticmethod
     def is_crc_error(msg: deque[int]) -> bool:
@@ -405,35 +345,105 @@ class CanFrame:
         return base + (8 * data_len) + 16 == index
 
     @staticmethod
+    def _try_get_stuffable_region_limit(logical_bits: list[int]) -> int | None:
+        """
+        Given logical bits accumulated so far, attempt to determine the exclusive
+        logical end index of the stuffable region (one past the last CRC bit).
+        Returns None if not enough logical bits have arrived yet to determine
+        the frame type and DLC.
+    
+        Stuffable region layout:
+            Base frame:     SOF(1) + ID(11) + RTR(1) + IDE(1) + r0(1) + DLC(4)
+                            + Data(8*dlc) + CRC(15)
+                            → ends at logical index 34 + 8*dlc  (exclusive)
+    
+            Extended frame: SOF(1) + ID(11) + SRR(1) + IDE(1) + ExtID(18) + RTR(1)
+                            + r1(1) + r0(1) + DLC(4) + Data(8*dlc) + CRC(15)
+                            → ends at logical index 54 + 8*dlc  (exclusive)
+        """
+        # Need at least IDE bit (logical index 13) to determine frame type
+        if len(logical_bits) < 14:
+            return None
+    
+        is_extended = logical_bits[13] == 1
+        dlc_start   = 35 if is_extended else 15
+        data_start  = 39 if is_extended else 19
+    
+        # Need all 4 DLC bits
+        if len(logical_bits) < dlc_start + 4:
+            return None
+    
+        dlc_bits = logical_bits[dlc_start : dlc_start + 4]
+        dlc      = (dlc_bits[0] << 3) | (dlc_bits[1] << 2) | (dlc_bits[2] << 1) | dlc_bits[3]
+        dlc      = min(dlc, 8)  # DLC > 8 is treated as 8 per CAN spec
+    
+        return data_start + 8 * dlc + 15  # exclusive
+    
+    
+    @staticmethod
     def is_bit_stuffing_wrong(msg: deque[int]) -> bool:
-        last = None
-        count = 0
-
-        it = iter(msg)
-
-        for b in it:
-            if b == last:
-                count += 1
+        """
+        Returns True if a bit stuffing violation is detected in the stuffable
+        region of a (possibly incomplete) CAN frame.
+    
+        Bit stuffing applies only to: SOF + Arbitration + Control + Data + CRC.
+        The fixed tail (CRC delimiter onward) is never stuffed and is not checked.
+    
+        The function walks the message bit by bit, simultaneously:
+          - checking for stuffing violations as they appear, and
+          - parsing frame structure to know where the stuffable region ends.
+    
+        Returns False if no violation is found in the bits seen so far —
+        this includes incomplete frames where the violation may not have
+        arrived yet.
+    
+        Args:
+            msg: stuffed bits of the full frame (may be incomplete).
+    
+        Raises:
+            ValueError: if msg contains values other than 0 or 1.
+        """
+        if any(b not in (0, 1) for b in msg):
+            raise ValueError("Message must contain only bits (0 or 1).")
+    
+        logical_bits:           list[int] = []
+        consecutive:            int       = 1
+        last_bit:               int | None = None
+        expect_stuff:           bool      = False
+        stuffable_limit_logical: int | None = None  # exclusive logical end of stuffable region
+    
+        for bit in msg:
+            # Stop checking once we have walked past the stuffable region
+            if stuffable_limit_logical is not None and len(logical_bits) >= stuffable_limit_logical:
+                break
+    
+            if expect_stuff:
+                expected_stuff_bit = 1 - last_bit
+                if bit != expected_stuff_bit:
+                    return True  # Stuffing violation — 6 consecutive identical bits
+    
+                # Valid stuff bit: drop it from logical stream, reset run counter
+                expect_stuff = False
+                last_bit     = bit
+                consecutive  = 1
+                continue
+    
+            # Normal (non-stuff) bit — add to logical stream
+            logical_bits.append(bit)
+    
+            if bit == last_bit:
+                consecutive += 1
             else:
-                last = b
-                count = 1
-
-            if count == 5:
-                # next bit must exist and be opposite
-                try:
-                    nxt = next(it)
-                except StopIteration:
-                    # incomplete → cannot conclude error
-                    return False
-
-                if nxt == last:
-                    # violation: same bit instead of stuffed opposite
-                    return True
-
-                # stuffed bit is correct → reset sequence
-                last = None
-                count = 0
-
+                consecutive = 1
+                last_bit    = bit
+    
+            if consecutive == 5:
+                expect_stuff = True  # Next bit must be a stuff bit
+    
+            # Attempt to resolve the stuffable region boundary once we have enough context
+            if stuffable_limit_logical is None:
+                stuffable_limit_logical = CanFrame._try_get_stuffable_region_limit(logical_bits)
+    
         return False
 
 class _State(Enum):
@@ -506,7 +516,7 @@ class CanController:
         Returns:
             0 (Dominant), 1 (Recessive).
         """
-        if not self._tx_buffer:
+        if not self._sending or not self._tx_buffer:
             return 1
         if self._state == _State.BUS_OFF:
             return 1
@@ -527,7 +537,7 @@ class CanController:
         if not self._rx_buffer and bit == 1:
             # First bit of a message has to be 0
             return
-        if CanFrame.is_message_complete(self._rx_buffer):
+        if self._index_cur_bit == len(self._tx_buffer) - 1:
             self._rec = max(0, self._rec - 1)
             self._last_message = self._rx_buffer
             self.clear_rx_buffer()
@@ -582,6 +592,7 @@ class CanController:
             print("Not sending")
 
         if self._error_buffer:
+            print("ERROR BUFFER")
             return False
 
         if not self._sending:
@@ -598,21 +609,28 @@ class CanController:
                 CanFrame.is_form_error(cur_msg) or
                 CanFrame.is_crc_error(cur_msg)
         ):
-            print("Error in sending")
+            if CanFrame.is_bit_stuffing_wrong(cur_msg):
+                print("Bit Stuffing error")
+                print(cur_msg)
+            if CanFrame.is_form_error(cur_msg):
+                print("Form error")
+            if CanFrame.is_crc_error(cur_msg):
+                print("CRC error")
+            print(cur_msg)
             self._raise_error_during_sending()
             return False
 
         if bit != self._tx_buffer[self._index_cur_bit]:
             if CanFrame.is_bit_arbitration(self._tx_buffer, self._index_cur_bit):
                 # Lost arbitration
+                print("Stop sending. Cur index:", self._index_cur_bit, "\nSent vs Rec:", self._tx_buffer[self._index_cur_bit], bit)
                 self._index_cur_bit = -1
-                print("Stop sending")
                 self._sending = False
             else:
                 self._raise_error_during_sending()
             return False
 
-        if CanFrame.is_message_complete(cur_msg):
+        if self._index_cur_bit == len(self._tx_buffer) - 1:
             self._tec = max(0, self._tec - 1)
             self.clear_tx_buffer()
             return True
