@@ -93,6 +93,10 @@ class CanFrame:
                     for b in "".join([f"{byte:08b}" for byte in self._data])])
         # CRC
         msg.extend(self._compute_crc(msg))
+
+        # Apply bit-stuffing
+        msg = self.add_bit_stuffing(msg)
+
         # CRC del
         msg.append(1)
         # ACK
@@ -104,7 +108,7 @@ class CanFrame:
         # IFS
         msg.extend([1] * 3)
 
-        return self.add_bit_stuffing(msg)
+        return msg
 
     def _data_from_bits(self, bits: list[int]) -> bytearray:
         return bytearray(
