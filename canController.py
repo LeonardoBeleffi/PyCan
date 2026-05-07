@@ -20,11 +20,52 @@ class CanFrame:
         self._ide = is_extended
 
     def add_bit_stuffing(self, msg: deque[int]) -> deque[int]:
-        # TODO: implement
-        return msg
+        """
+        Applies CAN bit stuffing to the stuffable region of a frame.
+
+        Rule: after 5 consecutive identical bits, insert one bit of the
+        opposite polarity. The inserted bit itself resets the counter.
+
+        IMPORTANT — caller responsibility:
+            Pass ONLY the stuffable region: SOF + Arbitration + Control + Data + CRC (raw, 15 bits).
+            The tail (CRC delimiter, ACK, ACK delimiter, EOF, IFS) must be appended
+            by the caller AFTER this method returns, as those fields are never stuffed.
+
+        Args:
+            msg: unstuffed bits of the stuffable region, left-to-right (MSB first).
+
+        Returns:
+            A new deque with stuff bits inserted. The original deque is not mutated.
+
+        Raises:
+            ValueError: if msg contains values other than 0 or 1.
+        """
+        if any(b not in (0, 1) for b in msg):
+            raise ValueError("Message must contain only bits (0 or 1).")
+
+        stuffed: deque[int] = deque()
+        consecutive_count = 1
+        last_bit = None
+
+        for bit in msg:
+            stuffed.append(bit)
+
+            if bit == last_bit:
+                consecutive_count += 1
+            else:
+                consecutive_count = 1
+                last_bit = bit
+
+            if consecutive_count == 5:
+                stuff_bit = 1 - bit          # opposite polarity
+                stuffed.append(stuff_bit)
+                last_bit = stuff_bit         # stuff bit resets the run
+                consecutive_count = 1        # the stuff bit itself starts a new run of 1
+
+        return stuffed
 
     def remove_bit_stuffing(self, msg: deque[int]) -> deque[int]:
-        # TODO: implement
+
         return msg
 
     def _compute_crc(self, msg: deque[int]) -> list[int]:
@@ -361,7 +402,6 @@ class CanFrame:
 
     @staticmethod
     def is_bit_stuffing_wrong(msg: deque[int]) -> bool:
-        return False
         last = None
         count = 0
 
@@ -530,17 +570,22 @@ class CanController:
         #   - Implement CRC.
         #   - Implement Reception-only errors
 
-        if self._tx_buffer:
+        if not self._tx_buffer:
+            print("EMPTY BUFFER")
+        elif self._sending:
             print(self._tx_buffer)
         else:
-            print("EMPTY BUFFER")
+            print("Not sending")
+
         if self._error_buffer:
             return False
 
         if not self._sending:
             self._process_received_bit_on_receival_ecu(bit)
+            print("Receiving")
             return False
 
+        print("Sending")
         cur_msg = deque(list(self._tx_buffer)[:self._index_cur_bit])
 
         if (
@@ -549,6 +594,7 @@ class CanController:
                 CanFrame.is_form_error(cur_msg) or
                 CanFrame.is_crc_error(cur_msg)
         ):
+            print("Error in sending")
             self._raise_error_during_sending()
             return False
 
@@ -556,6 +602,7 @@ class CanController:
             if CanFrame.is_bit_arbitration(self._tx_buffer, self._index_cur_bit):
                 # Lost arbitration
                 self._index_cur_bit = -1
+                print("Stop sending")
                 self._sending = False
             else:
                 self._raise_error_during_sending()
