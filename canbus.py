@@ -64,6 +64,7 @@ class Canbus:
         self.last_bit = 1
         for ecu in self._ecus:
             ecu.check_message_transmission(self.isIdle())
+            print(ecu._name, "===============================")
             received = ecu.get_tx_bit()
 
             assert received in [0, 1], f"Expected 0 or 1. Received {received}."
@@ -82,5 +83,6 @@ class Canbus:
         Sends the newly computed bit value to all the registered ecus.
         """
         for ecu in self._ecus:
+            print(ecu._name, "+++++++++++++++++++++++++++++++")
             ecu.rx_bit(self.last_bit)
 
