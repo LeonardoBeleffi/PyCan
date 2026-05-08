@@ -291,7 +291,7 @@ class CanFrame:
         """
         logical_bits:            list[int]       = []
         stuffable_limit_logical: int | None      = None
-        stuffable_limit_stuffed: int | None      = None
+        stuffable_limit_stuffed: int             = -1
         consecutive:             int             = 1
         last_bit:                int | None      = None
         expect_stuff:            bool            = False
@@ -299,7 +299,7 @@ class CanFrame:
         for stuffed_idx, bit in enumerate(msg):
     
             # Once we know the stuffable boundary in stuffed-space, stop destuffing
-            if stuffable_limit_stuffed is not None and stuffed_idx >= stuffable_limit_stuffed:
+            if stuffable_limit_stuffed != -1 and stuffed_idx >= stuffable_limit_stuffed:
                 # Append the remainder of the message (tail) raw, then exit
                 logical_bits += list(msg)[stuffed_idx:]
                 return logical_bits
@@ -333,7 +333,6 @@ class CanFrame:
                     )
     
         return logical_bits  # Message incomplete — return what we have
-    
     
     @staticmethod
     def is_form_error(msg: deque[int]) -> bool:
@@ -497,6 +496,17 @@ class CanFrame:
     
         return False
 
+    @staticmethod
+    def _is_message_complete(msg: deque[int]) -> bool:
+        msg = CanFrame._destuff_and_split(msg)
+        limit = CanFrame._try_get_stuffable_region_limit(msg)
+
+        if limit == None:
+            return False
+
+        return len(msg) == limit + 12
+
+
 class _State(Enum):
     ERROR_ACTIVE = 0
     ERROR_PASSIVE = 1
@@ -536,13 +546,11 @@ class CanController:
         """Flushes the hardware transmit mailbox."""
         self._tx_buffer = None
         self._index_cur_bit = -1
-        self._sending = False
 
     def queue_tx(self, msg: CanMessage) -> None:
         """Loads a logical message into the hardware mailbox to be sent."""
         if self._tx_buffer is None:
             self._index_cur_bit = -1
-            self._sending = True
             self._last_message_id = msg.id
             self._tx_buffer = CanFrame.encode_from_CanMessage(msg)
             print(self._tx_buffer, msg.data)
@@ -557,29 +565,24 @@ class CanController:
     def get_last_message_id(self) -> int:
         return self._last_message_id
 
-    def frame_error(self, error_during_tx: bool = True) -> False:
-        # TODO
-        return False
-
     def get_next_bit(self) -> int:
         """Called every tick to get the controller's driven voltage.
 
         Returns:
             0 (Dominant), 1 (Recessive).
         """
-        if not self._sending or not self._tx_buffer:
-            return 1
-        if self._state == _State.BUS_OFF:
-            return 1
-        if (self._state == _State.ERROR_PASSIVE or
-            self._error_buffer):
+        if self._error_buffer:
             return self._error_buffer.popleft()
+
+        if not self._tx_buffer or self._state == _State.BUS_OFF:
+            return 1
 
         self._index_cur_bit += 1
 
         if self._index_cur_bit == len(self._tx_buffer):
             self.clear_tx_buffer()
             return 1
+
         assert self._index_cur_bit >= 0, "Current bit < 0"
         print ("curbit:",self._index_cur_bit, self._tx_buffer[self._index_cur_bit])
         return self._tx_buffer[self._index_cur_bit]
@@ -588,25 +591,31 @@ class CanController:
         if not self._rx_buffer and bit == 1:
             # First bit of a message has to be 0
             return
-        if self._index_cur_bit == len(self._tx_buffer) - 1:
+        if CanFrame._is_message_complete(self._rx_buffer):
             self._rec = max(0, self._rec - 1)
             self._last_message = self._rx_buffer
             self.clear_rx_buffer()
-            if self._tx_buffer:
-                self._index_cur_bit = -1
-                self._sending = True
             return
 
         self._rx_buffer.append(bit)
 
+        print(self._rx_buffer)
         if (
                 CanFrame.is_bit_stuffing_wrong(self._rx_buffer) or
                 CanFrame.is_form_error(self._rx_buffer) or
                 CanFrame.is_crc_error(self._rx_buffer)
         ):
-            self._raise_error_during_sending(sending = False)
+            if CanFrame.is_bit_stuffing_wrong(self._rx_buffer):
+                print("Bit Stuffing error")
+                print(cur_msg)
+            if CanFrame.is_form_error(self._rx_buffer):
+                print("Form error")
+            if CanFrame.is_crc_error(self._rx_buffer):
+                print("CRC error")
+            print(self._rx_buffer)
+            self._raise_error(sending = False)
 
-    def _raise_error_during_sending(self, sending: bool = True) -> None:
+    def _raise_error(self, sending: bool = True) -> None:
         if sending:
             self.clear_tx_buffer()
             self._tec = min(self._tec + 8, 255)
@@ -616,6 +625,7 @@ class CanController:
 
         if self._tec >= 255:
             self._state = _State.BUS_OFF
+            self._error_buffer = None
         elif self._rec >= 128 or self._tec >= 128:
             self._state = _State.ERROR_PASSIVE
             self._error_buffer = deque([1] * 6)
@@ -635,23 +645,20 @@ class CanController:
         #   - Implement CRC.
         #   - Implement Reception-only errors
 
-        if not self._tx_buffer:
-            print("EMPTY BUFFER")
-        elif self._sending:
-            print(self._tx_buffer)
-        else:
-            print("Not sending")
+        print(self._state, self._tec, self._rec)
 
         if self._error_buffer:
             print("ERROR BUFFER")
             return False
 
-        if not self._sending:
+        if not self._tx_buffer:
             self._process_received_bit_on_receival_ecu(bit)
             print("Receiving")
             return False
 
         print("Sending")
+        print(self._tx_buffer)
+
         cur_msg = deque(list(self._tx_buffer)[:self._index_cur_bit])
 
         if (
@@ -668,17 +675,19 @@ class CanController:
             if CanFrame.is_crc_error(cur_msg):
                 print("CRC error")
             print(cur_msg)
-            self._raise_error_during_sending()
+            self._raise_error()
             return False
 
         if bit != self._tx_buffer[self._index_cur_bit]:
             if CanFrame.is_bit_arbitration(self._tx_buffer, self._index_cur_bit):
                 # Lost arbitration
                 print("Stop sending. Cur index:", self._index_cur_bit, "\nSent vs Rec:", self._tx_buffer[self._index_cur_bit], bit)
-                self._index_cur_bit = -1
-                self._sending = False
+
+                self._rx_buffer = deque(list(self._tx_buffer)[:self._index_cur_bit])
+                self._rx_buffer.append(bit)
+                self.clear_tx_buffer()
             else:
-                self._raise_error_during_sending()
+                self._raise_error()
             return False
 
         if self._index_cur_bit == len(self._tx_buffer) - 1:
