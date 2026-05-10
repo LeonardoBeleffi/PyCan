@@ -3,6 +3,8 @@ from typing import Callable
 from collections import deque
 from enum import Enum
 
+DEBUG = True
+
 class CanFrame:
     """TODO:
             - implement bit stuffing
@@ -87,10 +89,12 @@ class CanFrame:
         # DLC
         l = len(self._data)
         assert l <= 8, "Message too long"
-        msg.extend([1 if b == "1" else 0 for b in f"{l:04b}"])
+        msg.extend(map(int, f"{l:04b}"))
+        # msg.extend([1 if b == "1" else 0 for b in f"{l:04b}"])
         # Data
-        msg.extend([1 if b == "1" else 0
-                    for b in "".join([f"{byte:08b}" for byte in self._data])])
+        msg.extend(map(int, "".join([f"{byte:08b}" for byte in self._data])))
+        # msg.extend([1 if b == "1" else 0
+        #             for b in "".join([f"{byte:08b}" for byte in self._data])])
         # CRC
         msg.extend(self._compute_crc(msg))
 
@@ -98,7 +102,7 @@ class CanFrame:
         msg = self.add_bit_stuffing(msg)
 
         # CRC del
-        msg.append(1)
+        msg.append(0)
         # ACK already done
         msg.append(0)
         # ACK del
@@ -364,21 +368,25 @@ class CanFrame:
         # check only if bits are present
         # CRC delimiter
         if len(bits) > crc_del and bits[crc_del] != 1:
-            print("err crc")
+            if DEBUG:
+                print("err crc")
             return True
         # ACK delimiter
         if len(bits) > ack_del and bits[ack_del] != 1:
-            print("err ack")
+            if DEBUG:
+                print("err ack")
             return True
         # EOF (all must be 1)
         if len(bits) >= eof_end:
             if any(b != 1 for b in bits[eof_start:eof_end]):
-                print("err eof")
+                if DEBUG:
+                    print("err eof")
                 return True
         # IFS (3 recessive bits)
         if len(bits) >= ifs_end:
             if any(b != 1 for b in bits[ifs_start:ifs_end]):
-                print("err ifs")
+                if DEBUG:
+                    print("err ifs")
                 return True
         return False
 
@@ -553,7 +561,8 @@ class CanController:
             self._index_cur_bit = -1
             self._last_message_id = msg.id
             self._tx_buffer = CanFrame.encode_from_CanMessage(msg)
-            print(self._tx_buffer, msg.data)
+            if DEBUG:
+                print(self._tx_buffer, msg.data)
 
     def reset_state(self) -> None:
         self._tec = self._rec = 0
@@ -572,7 +581,7 @@ class CanController:
             0 (Dominant), 1 (Recessive).
         """
         if self._error_buffer:
-            return self._error_buffer.popleft()
+            return self._error_buffer[0]
 
         if not self._tx_buffer or self._state == _State.BUS_OFF:
             return 1
@@ -584,7 +593,8 @@ class CanController:
             return 1
 
         assert self._index_cur_bit >= 0, "Current bit < 0"
-        print ("curbit:",self._index_cur_bit, self._tx_buffer[self._index_cur_bit])
+        if DEBUG:
+            print ("curbit:",self._index_cur_bit, self._tx_buffer[self._index_cur_bit])
         return self._tx_buffer[self._index_cur_bit]
 
     def _process_received_bit_on_receival_ecu(self, bit):
@@ -599,20 +609,21 @@ class CanController:
 
         self._rx_buffer.append(bit)
 
-        print(self._rx_buffer)
+        if DEBUG:
+            print(self._rx_buffer)
         if (
                 CanFrame.is_bit_stuffing_wrong(self._rx_buffer) or
                 CanFrame.is_form_error(self._rx_buffer) or
                 CanFrame.is_crc_error(self._rx_buffer)
         ):
-            if CanFrame.is_bit_stuffing_wrong(self._rx_buffer):
-                print("Bit Stuffing error")
-                print(cur_msg)
-            if CanFrame.is_form_error(self._rx_buffer):
-                print("Form error")
-            if CanFrame.is_crc_error(self._rx_buffer):
-                print("CRC error")
-            print(self._rx_buffer)
+            if DEBUG:
+                if CanFrame.is_bit_stuffing_wrong(self._rx_buffer):
+                    print("Bit Stuffing error")
+                if CanFrame.is_form_error(self._rx_buffer):
+                    print("Form error")
+                if CanFrame.is_crc_error(self._rx_buffer):
+                    print("CRC error")
+                print(self._rx_buffer)
             self._raise_error(sending = False)
 
     def _raise_error(self, sending: bool = True) -> None:
@@ -628,9 +639,9 @@ class CanController:
             self._error_buffer = None
         elif self._rec >= 128 or self._tec >= 128:
             self._state = _State.ERROR_PASSIVE
-            self._error_buffer = deque([1] * 6)
+            self._error_buffer = deque([1] * 6 + [1] * 11)
         else:
-            self._error_buffer = deque([0] * 6)
+            self._error_buffer = deque([0] * 6 + [1] * 11) 
 
 
     def process_received_bit(self, bit: int) -> bool:
@@ -645,19 +656,29 @@ class CanController:
         #   - Implement CRC.
         #   - Implement Reception-only errors
 
-        print(self._state, self._tec, self._rec)
+        if DEBUG:
+            print(self._state, self._tec, self._rec)
 
         if self._error_buffer:
-            print("ERROR BUFFER")
+            cur_err_bit = self._error_buffer.popleft()
+            if cur_err_bit == 1 and bit == 0:
+                self._error_buffer.append(1)
+            if DEBUG:
+                print("ERROR BUFFER")
+                print(self._error_buffer)
             return False
 
         if not self._tx_buffer:
             self._process_received_bit_on_receival_ecu(bit)
-            print("Receiving")
+            if DEBUG:
+                print("Receiving")
             return False
 
-        print("Sending")
-        print(self._tx_buffer)
+        if DEBUG:
+            print("Sending")
+            print(self._tx_buffer)
+            print(self._index_cur_bit)
+
 
         cur_msg = deque(list(self._tx_buffer)[:self._index_cur_bit])
 
@@ -667,21 +688,22 @@ class CanController:
                 CanFrame.is_form_error(cur_msg) or
                 CanFrame.is_crc_error(cur_msg)
         ):
-            if CanFrame.is_bit_stuffing_wrong(cur_msg):
-                print("Bit Stuffing error")
+            if DEBUG:
+                if CanFrame.is_bit_stuffing_wrong(cur_msg):
+                    print("Bit Stuffing error")
+                if CanFrame.is_form_error(cur_msg):
+                    print("Form error")
+                if CanFrame.is_crc_error(cur_msg):
+                    print("CRC error")
                 print(cur_msg)
-            if CanFrame.is_form_error(cur_msg):
-                print("Form error")
-            if CanFrame.is_crc_error(cur_msg):
-                print("CRC error")
-            print(cur_msg)
             self._raise_error()
             return False
 
         if bit != self._tx_buffer[self._index_cur_bit]:
             if CanFrame.is_bit_arbitration(self._tx_buffer, self._index_cur_bit):
                 # Lost arbitration
-                print("Stop sending. Cur index:", self._index_cur_bit, "\nSent vs Rec:", self._tx_buffer[self._index_cur_bit], bit)
+                if DEBUG:
+                    print("Stop sending. Cur index:", self._index_cur_bit, "\nSent vs Rec:", self._tx_buffer[self._index_cur_bit], bit)
 
                 self._rx_buffer = deque(list(self._tx_buffer)[:self._index_cur_bit])
                 self._rx_buffer.append(bit)
