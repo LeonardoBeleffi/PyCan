@@ -44,7 +44,7 @@ class Canbus:
                 self.__update_current_bit()
                 self._send_updated_bit_value_to_ecus()
 
-                time.sleep(self._sleep_us/1_000.0)
+                #time.sleep(self._sleep_us/1_000.0)
 
         except KeyboardInterrupt:
             print("Exiting...")
@@ -53,7 +53,7 @@ class Canbus:
     def update_ecus_time(self) -> None:
         """Propagate the progression of time to all ecus"""
         for ecu in self._ecus:
-            ecu.increase_time()
+            ecu.increase_time(0.001)
 
     def __update_current_bit(self) -> None:
         """Update the current bit.
@@ -64,7 +64,7 @@ class Canbus:
         self.last_bit = 1
         for ecu in self._ecus:
             ecu.check_message_transmission(self.isIdle())
-            print(ecu._name, "===============================")
+            #print(ecu._name, "===============================")
             received = ecu.get_tx_bit()
 
             assert received in [0, 1], f"Expected 0 or 1. Received {received}."
@@ -75,7 +75,7 @@ class Canbus:
             self.__idle_counter += 1
         else:
             self.__idle_counter = 0
-        print(self.__idle_counter, self.isIdle())
+        #print(self.__idle_counter, self.isIdle())
 
     def _send_updated_bit_value_to_ecus(self) -> None:
         """Propagate the current bit to the ecus.
@@ -83,6 +83,6 @@ class Canbus:
         Sends the newly computed bit value to all the registered ecus.
         """
         for ecu in self._ecus:
-            print(ecu._name, "+++++++++++++++++++++++++++++++")
+            #print(ecu._name, "+++++++++++++++++++++++++++++++")
             ecu.rx_bit(self.last_bit)
 

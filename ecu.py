@@ -50,7 +50,7 @@ class Ecu:
         Parameters:
             time_delta(int): determines how much the time increments
     '''
-    def increase_time(self, time_delta: int = 10):
+    def increase_time(self, time_delta: float = 10):
         if time_delta < 0:
             time_delta = 0
         self._time += time_delta

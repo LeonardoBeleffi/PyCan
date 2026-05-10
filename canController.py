@@ -3,7 +3,7 @@ from typing import Callable
 from collections import deque
 from enum import Enum
 
-DEBUG = True
+DEBUG = False
 
 class CanFrame:
     """TODO:
@@ -102,7 +102,7 @@ class CanFrame:
         msg = self.add_bit_stuffing(msg)
 
         # CRC del
-        msg.append(0)
+        msg.append(1)
         # ACK already done
         msg.append(0)
         # ACK del
