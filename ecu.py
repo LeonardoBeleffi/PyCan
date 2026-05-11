@@ -28,7 +28,7 @@ class Ecu:
             self._messages[msg_id]["timer"] = 0
 
         # The ECU inherently owns its CanController (hardware)
-        self._controller = CanController()
+        self._controller = CanController(self._name)
 
 
     # --- Internal Bit-Level API (Called strictly by Canbus) ---
@@ -65,7 +65,8 @@ class Ecu:
 
     # create message data
     def _create_message(self, msg_id) -> CanMessage:
-        data = [random.randint(0, 1) for _ in range(random.randint(4,8))]
+        # create 4 bytes message for reproducibility
+        data = [0b10101010 for i in range(4)]
 
         msg_data = bytearray(data)
         msg = CanMessage(msg_id,msg_data)
@@ -78,6 +79,11 @@ class Ecu:
         if not bus_idle:
             return
         
+        if self._controller._tec > 0:
+            print(f"{self._name}'s TEC: {self._controller._tec}")
+        if self._controller._rec > 0:
+            print(f"{self._name}'s REC: {self._controller._rec}")
+
         # bus is idle
         msg_id = self.get_next_message_id()
         if bus_idle and msg_id != math.inf:
@@ -86,7 +92,12 @@ class Ecu:
             print(f"{self._name} (ID:{self._id}) is trying to send message {msg_id}")
         
 
+class AttackerEcu(Ecu):
 
+    def _create_message(self, msg_id):
+        msg = super()._create_message(msg_id)
+        msg.data[0] = msg.data[0] + 32
+        return msg
 # workflow modification:
 # if canbus is idle -> put message in controller buffer
 #                        else -> I don't put anything

@@ -1,5 +1,5 @@
 from canbus import Canbus
-from ecu import Ecu
+from ecu import Ecu, AttackerEcu
 
 if __name__ == "__main__":
     ecu1 = Ecu(1,"Wheel",{
@@ -16,5 +16,11 @@ if __name__ == "__main__":
         }
     })
 
-    canbus = Canbus(100,[ecu1,ecu2])
+    ecuA = AttackerEcu(3,"Infected",{
+        10:{
+            "frequence": 20
+        }
+    })
+
+    canbus = Canbus(0,[ecu1,ecuA])
     canbus.startSimulation()
