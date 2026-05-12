@@ -36,6 +36,7 @@ class CanController:
         self._last_message = None
         self._error_buffer = deque()
         self._name = name
+        self._bit_since_last_msg = 0
 
         self.reset_state()
         self.clear_tx_buffer()
@@ -52,7 +53,7 @@ class CanController:
 
     def queue_tx(self, msg: CanMessage) -> None:
         """Loads a logical message into the hardware mailbox to be sent."""
-        if self._tx_buffer is None and self._state == _State.ERROR_ACTIVE:
+        if self._tx_buffer is None and self._state != _State.BUS_OFF:
             self._index_cur_bit = -1
             self._last_message_id = msg.id
             self._tx_buffer = CanFrame.encode_from_CanMessage(msg)
@@ -78,7 +79,12 @@ class CanController:
         if self._error_buffer:
             return self._error_buffer[0]
 
-        if not self._tx_buffer or self._state != _State.ERROR_ACTIVE:
+        self._bit_since_last_msg += 1
+
+        if not self._tx_buffer or self._state == _State.BUS_OFF:
+            return 1
+
+        if self._state == _State.ERROR_PASSIVE and self._bit_since_last_msg < 8:
             return 1
 
         self._index_cur_bit += 1
@@ -89,16 +95,24 @@ class CanController:
 
         assert self._index_cur_bit >= 0, "Current bit < 0"
         if DEBUG:
-            print (f"{self._name}'s curbit:",self._index_cur_bit, self._tx_buffer[self._index_cur_bit])
+            print (f"{self._name}'s curbit:",
+                   self._index_cur_bit,
+                   self._tx_buffer[self._index_cur_bit],
+                   "| # bits since last message:",
+                   self._bit_since_last_msg
+                   )
         return self._tx_buffer[self._index_cur_bit]
 
     def _process_received_bit_on_receival_ecu(self, bit):
+        self._bit_since_last_msg += 1
         if not self._rx_buffer and bit == 1:
             # First bit of a message has to be 0
             return
         if CanFrame._is_message_complete(self._rx_buffer):
-            self._rec = max(0, self._rec - 1)
+            self._bit_since_last_msg = 0
             self._last_message = self._rx_buffer
+            self._rec = max(0, self._rec - 1)
+            self._review_current_state()
             self.clear_rx_buffer()
             return
 
@@ -129,16 +143,22 @@ class CanController:
             self.clear_rx_buffer()
             self._rec = min(self._rec + 1, 255)
 
-        if self._tec >= 255:
-            self._state = _State.BUS_OFF
+        self._review_current_state()
+
+        if self._state == _State.BUS_OFF:
             self._error_buffer = None
-        elif self._rec >= 128 or self._tec >= 128:
-            self._state = _State.ERROR_PASSIVE
+        elif self._state == _State.ERROR_PASSIVE:
             self._error_buffer = deque([1] * 6 + [1] * 8)
         else:
-            self._state = _State.ERROR_ACTIVE
             self._error_buffer = deque([0] * 6 + [1] * 8) 
 
+    def _review_current_state(self) -> None:
+        if self._tec >= 255:
+            self._state = _State.BUS_OFF
+        elif self._rec >= 128 or self._tec >= 128:
+            self._state = _State.ERROR_PASSIVE
+        else:
+            self._state = _State.ERROR_ACTIVE
 
     def process_received_bit(self, bit: int) -> bool:
         """Called every tick to process the actual bus voltage.
@@ -156,6 +176,7 @@ class CanController:
             print(f"{self._name}: ",self._state, self._tec, self._rec)
 
         if self._error_buffer:
+            self._bit_since_last_msg = 0
             cur_err_bit = self._error_buffer.popleft()
             if cur_err_bit == 1 and bit == 0:
                 if self._state == _State.ERROR_PASSIVE and len(self._error_buffer) < 8:
@@ -212,7 +233,9 @@ class CanController:
             return False
 
         if self._index_cur_bit == len(self._tx_buffer) - 1:
+            self._bit_since_last_msg = 0
             self._tec = max(0, self._tec - 1)
+            self._review_current_state()
             self.clear_tx_buffer()
             return True
 
