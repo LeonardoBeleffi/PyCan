@@ -1,7 +1,6 @@
-from canController import CanController
+from canController import CanController, _State
 from canMessage import CanMessage
 import math
-import random
 
 class Ecu:
     """A class used to model the High-Level ECU software.
@@ -21,8 +20,7 @@ class Ecu:
         self._name = name
         self._time = 0
         self._messages = messages
-        # timestamp for when last busoff occurred
-        self._last_busoff = 0
+        self._error_state = _State.ERROR_ACTIVE
 
         for msg_id in self._messages.keys():
             self._messages[msg_id]["timer"] = 0
@@ -74,9 +72,14 @@ class Ecu:
     
     def check_message_transmission(self,bus_idle:bool):
         
+        # update error state
+        if self._error_state != self._controller.get_error_state():
+            self._error_state = self._controller.get_error_state()
+            print(f"{self._name} is in {self._error_state}")
+
+
         # cannot send messages to controller because the bus is not idle
-        # TODO add check if I'm in bus off status and eventually snap out of it
-        if not bus_idle:
+        if not bus_idle or self._controller.get_error_state() == _State.BUS_OFF:
             return
         
         if self._controller._tec > 0:
@@ -96,7 +99,7 @@ class AttackerEcu(Ecu):
 
     def _create_message(self, msg_id):
         msg = super()._create_message(msg_id)
-        msg.data[0] = msg.data[0] + 32
+        msg.data[0] = msg.data[0] - 32
         return msg
 # workflow modification:
 # if canbus is idle -> put message in controller buffer

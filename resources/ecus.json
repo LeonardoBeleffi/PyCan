@@ -1,0 +1,3 @@
+[
+  { "id": 1, "name": "Wheel",  "messages": { "10": {"frequence": 20}, "100": {"frequence": 100} } }
+]

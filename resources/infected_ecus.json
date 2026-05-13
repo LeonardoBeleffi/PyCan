@@ -1,0 +1,3 @@
+[
+  { "id": 3, "name": "Infected",  "messages": { "10": {"frequence": 20}, "100": {"frequence": 100} } }
+]
