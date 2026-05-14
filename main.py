@@ -23,11 +23,12 @@ if __name__ == "__main__":
     parser.add_argument("--no-sleep", action="store_true",       help="Set sleep time to 0")
     args = parser.parse_args()
 
+    canSettings.DEBUG = args.debug
+    sleep_time = 0 if args.no_sleep else args.time
+
     # prepare bus and ecus
     ecus = load_ecus(os.path.join("resources","ecus.json"))
     ecus = ecus + load_attacker_ecus(os.path.join("resources","infected_ecus.json"))
 
-    canSettings.DEBUG = args.debug
-    sleep_time = 0 if args.no_sleep else args.time
     canbus = Canbus(sleep_time,ecus)
     canbus.startSimulation()

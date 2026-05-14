@@ -2,7 +2,6 @@ from collections import deque
 from canMessage import CanMessage
 import canSettings
 
-DEBUG = canSettings.DEBUG
 
 class CanFrame:
     """TODO:
@@ -367,24 +366,24 @@ class CanFrame:
         # check only if bits are present
         # CRC delimiter
         if len(bits) > crc_del and bits[crc_del] != 1:
-            if DEBUG:
+            if canSettings.DEBUG:
                 print("err crc")
             return True
         # ACK delimiter
         if len(bits) > ack_del and bits[ack_del] != 1:
-            if DEBUG:
+            if canSettings.DEBUG:
                 print("err ack")
             return True
         # EOF (all must be 1)
         if len(bits) >= eof_end:
             if any(b != 1 for b in bits[eof_start:eof_end]):
-                if DEBUG:
+                if canSettings.DEBUG:
                     print("err eof")
                 return True
         # IFS (3 recessive bits)
         if len(bits) >= ifs_end:
             if any(b != 1 for b in bits[ifs_start:ifs_end]):
-                if DEBUG:
+                if canSettings.DEBUG:
                     print("err ifs")
                 return True
         return False
