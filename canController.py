@@ -18,11 +18,9 @@ class CanController:
     exposes valid hardware registers to the software (Ecu).
 
     Attributes:
-        auto_retransmit (bool): Hardware register to toggle automatic retries.
+        name (str): ecu name (for debugging purposes)
 
     TODO:
-        - implement error check in reading
-        - implement error frame sending
         - implement ack signaling
     """
 
@@ -58,10 +56,18 @@ class CanController:
 
     def reset_state(self) -> None:
         self._tec = self._rec = 0
-        self._state = _State.ERROR_ACTIVE
+        self._review_current_state()
 
     def get_error_state(self) -> _State:
         return self._state
+
+    def get_full_message(self) -> CanMessage | None:
+        msg = None
+        if self._last_message:
+            id, data, _ = CanFrame.decode_message_bytearray(self._last_message)
+            msg = CanMessage(id, data)
+            self._last_message = None
+        return msg
 
     def get_last_message_id(self) -> int:
         return self._last_message_id
