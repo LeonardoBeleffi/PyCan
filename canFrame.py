@@ -119,6 +119,85 @@ class CanFrame:
         )
 
     @staticmethod
+    def decode_message(msg: deque[int]) -> CanMessage:
+        """
+        Decodes a complete, stuffed CAN frame into its message ID and data payload.
+    
+        Supports both base (11-bit ID) and extended (29-bit ID) frames.
+    
+        Frame layouts (logical / unstuffed indices):
+    
+            Base frame (IDE=0):
+                SOF(0) | ID(1-11) | RTR(12) | IDE(13) | r0(14) | DLC(15-18)
+                | Data(19 … 19+8*dlc-1) | CRC | tail
+    
+            Extended frame (IDE=1):
+                SOF(0) | BaseID(1-11) | SRR(12) | IDE(13) | ExtID(14-31)
+                | RTR(32) | r1(33) | r0(34) | DLC(35-38)
+                | Data(39 … 39+8*dlc-1) | CRC | tail
+    
+        Args:
+            msg: stuffed bits of a complete CAN frame.
+    
+        Returns:
+            CanMessage.
+    
+        Raises:
+            ValueError: if msg contains values other than 0 or 1.
+            ValueError: if the frame is too short to decode.
+        """
+        bits = CanFrame._destuff_and_split(msg)
+    
+        def bits_to_int(bit_slice: list[int]) -> int:
+            return int("".join(str(b) for b in bit_slice), 2)
+    
+        # ── frame type ────────────────────────────────────────────────────────────
+        if len(bits) < 19:
+            raise ValueError(f"Frame too short to decode: only {len(bits)} logical bits.")
+    
+        ide = bits[13]
+    
+        # ── base frame ────────────────────────────────────────────────────────────
+        if ide == 0:
+            if len(bits) < 19:
+                raise ValueError("Base frame too short to read DLC.")
+    
+            msg_id   = bits_to_int(bits[1:12])       # 11-bit ID
+            dlc      = min(bits_to_int(bits[15:19]), 8)
+            data_start = 19
+            data_end   = data_start + 8 * dlc
+    
+            if len(bits) < data_end:
+                raise ValueError(
+                    f"Base frame too short: need {data_end} logical bits, got {len(bits)}."
+                )
+    
+        # ── extended frame ────────────────────────────────────────────────────────
+        else:
+            if len(bits) < 39:
+                raise ValueError("Extended frame too short to read DLC.")
+    
+            base_id  = bits_to_int(bits[1:12])        # 11 MSBs
+            ext_id   = bits_to_int(bits[14:32])        # 18 LSBs
+            msg_id   = (base_id << 18) | ext_id        # full 29-bit ID
+            dlc      = min(bits_to_int(bits[35:39]), 8)
+            data_start = 39
+            data_end   = data_start + 8 * dlc
+    
+            if len(bits) < data_end:
+                raise ValueError(
+                    f"Extended frame too short: need {data_end} logical bits, got {len(bits)}."
+                )
+    
+        # ── data bytes ────────────────────────────────────────────────────────────
+        msg_data = bytearray()
+        for i in range(dlc):
+            byte_start = data_start + 8 * i
+            msg_data.append(bits_to_int(bits[byte_start : byte_start + 8]))
+    
+        return CanMessage(msg_id, msg_data)
+
+    @staticmethod
     def decode_message_bytearray(msg: deque[int]) -> tuple[int, bytearray, bool]:
         msg = CanFrame.destuff(msg)
         bkp = list(msg)

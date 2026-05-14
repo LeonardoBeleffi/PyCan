@@ -64,8 +64,7 @@ class CanController:
     def get_full_message(self) -> CanMessage | None:
         msg = None
         if self._last_message:
-            id, data, _ = CanFrame.decode_message_bytearray(self._last_message)
-            msg = CanMessage(id, data)
+            msg = CanFrame.decode_message(self._last_message)
             self._last_message = None
         return msg
 
