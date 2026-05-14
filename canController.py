@@ -132,13 +132,6 @@ class CanController:
             self._raise_error(sending = False)
 
     def _raise_error(self, sending: bool = True) -> None:
-        if sending:
-            self.clear_tx_buffer()
-            self._tec = min(self._tec + 8, 255)
-        else:
-            self.clear_rx_buffer()
-            self._rec = min(self._rec + 1, 255)
-
         self._review_current_state()
 
         if self._state == _State.BUS_OFF:
@@ -147,6 +140,14 @@ class CanController:
             self._error_buffer = deque([1] * 6 + [1] * 8)
         else:
             self._error_buffer = deque([0] * 6 + [1] * 8) 
+
+        if sending:
+            self.clear_tx_buffer()
+            self._tec = min(self._tec + 8, 255)
+        else:
+            self.clear_rx_buffer()
+            self._rec = min(self._rec + 1, 255)
+
 
     def _review_current_state(self) -> None:
         if self._tec >= 255:
