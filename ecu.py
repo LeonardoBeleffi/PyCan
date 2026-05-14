@@ -41,6 +41,10 @@ class Ecu:
             print(f"{self._name} (ID:{self._id}) sent message {msg_id}")
             self._messages[msg_id]["timer"] = self._time
 
+        rcv_msg = self._controller.get_full_message()
+        if  rcv_msg != None:
+            print(f"RECMSG | {self._name} received message {rcv_msg.id}")
+
     
     '''
         increase the ECU time. Required to simulate the ECU clock.

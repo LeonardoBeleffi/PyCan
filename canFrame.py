@@ -123,7 +123,7 @@ class CanFrame:
         msg = CanFrame.destuff(msg)
         bkp = list(msg)
 
-        assert False, "Not implemented"
+#        assert False, "Not implemented"
         assert msg.popleft() == 1, "Error in SOF"
         # Arbitration ID (11 bits)
         id = int(''.join([f'{msg.popleft()}' for _ in range(11)]), 2)
@@ -133,7 +133,7 @@ class CanFrame:
         # r0
         _ = msg.popleft()
         length = int(''.join([f'{msg.popleft()}' for _ in range(4)]), 2)
-        data = _data_from_bits([msg.popleft() for _ in range(8 * length)])
+        data = CanFrame._data_from_bits([msg.popleft() for _ in range(8 * length)])
         assert [msg.popleft() for _ in range(15)] == self._compute_crc(bkp[:-28]), "Error in CRC"
         assert msg.popleft() == 1, "Error in CRC delimiter"
         # ACK
