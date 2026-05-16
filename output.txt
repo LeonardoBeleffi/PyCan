@@ -1,95 +1,851 @@
-Infected (ID:3) is trying to send message 10
-Wheel (ID:1) is trying to send message 10
-Infected's TEC: 8
-Infected (ID:3) is trying to send message 10
-Wheel's TEC: 8
-Wheel (ID:1) is trying to send message 10
-Infected's TEC: 16
-Infected (ID:3) is trying to send message 10
-Wheel's TEC: 16
-Wheel (ID:1) is trying to send message 10
-Infected's TEC: 24
-Infected (ID:3) is trying to send message 10
-Wheel's TEC: 24
-Wheel (ID:1) is trying to send message 10
-Infected's TEC: 32
-Infected (ID:3) is trying to send message 10
-Wheel's TEC: 32
-Wheel (ID:1) is trying to send message 10
-Infected's TEC: 40
-Infected (ID:3) is trying to send message 10
-Wheel's TEC: 40
-Wheel (ID:1) is trying to send message 10
-Infected's TEC: 48
-Infected (ID:3) is trying to send message 10
-Wheel's TEC: 48
-Wheel (ID:1) is trying to send message 10
-Infected's TEC: 56
-Infected (ID:3) is trying to send message 10
-Wheel's TEC: 56
-Wheel (ID:1) is trying to send message 10
-Infected's TEC: 64
-Infected (ID:3) is trying to send message 10
-Wheel's TEC: 64
-Wheel (ID:1) is trying to send message 10
-Infected's TEC: 72
-Infected (ID:3) is trying to send message 10
-Wheel's TEC: 72
-Wheel (ID:1) is trying to send message 10
-Infected's TEC: 80
-Infected (ID:3) is trying to send message 10
-Wheel's TEC: 80
-Wheel (ID:1) is trying to send message 10
-Infected's TEC: 88
-Infected (ID:3) is trying to send message 10
-Wheel's TEC: 88
-Wheel (ID:1) is trying to send message 10
-Infected's TEC: 96
-Infected (ID:3) is trying to send message 10
-Wheel's TEC: 96
-Wheel (ID:1) is trying to send message 10
-Infected's TEC: 104
-Infected (ID:3) is trying to send message 10
-Wheel's TEC: 104
-Wheel (ID:1) is trying to send message 10
-Infected's TEC: 112
-Infected (ID:3) is trying to send message 10
-Wheel's TEC: 112
-Wheel (ID:1) is trying to send message 10
-Infected's TEC: 120
-Infected (ID:3) is trying to send message 10
-Wheel's TEC: 120
-Wheel (ID:1) is trying to send message 10
-Infected's TEC: 128
-Infected (ID:3) is trying to send message 10
-Wheel's TEC: 128
-Wheel (ID:1) is trying to send message 10
+[20000] Wheel (ID:1) is trying to send message 10
+[20000] Infected (ID:3) is trying to send message 10
+[20043] Wheel (ID:1) is trying to send message 10
+[20043] Infected (ID:3) is trying to send message 10
+[20086] Wheel (ID:1) is trying to send message 10
+[20086] Infected (ID:3) is trying to send message 10
+[20129] Wheel (ID:1) is trying to send message 10
+[20129] Infected (ID:3) is trying to send message 10
+[20172] Wheel (ID:1) is trying to send message 10
+[20172] Infected (ID:3) is trying to send message 10
+[20215] Wheel (ID:1) is trying to send message 10
+[20215] Infected (ID:3) is trying to send message 10
+[20258] Wheel (ID:1) is trying to send message 10
+[20258] Infected (ID:3) is trying to send message 10
+[20301] Wheel (ID:1) is trying to send message 10
+[20301] Infected (ID:3) is trying to send message 10
+[20344] Wheel (ID:1) is trying to send message 10
+[20344] Infected (ID:3) is trying to send message 10
+[20387] Wheel (ID:1) is trying to send message 10
+[20387] Infected (ID:3) is trying to send message 10
+[20430] Wheel (ID:1) is trying to send message 10
+[20430] Infected (ID:3) is trying to send message 10
+[20473] Wheel (ID:1) is trying to send message 10
+[20473] Infected (ID:3) is trying to send message 10
+[20516] Wheel (ID:1) is trying to send message 10
+[20516] Infected (ID:3) is trying to send message 10
+[20559] Wheel (ID:1) is trying to send message 10
+[20559] Infected (ID:3) is trying to send message 10
+[20602] Wheel (ID:1) is trying to send message 10
+[20602] Infected (ID:3) is trying to send message 10
+[20645] Wheel (ID:1) is trying to send message 10
+[20645] Infected (ID:3) is trying to send message 10
+[20688] Wheel (ID:1) is trying to send message 10
+[20688] Infected (ID:3) is trying to send message 10
 Wheel is in _State.ERROR_PASSIVE
-Infected (ID:3) sent message 10
-Infected's TEC: 127
-Wheel's TEC: 136
-Wheel (ID:1) is trying to send message 10
-Infected's TEC: 127
-Wheel's TEC: 136
-Wheel (ID:1) is trying to send message 10
-Infected's TEC: 127
-Wheel's TEC: 136
-Wheel (ID:1) is trying to send message 10
-Infected's TEC: 127
-Wheel's TEC: 136
-Wheel (ID:1) is trying to send message 10
-Infected's TEC: 127
-Wheel's TEC: 136
-Wheel (ID:1) is trying to send message 10
-Infected's TEC: 127
-Wheel's TEC: 136
-Wheel (ID:1) is trying to send message 10
-Infected's TEC: 127
-Wheel's TEC: 136
-Wheel (ID:1) is trying to send message 10
-Infected's TEC: 127
-Wheel's TEC: 136
-Wheel (ID:1) is trying to send message 10
-Infected's TEC: 127
-Wheel's TEC: 136
-Wheel (ID:1) is trying to send message 10
+[20771] Infected (ID:3) sent message 10
+[20772] Wheel (ID:1) is trying to send message 10
+[20773] Wheel (ID:1) is trying to send message 10
+[20774] Wheel (ID:1) is trying to send message 10
+[20775] Wheel (ID:1) is trying to send message 10
+[20776] Wheel (ID:1) is trying to send message 10
+[20777] Wheel (ID:1) is trying to send message 10
+[20778] Wheel (ID:1) is trying to send message 10
+[20779] Wheel (ID:1) is trying to send message 10
+[20780] Wheel (ID:1) is trying to send message 10
+[20863] Wheel (ID:1) sent message 10
+[20863] RECMSG | Infected received message 10
+[20863] ATTACKER FREQUENCE: 20780
+Next scheduled time: 41643
+[40863] Wheel (ID:1) is trying to send message 10
+[40946] Wheel (ID:1) sent message 10
+[40946] RECMSG | Infected received message 10
+[40946] ATTACKER FREQUENCE: 20000
+Next scheduled time: 60946
+[60946] Wheel (ID:1) is trying to send message 10
+[60946] Infected (ID:3) is trying to send message 10
+[61029] Infected (ID:3) sent message 10
+[61030] Wheel (ID:1) is trying to send message 10
+[61031] Wheel (ID:1) is trying to send message 10
+[61032] Wheel (ID:1) is trying to send message 10
+[61033] Wheel (ID:1) is trying to send message 10
+[61034] Wheel (ID:1) is trying to send message 10
+[61035] Wheel (ID:1) is trying to send message 10
+[61036] Wheel (ID:1) is trying to send message 10
+[61037] Wheel (ID:1) is trying to send message 10
+[61038] Wheel (ID:1) is trying to send message 10
+[61121] Wheel (ID:1) sent message 10
+[61121] RECMSG | Infected received message 10
+[61121] ATTACKER FREQUENCE: 20092
+Next scheduled time: 81213
+[81121] Wheel (ID:1) is trying to send message 10
+[81204] Wheel (ID:1) sent message 10
+[81204] RECMSG | Infected received message 10
+[81204] ATTACKER FREQUENCE: 20000
+Next scheduled time: 101204
+[100000] Wheel (ID:1) is trying to send message 100
+[100000] Infected (ID:3) is trying to send message 100
+[100083] Infected (ID:3) sent message 100
+[100084] Wheel (ID:1) is trying to send message 100
+[100085] Wheel (ID:1) is trying to send message 100
+[100086] Wheel (ID:1) is trying to send message 100
+[100087] Wheel (ID:1) is trying to send message 100
+[100088] Wheel (ID:1) is trying to send message 100
+[100089] Wheel (ID:1) is trying to send message 100
+[100090] Wheel (ID:1) is trying to send message 100
+[100091] Wheel (ID:1) is trying to send message 100
+[100092] Wheel (ID:1) is trying to send message 100
+[100175] Wheel (ID:1) sent message 100
+[100175] RECMSG | Infected received message 100
+[101204] Wheel (ID:1) is trying to send message 10
+[101204] Infected (ID:3) is trying to send message 10
+[101287] Infected (ID:3) sent message 10
+[101288] Wheel (ID:1) is trying to send message 10
+[101289] Wheel (ID:1) is trying to send message 10
+[101290] Wheel (ID:1) is trying to send message 10
+[101291] Wheel (ID:1) is trying to send message 10
+[101292] Wheel (ID:1) is trying to send message 10
+[101293] Wheel (ID:1) is trying to send message 10
+[101294] Wheel (ID:1) is trying to send message 10
+[101295] Wheel (ID:1) is trying to send message 10
+[101296] Wheel (ID:1) is trying to send message 10
+[101379] Wheel (ID:1) sent message 10
+[101379] RECMSG | Infected received message 10
+[101379] ATTACKER FREQUENCE: 20092
+Next scheduled time: 121471
+[121379] Wheel (ID:1) is trying to send message 10
+[121462] Wheel (ID:1) sent message 10
+[121462] RECMSG | Infected received message 10
+[121462] ATTACKER FREQUENCE: 20000
+Next scheduled time: 141462
+[141462] Wheel (ID:1) is trying to send message 10
+[141462] Infected (ID:3) is trying to send message 10
+[141545] Infected (ID:3) sent message 10
+[141546] Wheel (ID:1) is trying to send message 10
+[141547] Wheel (ID:1) is trying to send message 10
+[141548] Wheel (ID:1) is trying to send message 10
+[141549] Wheel (ID:1) is trying to send message 10
+[141550] Wheel (ID:1) is trying to send message 10
+[141551] Wheel (ID:1) is trying to send message 10
+[141552] Wheel (ID:1) is trying to send message 10
+[141553] Wheel (ID:1) is trying to send message 10
+[141554] Wheel (ID:1) is trying to send message 10
+[141637] Wheel (ID:1) sent message 10
+[141637] RECMSG | Infected received message 10
+[141637] ATTACKER FREQUENCE: 20092
+Next scheduled time: 161729
+[161637] Wheel (ID:1) is trying to send message 10
+[161720] Wheel (ID:1) sent message 10
+[161720] RECMSG | Infected received message 10
+[161720] ATTACKER FREQUENCE: 20000
+Next scheduled time: 181720
+[181720] Wheel (ID:1) is trying to send message 10
+[181720] Infected (ID:3) is trying to send message 10
+[181803] Infected (ID:3) sent message 10
+[181804] Wheel (ID:1) is trying to send message 10
+[181805] Wheel (ID:1) is trying to send message 10
+[181806] Wheel (ID:1) is trying to send message 10
+[181807] Wheel (ID:1) is trying to send message 10
+[181808] Wheel (ID:1) is trying to send message 10
+[181809] Wheel (ID:1) is trying to send message 10
+[181810] Wheel (ID:1) is trying to send message 10
+[181811] Wheel (ID:1) is trying to send message 10
+[181812] Wheel (ID:1) is trying to send message 10
+[181895] Wheel (ID:1) sent message 10
+[181895] RECMSG | Infected received message 10
+[181895] ATTACKER FREQUENCE: 20092
+Next scheduled time: 201987
+[200083] Infected (ID:3) is trying to send message 100
+[200166] RECMSG | Wheel received message 100
+[200166] Infected (ID:3) sent message 100
+[200175] Wheel (ID:1) is trying to send message 100
+[200258] Wheel (ID:1) sent message 100
+[200258] RECMSG | Infected received message 100
+[201895] Wheel (ID:1) is trying to send message 10
+[201978] Wheel (ID:1) sent message 10
+[201978] RECMSG | Infected received message 10
+[201978] ATTACKER FREQUENCE: 20000
+Next scheduled time: 221978
+[221978] Wheel (ID:1) is trying to send message 10
+[221978] Infected (ID:3) is trying to send message 10
+[222061] Infected (ID:3) sent message 10
+[222062] Wheel (ID:1) is trying to send message 10
+[222063] Wheel (ID:1) is trying to send message 10
+[222064] Wheel (ID:1) is trying to send message 10
+[222065] Wheel (ID:1) is trying to send message 10
+[222066] Wheel (ID:1) is trying to send message 10
+[222067] Wheel (ID:1) is trying to send message 10
+[222068] Wheel (ID:1) is trying to send message 10
+[222069] Wheel (ID:1) is trying to send message 10
+[222070] Wheel (ID:1) is trying to send message 10
+[222153] Wheel (ID:1) sent message 10
+[222153] RECMSG | Infected received message 10
+[222153] ATTACKER FREQUENCE: 20092
+Next scheduled time: 242245
+[242153] Wheel (ID:1) is trying to send message 10
+[242236] Wheel (ID:1) sent message 10
+[242236] RECMSG | Infected received message 10
+[242236] ATTACKER FREQUENCE: 20000
+Next scheduled time: 262236
+[262236] Wheel (ID:1) is trying to send message 10
+[262236] Infected (ID:3) is trying to send message 10
+[262319] Infected (ID:3) sent message 10
+[262320] Wheel (ID:1) is trying to send message 10
+[262321] Wheel (ID:1) is trying to send message 10
+[262322] Wheel (ID:1) is trying to send message 10
+[262323] Wheel (ID:1) is trying to send message 10
+[262324] Wheel (ID:1) is trying to send message 10
+[262325] Wheel (ID:1) is trying to send message 10
+[262326] Wheel (ID:1) is trying to send message 10
+[262327] Wheel (ID:1) is trying to send message 10
+[262328] Wheel (ID:1) is trying to send message 10
+[262411] Wheel (ID:1) sent message 10
+[262411] RECMSG | Infected received message 10
+[262411] ATTACKER FREQUENCE: 20092
+Next scheduled time: 282503
+[282411] Wheel (ID:1) is trying to send message 10
+[282494] Wheel (ID:1) sent message 10
+[282494] RECMSG | Infected received message 10
+[282494] ATTACKER FREQUENCE: 20000
+Next scheduled time: 302494
+[300166] Infected (ID:3) is trying to send message 100
+[300249] RECMSG | Wheel received message 100
+[300249] Infected (ID:3) sent message 100
+[300258] Wheel (ID:1) is trying to send message 100
+[300341] Wheel (ID:1) sent message 100
+[300341] RECMSG | Infected received message 100
+[302494] Wheel (ID:1) is trying to send message 10
+[302494] Infected (ID:3) is trying to send message 10
+[302577] Infected (ID:3) sent message 10
+[302578] Wheel (ID:1) is trying to send message 10
+[302579] Wheel (ID:1) is trying to send message 10
+[302580] Wheel (ID:1) is trying to send message 10
+[302581] Wheel (ID:1) is trying to send message 10
+[302582] Wheel (ID:1) is trying to send message 10
+[302583] Wheel (ID:1) is trying to send message 10
+[302584] Wheel (ID:1) is trying to send message 10
+[302585] Wheel (ID:1) is trying to send message 10
+[302586] Wheel (ID:1) is trying to send message 10
+[302669] Wheel (ID:1) sent message 10
+[302669] RECMSG | Infected received message 10
+[302669] ATTACKER FREQUENCE: 20092
+Next scheduled time: 322761
+[322669] Wheel (ID:1) is trying to send message 10
+[322752] Wheel (ID:1) sent message 10
+[322752] RECMSG | Infected received message 10
+[322752] ATTACKER FREQUENCE: 20000
+Next scheduled time: 342752
+[342752] Wheel (ID:1) is trying to send message 10
+[342752] Infected (ID:3) is trying to send message 10
+[342835] Infected (ID:3) sent message 10
+[342836] Wheel (ID:1) is trying to send message 10
+[342837] Wheel (ID:1) is trying to send message 10
+[342838] Wheel (ID:1) is trying to send message 10
+[342839] Wheel (ID:1) is trying to send message 10
+[342840] Wheel (ID:1) is trying to send message 10
+[342841] Wheel (ID:1) is trying to send message 10
+[342842] Wheel (ID:1) is trying to send message 10
+[342843] Wheel (ID:1) is trying to send message 10
+[342844] Wheel (ID:1) is trying to send message 10
+[342927] Wheel (ID:1) sent message 10
+[342927] RECMSG | Infected received message 10
+[342927] ATTACKER FREQUENCE: 20092
+Next scheduled time: 363019
+[362927] Wheel (ID:1) is trying to send message 10
+[363010] Wheel (ID:1) sent message 10
+[363010] RECMSG | Infected received message 10
+[363010] ATTACKER FREQUENCE: 20000
+Next scheduled time: 383010
+[383010] Wheel (ID:1) is trying to send message 10
+[383010] Infected (ID:3) is trying to send message 10
+[383093] Infected (ID:3) sent message 10
+[383094] Wheel (ID:1) is trying to send message 10
+[383095] Wheel (ID:1) is trying to send message 10
+[383096] Wheel (ID:1) is trying to send message 10
+[383097] Wheel (ID:1) is trying to send message 10
+[383098] Wheel (ID:1) is trying to send message 10
+[383099] Wheel (ID:1) is trying to send message 10
+[383100] Wheel (ID:1) is trying to send message 10
+[383101] Wheel (ID:1) is trying to send message 10
+[383102] Wheel (ID:1) is trying to send message 10
+[383185] Wheel (ID:1) sent message 10
+[383185] RECMSG | Infected received message 10
+[383185] ATTACKER FREQUENCE: 20092
+Next scheduled time: 403277
+[400249] Infected (ID:3) is trying to send message 100
+[400332] RECMSG | Wheel received message 100
+[400332] Infected (ID:3) sent message 100
+[400341] Wheel (ID:1) is trying to send message 100
+[400424] Wheel (ID:1) sent message 100
+[400424] RECMSG | Infected received message 100
+[403185] Wheel (ID:1) is trying to send message 10
+[403268] Wheel (ID:1) sent message 10
+[403268] RECMSG | Infected received message 10
+[403268] ATTACKER FREQUENCE: 20000
+Next scheduled time: 423268
+[423268] Wheel (ID:1) is trying to send message 10
+[423268] Infected (ID:3) is trying to send message 10
+[423351] Infected (ID:3) sent message 10
+[423352] Wheel (ID:1) is trying to send message 10
+[423353] Wheel (ID:1) is trying to send message 10
+[423354] Wheel (ID:1) is trying to send message 10
+[423355] Wheel (ID:1) is trying to send message 10
+[423356] Wheel (ID:1) is trying to send message 10
+[423357] Wheel (ID:1) is trying to send message 10
+[423358] Wheel (ID:1) is trying to send message 10
+[423359] Wheel (ID:1) is trying to send message 10
+[423360] Wheel (ID:1) is trying to send message 10
+[423443] Wheel (ID:1) sent message 10
+[423443] RECMSG | Infected received message 10
+[423443] ATTACKER FREQUENCE: 20092
+Next scheduled time: 443535
+[443443] Wheel (ID:1) is trying to send message 10
+[443526] Wheel (ID:1) sent message 10
+[443526] RECMSG | Infected received message 10
+[443526] ATTACKER FREQUENCE: 20000
+Next scheduled time: 463526
+[463526] Wheel (ID:1) is trying to send message 10
+[463526] Infected (ID:3) is trying to send message 10
+[463609] Infected (ID:3) sent message 10
+[463610] Wheel (ID:1) is trying to send message 10
+[463611] Wheel (ID:1) is trying to send message 10
+[463612] Wheel (ID:1) is trying to send message 10
+[463613] Wheel (ID:1) is trying to send message 10
+[463614] Wheel (ID:1) is trying to send message 10
+[463615] Wheel (ID:1) is trying to send message 10
+[463616] Wheel (ID:1) is trying to send message 10
+[463617] Wheel (ID:1) is trying to send message 10
+[463618] Wheel (ID:1) is trying to send message 10
+[463701] Wheel (ID:1) sent message 10
+[463701] RECMSG | Infected received message 10
+[463701] ATTACKER FREQUENCE: 20092
+Next scheduled time: 483793
+[483701] Wheel (ID:1) is trying to send message 10
+[483784] Wheel (ID:1) sent message 10
+[483784] RECMSG | Infected received message 10
+[483784] ATTACKER FREQUENCE: 20000
+Next scheduled time: 503784
+[500332] Infected (ID:3) is trying to send message 100
+[500415] RECMSG | Wheel received message 100
+[500415] Infected (ID:3) sent message 100
+[500424] Wheel (ID:1) is trying to send message 100
+[500507] Wheel (ID:1) sent message 100
+[500507] RECMSG | Infected received message 100
+[503784] Wheel (ID:1) is trying to send message 10
+[503784] Infected (ID:3) is trying to send message 10
+[503867] Infected (ID:3) sent message 10
+[503868] Wheel (ID:1) is trying to send message 10
+[503869] Wheel (ID:1) is trying to send message 10
+[503870] Wheel (ID:1) is trying to send message 10
+[503871] Wheel (ID:1) is trying to send message 10
+[503872] Wheel (ID:1) is trying to send message 10
+[503873] Wheel (ID:1) is trying to send message 10
+[503874] Wheel (ID:1) is trying to send message 10
+[503875] Wheel (ID:1) is trying to send message 10
+[503876] Wheel (ID:1) is trying to send message 10
+[503959] Wheel (ID:1) sent message 10
+[503959] RECMSG | Infected received message 10
+[503959] ATTACKER FREQUENCE: 20092
+Next scheduled time: 524051
+[523959] Wheel (ID:1) is trying to send message 10
+[524042] Wheel (ID:1) sent message 10
+[524042] RECMSG | Infected received message 10
+[524042] ATTACKER FREQUENCE: 20000
+Next scheduled time: 544042
+[544042] Wheel (ID:1) is trying to send message 10
+[544042] Infected (ID:3) is trying to send message 10
+[544125] Infected (ID:3) sent message 10
+[544126] Wheel (ID:1) is trying to send message 10
+[544127] Wheel (ID:1) is trying to send message 10
+[544128] Wheel (ID:1) is trying to send message 10
+[544129] Wheel (ID:1) is trying to send message 10
+[544130] Wheel (ID:1) is trying to send message 10
+[544131] Wheel (ID:1) is trying to send message 10
+[544132] Wheel (ID:1) is trying to send message 10
+[544133] Wheel (ID:1) is trying to send message 10
+[544134] Wheel (ID:1) is trying to send message 10
+[544217] Wheel (ID:1) sent message 10
+[544217] RECMSG | Infected received message 10
+[544217] ATTACKER FREQUENCE: 20092
+Next scheduled time: 564309
+[564217] Wheel (ID:1) is trying to send message 10
+[564300] Wheel (ID:1) sent message 10
+[564300] RECMSG | Infected received message 10
+[564300] ATTACKER FREQUENCE: 20000
+Next scheduled time: 584300
+[584300] Wheel (ID:1) is trying to send message 10
+[584300] Infected (ID:3) is trying to send message 10
+[584383] Infected (ID:3) sent message 10
+[584384] Wheel (ID:1) is trying to send message 10
+[584385] Wheel (ID:1) is trying to send message 10
+[584386] Wheel (ID:1) is trying to send message 10
+[584387] Wheel (ID:1) is trying to send message 10
+[584388] Wheel (ID:1) is trying to send message 10
+[584389] Wheel (ID:1) is trying to send message 10
+[584390] Wheel (ID:1) is trying to send message 10
+[584391] Wheel (ID:1) is trying to send message 10
+[584392] Wheel (ID:1) is trying to send message 10
+[584475] Wheel (ID:1) sent message 10
+[584475] RECMSG | Infected received message 10
+[584475] ATTACKER FREQUENCE: 20092
+Next scheduled time: 604567
+[600415] Infected (ID:3) is trying to send message 100
+[600498] RECMSG | Wheel received message 100
+[600498] Infected (ID:3) sent message 100
+[600507] Wheel (ID:1) is trying to send message 100
+[600590] Wheel (ID:1) sent message 100
+[600590] RECMSG | Infected received message 100
+[604475] Wheel (ID:1) is trying to send message 10
+[604558] Wheel (ID:1) sent message 10
+[604558] RECMSG | Infected received message 10
+[604558] ATTACKER FREQUENCE: 20000
+Next scheduled time: 624558
+[624558] Wheel (ID:1) is trying to send message 10
+[624558] Infected (ID:3) is trying to send message 10
+[624641] Infected (ID:3) sent message 10
+[624642] Wheel (ID:1) is trying to send message 10
+[624643] Wheel (ID:1) is trying to send message 10
+[624644] Wheel (ID:1) is trying to send message 10
+[624645] Wheel (ID:1) is trying to send message 10
+[624646] Wheel (ID:1) is trying to send message 10
+[624647] Wheel (ID:1) is trying to send message 10
+[624648] Wheel (ID:1) is trying to send message 10
+[624649] Wheel (ID:1) is trying to send message 10
+[624650] Wheel (ID:1) is trying to send message 10
+[624733] Wheel (ID:1) sent message 10
+[624733] RECMSG | Infected received message 10
+[624733] ATTACKER FREQUENCE: 20092
+Next scheduled time: 644825
+[644733] Wheel (ID:1) is trying to send message 10
+[644816] Wheel (ID:1) sent message 10
+[644816] RECMSG | Infected received message 10
+[644816] ATTACKER FREQUENCE: 20000
+Next scheduled time: 664816
+[664816] Wheel (ID:1) is trying to send message 10
+[664816] Infected (ID:3) is trying to send message 10
+[664899] Infected (ID:3) sent message 10
+[664900] Wheel (ID:1) is trying to send message 10
+[664901] Wheel (ID:1) is trying to send message 10
+[664902] Wheel (ID:1) is trying to send message 10
+[664903] Wheel (ID:1) is trying to send message 10
+[664904] Wheel (ID:1) is trying to send message 10
+[664905] Wheel (ID:1) is trying to send message 10
+[664906] Wheel (ID:1) is trying to send message 10
+[664907] Wheel (ID:1) is trying to send message 10
+[664908] Wheel (ID:1) is trying to send message 10
+[664991] Wheel (ID:1) sent message 10
+[664991] RECMSG | Infected received message 10
+[664991] ATTACKER FREQUENCE: 20092
+Next scheduled time: 685083
+[684991] Wheel (ID:1) is trying to send message 10
+[685074] Wheel (ID:1) sent message 10
+[685074] RECMSG | Infected received message 10
+[685074] ATTACKER FREQUENCE: 20000
+Next scheduled time: 705074
+[700498] Infected (ID:3) is trying to send message 100
+[700581] RECMSG | Wheel received message 100
+[700581] Infected (ID:3) sent message 100
+[700590] Wheel (ID:1) is trying to send message 100
+[700673] Wheel (ID:1) sent message 100
+[700673] RECMSG | Infected received message 100
+[705074] Wheel (ID:1) is trying to send message 10
+[705074] Infected (ID:3) is trying to send message 10
+[705157] Infected (ID:3) sent message 10
+[705158] Wheel (ID:1) is trying to send message 10
+[705159] Wheel (ID:1) is trying to send message 10
+[705160] Wheel (ID:1) is trying to send message 10
+[705161] Wheel (ID:1) is trying to send message 10
+[705162] Wheel (ID:1) is trying to send message 10
+[705163] Wheel (ID:1) is trying to send message 10
+[705164] Wheel (ID:1) is trying to send message 10
+[705165] Wheel (ID:1) is trying to send message 10
+[705166] Wheel (ID:1) is trying to send message 10
+[705249] Wheel (ID:1) sent message 10
+[705249] RECMSG | Infected received message 10
+[705249] ATTACKER FREQUENCE: 20092
+Next scheduled time: 725341
+[725249] Wheel (ID:1) is trying to send message 10
+[725332] Wheel (ID:1) sent message 10
+[725332] RECMSG | Infected received message 10
+[725332] ATTACKER FREQUENCE: 20000
+Next scheduled time: 745332
+[745332] Wheel (ID:1) is trying to send message 10
+[745332] Infected (ID:3) is trying to send message 10
+[745415] Infected (ID:3) sent message 10
+[745416] Wheel (ID:1) is trying to send message 10
+[745417] Wheel (ID:1) is trying to send message 10
+[745418] Wheel (ID:1) is trying to send message 10
+[745419] Wheel (ID:1) is trying to send message 10
+[745420] Wheel (ID:1) is trying to send message 10
+[745421] Wheel (ID:1) is trying to send message 10
+[745422] Wheel (ID:1) is trying to send message 10
+[745423] Wheel (ID:1) is trying to send message 10
+[745424] Wheel (ID:1) is trying to send message 10
+[745507] Wheel (ID:1) sent message 10
+[745507] RECMSG | Infected received message 10
+[745507] ATTACKER FREQUENCE: 20092
+Next scheduled time: 765599
+[765507] Wheel (ID:1) is trying to send message 10
+[765590] Wheel (ID:1) sent message 10
+[765590] RECMSG | Infected received message 10
+[765590] ATTACKER FREQUENCE: 20000
+Next scheduled time: 785590
+[785590] Wheel (ID:1) is trying to send message 10
+[785590] Infected (ID:3) is trying to send message 10
+[785673] Infected (ID:3) sent message 10
+[785674] Wheel (ID:1) is trying to send message 10
+[785675] Wheel (ID:1) is trying to send message 10
+[785676] Wheel (ID:1) is trying to send message 10
+[785677] Wheel (ID:1) is trying to send message 10
+[785678] Wheel (ID:1) is trying to send message 10
+[785679] Wheel (ID:1) is trying to send message 10
+[785680] Wheel (ID:1) is trying to send message 10
+[785681] Wheel (ID:1) is trying to send message 10
+[785682] Wheel (ID:1) is trying to send message 10
+[785765] Wheel (ID:1) sent message 10
+[785765] RECMSG | Infected received message 10
+[785765] ATTACKER FREQUENCE: 20092
+Next scheduled time: 805857
+[800581] Infected (ID:3) is trying to send message 100
+[800664] RECMSG | Wheel received message 100
+[800664] Infected (ID:3) sent message 100
+[800673] Wheel (ID:1) is trying to send message 100
+[800756] Wheel (ID:1) sent message 100
+[800756] RECMSG | Infected received message 100
+[805765] Wheel (ID:1) is trying to send message 10
+[805848] Wheel (ID:1) sent message 10
+[805848] RECMSG | Infected received message 10
+[805848] ATTACKER FREQUENCE: 20000
+Next scheduled time: 825848
+[825848] Wheel (ID:1) is trying to send message 10
+[825848] Infected (ID:3) is trying to send message 10
+[825931] Infected (ID:3) sent message 10
+[825932] Wheel (ID:1) is trying to send message 10
+[825933] Wheel (ID:1) is trying to send message 10
+[825934] Wheel (ID:1) is trying to send message 10
+[825935] Wheel (ID:1) is trying to send message 10
+[825936] Wheel (ID:1) is trying to send message 10
+[825937] Wheel (ID:1) is trying to send message 10
+[825938] Wheel (ID:1) is trying to send message 10
+[825939] Wheel (ID:1) is trying to send message 10
+[825940] Wheel (ID:1) is trying to send message 10
+[826023] Wheel (ID:1) sent message 10
+[826023] RECMSG | Infected received message 10
+[826023] ATTACKER FREQUENCE: 20092
+Next scheduled time: 846115
+Wheel is in _State.BUS_OFF
+[846115] Infected (ID:3) is trying to send message 10
+[846198] RECMSG | Wheel received message 10
+[846198] Infected (ID:3) sent message 10
+[866290] Infected (ID:3) is trying to send message 10
+[866373] RECMSG | Wheel received message 10
+[866373] Infected (ID:3) sent message 10
+[886465] Infected (ID:3) is trying to send message 10
+[886548] RECMSG | Wheel received message 10
+[886548] Infected (ID:3) sent message 10
+[900664] Infected (ID:3) is trying to send message 100
+[900747] RECMSG | Wheel received message 100
+[900747] Infected (ID:3) sent message 100
+[906640] Infected (ID:3) is trying to send message 10
+[906723] RECMSG | Wheel received message 10
+[906723] Infected (ID:3) sent message 10
+[926815] Infected (ID:3) is trying to send message 10
+[926898] RECMSG | Wheel received message 10
+[926898] Infected (ID:3) sent message 10
+[946990] Infected (ID:3) is trying to send message 10
+[947073] RECMSG | Wheel received message 10
+[947073] Infected (ID:3) sent message 10
+[967165] Infected (ID:3) is trying to send message 10
+[967248] RECMSG | Wheel received message 10
+[967248] Infected (ID:3) sent message 10
+[987340] Infected (ID:3) is trying to send message 10
+[987423] RECMSG | Wheel received message 10
+[987423] Infected (ID:3) sent message 10
+[1000747] Infected (ID:3) is trying to send message 100
+[1000830] RECMSG | Wheel received message 100
+[1000830] Infected (ID:3) sent message 100
+[1007515] Infected (ID:3) is trying to send message 10
+[1007598] RECMSG | Wheel received message 10
+[1007598] Infected (ID:3) sent message 10
+[1027690] Infected (ID:3) is trying to send message 10
+[1027773] RECMSG | Wheel received message 10
+[1027773] Infected (ID:3) sent message 10
+[1047865] Infected (ID:3) is trying to send message 10
+[1047948] RECMSG | Wheel received message 10
+[1047948] Infected (ID:3) sent message 10
+[1068040] Infected (ID:3) is trying to send message 10
+[1068123] RECMSG | Wheel received message 10
+[1068123] Infected (ID:3) sent message 10
+[1088215] Infected (ID:3) is trying to send message 10
+[1088298] RECMSG | Wheel received message 10
+[1088298] Infected (ID:3) sent message 10
+[1100830] Infected (ID:3) is trying to send message 100
+[1100913] RECMSG | Wheel received message 100
+[1100913] Infected (ID:3) sent message 100
+[1108390] Infected (ID:3) is trying to send message 10
+[1108473] RECMSG | Wheel received message 10
+[1108473] Infected (ID:3) sent message 10
+[1128565] Infected (ID:3) is trying to send message 10
+[1128648] RECMSG | Wheel received message 10
+[1128648] Infected (ID:3) sent message 10
+[1148740] Infected (ID:3) is trying to send message 10
+[1148823] RECMSG | Wheel received message 10
+[1148823] Infected (ID:3) sent message 10
+[1168915] Infected (ID:3) is trying to send message 10
+[1168998] RECMSG | Wheel received message 10
+[1168998] Infected (ID:3) sent message 10
+[1189090] Infected (ID:3) is trying to send message 10
+[1189173] RECMSG | Wheel received message 10
+[1189173] Infected (ID:3) sent message 10
+[1200913] Infected (ID:3) is trying to send message 100
+[1200996] RECMSG | Wheel received message 100
+[1200996] Infected (ID:3) sent message 100
+[1209265] Infected (ID:3) is trying to send message 10
+[1209348] RECMSG | Wheel received message 10
+[1209348] Infected (ID:3) sent message 10
+[1229440] Infected (ID:3) is trying to send message 10
+[1229523] RECMSG | Wheel received message 10
+[1229523] Infected (ID:3) sent message 10
+[1249615] Infected (ID:3) is trying to send message 10
+[1249698] RECMSG | Wheel received message 10
+[1249698] Infected (ID:3) sent message 10
+[1269790] Infected (ID:3) is trying to send message 10
+[1269873] RECMSG | Wheel received message 10
+[1269873] Infected (ID:3) sent message 10
+[1289965] Infected (ID:3) is trying to send message 10
+[1290048] RECMSG | Wheel received message 10
+[1290048] Infected (ID:3) sent message 10
+[1300996] Infected (ID:3) is trying to send message 100
+[1301079] RECMSG | Wheel received message 100
+[1301079] Infected (ID:3) sent message 100
+[1310140] Infected (ID:3) is trying to send message 10
+[1310223] RECMSG | Wheel received message 10
+[1310223] Infected (ID:3) sent message 10
+[1330315] Infected (ID:3) is trying to send message 10
+[1330398] RECMSG | Wheel received message 10
+[1330398] Infected (ID:3) sent message 10
+[1350490] Infected (ID:3) is trying to send message 10
+[1350573] RECMSG | Wheel received message 10
+[1350573] Infected (ID:3) sent message 10
+[1370665] Infected (ID:3) is trying to send message 10
+[1370748] RECMSG | Wheel received message 10
+[1370748] Infected (ID:3) sent message 10
+[1390840] Infected (ID:3) is trying to send message 10
+[1390923] RECMSG | Wheel received message 10
+[1390923] Infected (ID:3) sent message 10
+[1401079] Infected (ID:3) is trying to send message 100
+[1401162] RECMSG | Wheel received message 100
+[1401162] Infected (ID:3) sent message 100
+[1411015] Infected (ID:3) is trying to send message 10
+[1411098] RECMSG | Wheel received message 10
+[1411098] Infected (ID:3) sent message 10
+[1431190] Infected (ID:3) is trying to send message 10
+[1431273] RECMSG | Wheel received message 10
+[1431273] Infected (ID:3) sent message 10
+[1451365] Infected (ID:3) is trying to send message 10
+[1451448] RECMSG | Wheel received message 10
+[1451448] Infected (ID:3) sent message 10
+[1471540] Infected (ID:3) is trying to send message 10
+[1471623] RECMSG | Wheel received message 10
+[1471623] Infected (ID:3) sent message 10
+[1491715] Infected (ID:3) is trying to send message 10
+[1491798] RECMSG | Wheel received message 10
+[1491798] Infected (ID:3) sent message 10
+[1501162] Infected (ID:3) is trying to send message 100
+[1501245] RECMSG | Wheel received message 100
+[1501245] Infected (ID:3) sent message 100
+[1511890] Infected (ID:3) is trying to send message 10
+[1511973] RECMSG | Wheel received message 10
+[1511973] Infected (ID:3) sent message 10
+[1532065] Infected (ID:3) is trying to send message 10
+[1532148] RECMSG | Wheel received message 10
+[1532148] Infected (ID:3) sent message 10
+[1552240] Infected (ID:3) is trying to send message 10
+[1552323] RECMSG | Wheel received message 10
+[1552323] Infected (ID:3) sent message 10
+[1572415] Infected (ID:3) is trying to send message 10
+[1572498] RECMSG | Wheel received message 10
+[1572498] Infected (ID:3) sent message 10
+[1592590] Infected (ID:3) is trying to send message 10
+[1592673] RECMSG | Wheel received message 10
+[1592673] Infected (ID:3) sent message 10
+[1601245] Infected (ID:3) is trying to send message 100
+[1601328] RECMSG | Wheel received message 100
+[1601328] Infected (ID:3) sent message 100
+[1612765] Infected (ID:3) is trying to send message 10
+[1612848] RECMSG | Wheel received message 10
+[1612848] Infected (ID:3) sent message 10
+[1632940] Infected (ID:3) is trying to send message 10
+[1633023] RECMSG | Wheel received message 10
+[1633023] Infected (ID:3) sent message 10
+[1653115] Infected (ID:3) is trying to send message 10
+[1653198] RECMSG | Wheel received message 10
+[1653198] Infected (ID:3) sent message 10
+[1673290] Infected (ID:3) is trying to send message 10
+[1673373] RECMSG | Wheel received message 10
+[1673373] Infected (ID:3) sent message 10
+[1693465] Infected (ID:3) is trying to send message 10
+[1693548] RECMSG | Wheel received message 10
+[1693548] Infected (ID:3) sent message 10
+[1701328] Infected (ID:3) is trying to send message 100
+[1701411] RECMSG | Wheel received message 100
+[1701411] Infected (ID:3) sent message 100
+[1713640] Infected (ID:3) is trying to send message 10
+[1713723] RECMSG | Wheel received message 10
+[1713723] Infected (ID:3) sent message 10
+[1733815] Infected (ID:3) is trying to send message 10
+[1733898] RECMSG | Wheel received message 10
+[1733898] Infected (ID:3) sent message 10
+[1753990] Infected (ID:3) is trying to send message 10
+[1754073] RECMSG | Wheel received message 10
+[1754073] Infected (ID:3) sent message 10
+[1774165] Infected (ID:3) is trying to send message 10
+[1774248] RECMSG | Wheel received message 10
+[1774248] Infected (ID:3) sent message 10
+[1794340] Infected (ID:3) is trying to send message 10
+[1794423] RECMSG | Wheel received message 10
+[1794423] Infected (ID:3) sent message 10
+[1801411] Infected (ID:3) is trying to send message 100
+[1801494] RECMSG | Wheel received message 100
+[1801494] Infected (ID:3) sent message 100
+[1814515] Infected (ID:3) is trying to send message 10
+[1814598] RECMSG | Wheel received message 10
+[1814598] Infected (ID:3) sent message 10
+[1834690] Infected (ID:3) is trying to send message 10
+[1834773] RECMSG | Wheel received message 10
+[1834773] Infected (ID:3) sent message 10
+[1854865] Infected (ID:3) is trying to send message 10
+[1854948] RECMSG | Wheel received message 10
+[1854948] Infected (ID:3) sent message 10
+[1875040] Infected (ID:3) is trying to send message 10
+[1875123] RECMSG | Wheel received message 10
+[1875123] Infected (ID:3) sent message 10
+[1895215] Infected (ID:3) is trying to send message 10
+[1895298] RECMSG | Wheel received message 10
+[1895298] Infected (ID:3) sent message 10
+[1901494] Infected (ID:3) is trying to send message 100
+[1901577] RECMSG | Wheel received message 100
+[1901577] Infected (ID:3) sent message 100
+[1915390] Infected (ID:3) is trying to send message 10
+[1915473] RECMSG | Wheel received message 10
+[1915473] Infected (ID:3) sent message 10
+[1935565] Infected (ID:3) is trying to send message 10
+[1935648] RECMSG | Wheel received message 10
+[1935648] Infected (ID:3) sent message 10
+[1955740] Infected (ID:3) is trying to send message 10
+[1955823] RECMSG | Wheel received message 10
+[1955823] Infected (ID:3) sent message 10
+[1975915] Infected (ID:3) is trying to send message 10
+[1975998] RECMSG | Wheel received message 10
+[1975998] Infected (ID:3) sent message 10
+[1996090] Infected (ID:3) is trying to send message 10
+[1996173] RECMSG | Wheel received message 10
+[1996173] Infected (ID:3) sent message 10
+[2001577] Infected (ID:3) is trying to send message 100
+[2001660] RECMSG | Wheel received message 100
+[2001660] Infected (ID:3) sent message 100
+[2016265] Infected (ID:3) is trying to send message 10
+[2016348] RECMSG | Wheel received message 10
+[2016348] Infected (ID:3) sent message 10
+[2036440] Infected (ID:3) is trying to send message 10
+[2036523] RECMSG | Wheel received message 10
+[2036523] Infected (ID:3) sent message 10
+[2056615] Infected (ID:3) is trying to send message 10
+[2056698] RECMSG | Wheel received message 10
+[2056698] Infected (ID:3) sent message 10
+[2076790] Infected (ID:3) is trying to send message 10
+[2076873] RECMSG | Wheel received message 10
+[2076873] Infected (ID:3) sent message 10
+[2096965] Infected (ID:3) is trying to send message 10
+[2097048] RECMSG | Wheel received message 10
+[2097048] Infected (ID:3) sent message 10
+[2101660] Infected (ID:3) is trying to send message 100
+[2101743] RECMSG | Wheel received message 100
+[2101743] Infected (ID:3) sent message 100
+[2117140] Infected (ID:3) is trying to send message 10
+[2117223] RECMSG | Wheel received message 10
+[2117223] Infected (ID:3) sent message 10
+[2137315] Infected (ID:3) is trying to send message 10
+[2137398] RECMSG | Wheel received message 10
+[2137398] Infected (ID:3) sent message 10
+[2157490] Infected (ID:3) is trying to send message 10
+[2157573] RECMSG | Wheel received message 10
+[2157573] Infected (ID:3) sent message 10
+[2177665] Infected (ID:3) is trying to send message 10
+[2177748] RECMSG | Wheel received message 10
+[2177748] Infected (ID:3) sent message 10
+[2197840] Infected (ID:3) is trying to send message 10
+[2197923] RECMSG | Wheel received message 10
+[2197923] Infected (ID:3) sent message 10
+[2201743] Infected (ID:3) is trying to send message 100
+[2201826] RECMSG | Wheel received message 100
+[2201826] Infected (ID:3) sent message 100
+[2218015] Infected (ID:3) is trying to send message 10
+[2218098] RECMSG | Wheel received message 10
+[2218098] Infected (ID:3) sent message 10
+[2238190] Infected (ID:3) is trying to send message 10
+[2238273] RECMSG | Wheel received message 10
+[2238273] Infected (ID:3) sent message 10
+[2258365] Infected (ID:3) is trying to send message 10
+[2258448] RECMSG | Wheel received message 10
+[2258448] Infected (ID:3) sent message 10
+[2278540] Infected (ID:3) is trying to send message 10
+[2278623] RECMSG | Wheel received message 10
+[2278623] Infected (ID:3) sent message 10
+[2298715] Infected (ID:3) is trying to send message 10
+[2298798] RECMSG | Wheel received message 10
+[2298798] Infected (ID:3) sent message 10
+[2301826] Infected (ID:3) is trying to send message 100
+[2301909] RECMSG | Wheel received message 100
+[2301909] Infected (ID:3) sent message 100
+[2318890] Infected (ID:3) is trying to send message 10
+[2318973] RECMSG | Wheel received message 10
+[2318973] Infected (ID:3) sent message 10
+[2339065] Infected (ID:3) is trying to send message 10
+[2339148] RECMSG | Wheel received message 10
+[2339148] Infected (ID:3) sent message 10
+[2359240] Infected (ID:3) is trying to send message 10
+[2359323] RECMSG | Wheel received message 10
+[2359323] Infected (ID:3) sent message 10
+[2379415] Infected (ID:3) is trying to send message 10
+[2379498] RECMSG | Wheel received message 10
+[2379498] Infected (ID:3) sent message 10
+[2399590] Infected (ID:3) is trying to send message 10
+[2399673] RECMSG | Wheel received message 10
+[2399673] Infected (ID:3) sent message 10
+[2401909] Infected (ID:3) is trying to send message 100
+[2401992] RECMSG | Wheel received message 100
+[2401992] Infected (ID:3) sent message 100
+[2419765] Infected (ID:3) is trying to send message 10
+[2419848] RECMSG | Wheel received message 10
+[2419848] Infected (ID:3) sent message 10
+[2439940] Infected (ID:3) is trying to send message 10
+[2440023] RECMSG | Wheel received message 10
+[2440023] Infected (ID:3) sent message 10
+[2460115] Infected (ID:3) is trying to send message 10
+[2460198] RECMSG | Wheel received message 10
+[2460198] Infected (ID:3) sent message 10
+[2480290] Infected (ID:3) is trying to send message 10
+[2480373] RECMSG | Wheel received message 10
+[2480373] Infected (ID:3) sent message 10
+[2500465] Infected (ID:3) is trying to send message 10
+[2500548] RECMSG | Wheel received message 10
+[2500548] Infected (ID:3) sent message 10
+[2501992] Infected (ID:3) is trying to send message 100
+[2502075] RECMSG | Wheel received message 100
+[2502075] Infected (ID:3) sent message 100
+[2520640] Infected (ID:3) is trying to send message 10
+[2520723] RECMSG | Wheel received message 10
+[2520723] Infected (ID:3) sent message 10
+[2540815] Infected (ID:3) is trying to send message 10
+[2540898] RECMSG | Wheel received message 10
+[2540898] Infected (ID:3) sent message 10
+[2560990] Infected (ID:3) is trying to send message 10
+[2561073] RECMSG | Wheel received message 10
+[2561073] Infected (ID:3) sent message 10
+[2581165] Infected (ID:3) is trying to send message 10
+[2581248] RECMSG | Wheel received message 10
+[2581248] Infected (ID:3) sent message 10
+[2601340] Infected (ID:3) is trying to send message 10
+[2601423] RECMSG | Wheel received message 10
+[2601423] Infected (ID:3) sent message 10
+[2602075] Infected (ID:3) is trying to send message 100
+[2602158] RECMSG | Wheel received message 100
+[2602158] Infected (ID:3) sent message 100
+[2621515] Infected (ID:3) is trying to send message 10
+[2621598] RECMSG | Wheel received message 10
+[2621598] Infected (ID:3) sent message 10
+[2641690] Infected (ID:3) is trying to send message 10
+[2641773] RECMSG | Wheel received message 10
+[2641773] Infected (ID:3) sent message 10
+Exiting...

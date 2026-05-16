@@ -1,5 +1,5 @@
 from ecu import Ecu
-from collections import deque
+import canSettings
 import time
 
 class Canbus:
@@ -53,7 +53,7 @@ class Canbus:
     def update_ecus_time(self) -> None:
         """Propagate the progression of time to all ecus"""
         for ecu in self._ecus:
-            ecu.increase_time(0.001)
+            ecu.increase_time(canSettings.SIM_TICK)
 
     def __update_current_bit(self) -> None:
         """Update the current bit.

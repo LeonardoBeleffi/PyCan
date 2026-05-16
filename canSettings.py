@@ -1,1 +1,2 @@
 DEBUG = False
+SIM_TICK = 1

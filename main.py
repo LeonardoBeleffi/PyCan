@@ -12,7 +12,7 @@ def load_ecus(path: str) -> list[Ecu]:
 
 def load_attacker_ecus(path: str) -> list[AttackerEcu]:
     with open(path) as f:
-        return [AttackerEcu(d["id"], d["name"], {int(k): v for k, v in d["messages"].items()}) for d in json.load(f)]
+        return [AttackerEcu(d["id"], d["name"], {int(k): v for k, v in d["messages"].items()}, d["target"]) for d in json.load(f)]
 
 if __name__ == "__main__":
 

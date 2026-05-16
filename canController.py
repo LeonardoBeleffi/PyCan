@@ -148,7 +148,7 @@ class CanController:
 
         if sending:
             self.clear_tx_buffer()
-            self._tec = min(self._tec + 8, 255)
+            self._tec = min(self._tec + 8, 256)
         else:
             self.clear_rx_buffer()
             self._rec = min(self._rec + 1, 255)
