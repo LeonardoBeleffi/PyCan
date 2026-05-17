@@ -21,9 +21,11 @@ if __name__ == "__main__":
     parser.add_argument("--time",     type=float, default=1.0,  help="Sleep time in seconds")
     parser.add_argument("--debug",    action="store_true",       help="Enable debug mode")
     parser.add_argument("--no-sleep", action="store_true",       help="Set sleep time to 0")
+    parser.add_argument("--error-debug", action="store_true",       help="Enable print for error counters and status")
     args = parser.parse_args()
 
     canSettings.DEBUG = args.debug
+    canSettings.ERROR_DEBUG = args.error_debug
     sleep_time = 0 if args.no_sleep else args.time
 
     # prepare bus and ecus

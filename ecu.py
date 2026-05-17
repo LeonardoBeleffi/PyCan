@@ -21,7 +21,7 @@ class Ecu:
         self._name = name
         self._time = 0
         self._messages = messages
-        self._error_state = _State.ERROR_ACTIVE
+
 
         for msg_id in self._messages.keys():
             self._messages[msg_id]["timer"] = 0
@@ -78,21 +78,10 @@ class Ecu:
         return msg
     
     def check_message_transmission(self,bus_idle:bool):
-        
-        # update error state
-        if self._error_state != self._controller.get_error_state():
-            self._error_state = self._controller.get_error_state()
-            print(f"{self._name} is in {self._error_state}")
-
 
         # cannot send messages to controller because the bus is not idle
         if not bus_idle or self._controller.get_error_state() == _State.BUS_OFF:
             return
-        
-        if self._controller._tec > 0 and canSettings.DEBUG:
-            print(f"[{self._time}] {self._name}'s TEC: {self._controller._tec}")
-        if self._controller._rec > 0 and canSettings.DEBUG:
-            print(f"[{self._time}] {self._name}'s REC: {self._controller._rec}")
 
         # bus is idle
         msg_id = self.get_next_message_id()
@@ -104,21 +93,47 @@ class Ecu:
 
 class AttackerEcu(Ecu):
 
-    def __init__(self, ecu_id, name, messages, target_id:int = -1):
+    def __init__(self, ecu_id, name, messages, target_id:int = -1, skip_victim_frame: int = 2):
         super().__init__(ecu_id, name, messages)
 
         # define which message to targetize
         if target_id < 0:
             target_id = iter(messages)
         self.target_id = target_id
-        self.last_target_time = 0
-        self.FIXED_DATA_PACKET_LENGTH = 51
+        self.successful_victim_messages = 0
+        self.skip_victim_frame = skip_victim_frame
 
-        self._victim_messages_error_passive = 0 
 
         if not self.target_id in messages.keys():
             raise ValueError("target_id must be one of the sent messages")
 
+
+    def check_message_transmission(self,bus_idle:bool):
+
+        # cannot send messages to controller because the bus is not idle
+        if not bus_idle or self._controller.get_error_state() == _State.BUS_OFF:
+            return
+
+
+        # bus is idle
+        msg_id = -1
+
+        # choose the message, but skip malicious ones from time to time
+        while msg_id == -1:
+            msg_id = self.get_next_message_id()
+
+            if msg_id == self.target_id:
+                if self.successful_victim_messages < self.skip_victim_frame:
+                    self._messages[msg_id]["timer"] = self._time
+                    msg_id = -1
+                else:
+                    self.successful_victim_messages = 0
+
+        # put message in the controller
+        if bus_idle and msg_id != math.inf and msg_id >= 0:
+            message = self._create_message(msg_id)
+            self._controller.queue_tx(message)
+            print(f"[{self._time}] {self._name} (ID:{self._id}) is trying to send message {msg_id}")
 
     def _create_message(self, msg_id):
         msg = super()._create_message(msg_id)
@@ -136,14 +151,17 @@ class AttackerEcu(Ecu):
         rcv_msg = self._controller.get_full_message()
         if  rcv_msg != None:
             print(f"[{self._time}] RECMSG | {self._name} received message {rcv_msg.id}")
+            
+            # update timestamps of "stolen" messages used for recover
+            if rcv_msg.id in self._messages.keys():
+                self._messages[rcv_msg.id]["timer"] = self._time
 
             # update target message frequence
             if rcv_msg.id == self.target_id:  
 
-                self.last_target_time = self._time
                 self._messages[rcv_msg.id]["timer"] = self._time
-                print(f"[{self._time}] ATTACKER FREQUENCE: {self._messages[rcv_msg.id]["frequence"]}")
-                print(f"Next scheduled time: {self._messages[rcv_msg.id]["timer"]+self._messages[rcv_msg.id]["frequence"]}")
+                print(f"[{self._time}] Next scheduled time: {self._messages[rcv_msg.id]["timer"]+self._messages[rcv_msg.id]["frequence"]}")
+                self.successful_victim_messages += 1
 
 
 

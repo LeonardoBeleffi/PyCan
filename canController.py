@@ -149,9 +149,13 @@ class CanController:
         if sending:
             self.clear_tx_buffer()
             self._tec = min(self._tec + 8, 256)
+            if canSettings.DEBUG or canSettings.ERROR_DEBUG:
+                print(f"{self._name}'s TEC: {self._tec}")
+                print(f"{self._name} is in {self._state}")
         else:
             self.clear_rx_buffer()
             self._rec = min(self._rec + 1, 255)
+
 
 
     def _review_current_state(self) -> None:
