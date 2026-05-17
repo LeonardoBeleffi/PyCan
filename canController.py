@@ -144,7 +144,7 @@ class CanController:
         elif self._state == _State.ERROR_PASSIVE:
             self._error_buffer = deque([1] * 6 + [1] * 8)
         else:
-            self._error_buffer = deque([0] * 6 + [1] * 8) 
+            self._error_buffer = deque([0] * 6 + [1] * 8)
 
         if sending:
             self.clear_tx_buffer()

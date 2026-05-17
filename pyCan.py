@@ -29,9 +29,9 @@ class BusOffEcu(Ecu):
         if message.id == self.victim_id:
             self.attack_counter += 1
 
-            if self.attack_counter % 3 == 0: 
+            if self.attack_counter % 3 == 0:
                 # Create attack message
-                attack_msg = CanMessage(id=self.victim_id, data=bytearray([0xFF])) 
+                attack_msg = CanMessage(id=self.victim_id, data=bytearray([0xFF]))
                 self.send(attack_msg)
 
     def on_transmit_error(self) -> None:
@@ -50,3 +50,4 @@ if __name__ == "__main__":
     bus = Canbus(baud_rate=500000, ecus=ecus)
     # bus.startSimulation()
     print("Architecture verified.")
+

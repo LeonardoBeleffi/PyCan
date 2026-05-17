@@ -12,7 +12,7 @@ class Ecu:
     Attributes:
         id (int): Logical identifier for the ECU.
         name (str): Human-readable name.
-        message (dict): the dictionary keys are the messages id, meanwhile the values are the message info (e.g. msg frequence) 
+        message (dict): the dictionary keys are the messages id, meanwhile the values are the message info (e.g. msg frequence)
         auto_retransmit (bool): Hardware register to toggle automatic retries.
     """
 
@@ -48,7 +48,7 @@ class Ecu:
         if  rcv_msg != None:
             print(f"[{self._time}] RECMSG | {self._name} received message {rcv_msg.id}")
 
-    
+
     '''
         increase the ECU time. Required to simulate the ECU clock.
 
@@ -76,7 +76,7 @@ class Ecu:
         msg_data = bytearray(data)
         msg = CanMessage(msg_id,msg_data)
         return msg
-    
+
     def check_message_transmission(self,bus_idle:bool):
 
         # cannot send messages to controller because the bus is not idle
@@ -89,7 +89,7 @@ class Ecu:
             message = self._create_message(msg_id)
             self._controller.queue_tx(message)
             print(f"[{self._time}] {self._name} (ID:{self._id}) is trying to send message {msg_id}")
-        
+
 
 class AttackerEcu(Ecu):
 
@@ -139,7 +139,7 @@ class AttackerEcu(Ecu):
         msg = super()._create_message(msg_id)
         msg.data[0] = msg.data[0] - 32
         return msg
-    
+
     def rx_bit(self, bit):
         rBit = self._controller.process_received_bit(bit)
         # bit read is the sent one and message is finished
@@ -151,13 +151,13 @@ class AttackerEcu(Ecu):
         rcv_msg = self._controller.get_full_message()
         if  rcv_msg != None:
             print(f"[{self._time}] RECMSG | {self._name} received message {rcv_msg.id}")
-            
+
             # update timestamps of "stolen" messages used for recover
             if rcv_msg.id in self._messages.keys():
                 self._messages[rcv_msg.id]["timer"] = self._time
 
             # update target message frequence
-            if rcv_msg.id == self.target_id:  
+            if rcv_msg.id == self.target_id:
 
                 self._messages[rcv_msg.id]["timer"] = self._time
                 print(f"[{self._time}] Next scheduled time: {self._messages[rcv_msg.id]["timer"]+self._messages[rcv_msg.id]["frequence"]}")
@@ -169,4 +169,5 @@ class AttackerEcu(Ecu):
 # if canbus is idle -> put message in controller buffer
 #                        else -> I don't put anything
 # on _get_tx_bit the canbus receive -> my message bit if I'm sending something
-#                                   -> 1 if I'm not sending any message (in and with the other bits, it is not influent) 
+#                                   -> 1 if I'm not sending any message (in and with the other bits, it is not influent)
+
