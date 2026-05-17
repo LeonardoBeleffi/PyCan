@@ -1,0 +1,1355 @@
+[20000] ABS Brake Control (ID:2) is trying to send message 145
+[20000] EPS (ID:4) is trying to send message 118
+[20083] RECMSG | BCM (infected) received message 118
+[20083] RECMSG | Powertrain Control received message 118
+[20083] RECMSG | ABS Brake Control received message 118
+[20083] RECMSG | ADAS received message 118
+[20083] EPS (ID:4) sent message 118
+[20084] ABS Brake Control (ID:2) is trying to send message 145
+[20165] RECMSG | BCM (infected) received message 145
+[20165] RECMSG | Powertrain Control received message 145
+[20165] ABS Brake Control (ID:2) sent message 145
+[20165] RECMSG | ADAS received message 145
+[20165] RECMSG | EPS received message 145
+[20166] ABS Brake Control (ID:2) is trying to send message 146
+[20248] RECMSG | BCM (infected) received message 146
+[20248] RECMSG | Powertrain Control received message 146
+[20248] ABS Brake Control (ID:2) sent message 146
+[20248] RECMSG | ADAS received message 146
+[20248] RECMSG | EPS received message 146
+[20249] ABS Brake Control (ID:2) is trying to send message 535
+[20330] RECMSG | BCM (infected) received message 535
+[20330] RECMSG | Powertrain Control received message 535
+[20330] ABS Brake Control (ID:2) sent message 535
+[20330] RECMSG | ADAS received message 535
+[20330] RECMSG | EPS received message 535
+[30000] BCM (infected) (ID:5) is trying to send message 516
+[30000] Powertrain Control (ID:1) is trying to send message 516
+[30045] BCM (infected) (ID:5) is trying to send message 516
+[30045] Powertrain Control (ID:1) is trying to send message 516
+[30090] BCM (infected) (ID:5) is trying to send message 516
+[30090] Powertrain Control (ID:1) is trying to send message 516
+[30135] BCM (infected) (ID:5) is trying to send message 516
+[30135] Powertrain Control (ID:1) is trying to send message 516
+[30180] BCM (infected) (ID:5) is trying to send message 516
+[30180] Powertrain Control (ID:1) is trying to send message 516
+[30225] BCM (infected) (ID:5) is trying to send message 516
+[30225] Powertrain Control (ID:1) is trying to send message 516
+[30270] BCM (infected) (ID:5) is trying to send message 516
+[30270] Powertrain Control (ID:1) is trying to send message 516
+[30315] BCM (infected) (ID:5) is trying to send message 516
+[30315] Powertrain Control (ID:1) is trying to send message 516
+[30360] BCM (infected) (ID:5) is trying to send message 516
+[30360] Powertrain Control (ID:1) is trying to send message 516
+[30405] BCM (infected) (ID:5) is trying to send message 516
+[30405] Powertrain Control (ID:1) is trying to send message 516
+[30450] BCM (infected) (ID:5) is trying to send message 516
+[30450] Powertrain Control (ID:1) is trying to send message 516
+[30495] BCM (infected) (ID:5) is trying to send message 516
+[30495] Powertrain Control (ID:1) is trying to send message 516
+[30540] BCM (infected) (ID:5) is trying to send message 516
+[30540] Powertrain Control (ID:1) is trying to send message 516
+[30585] BCM (infected) (ID:5) is trying to send message 516
+[30585] Powertrain Control (ID:1) is trying to send message 516
+[30630] BCM (infected) (ID:5) is trying to send message 516
+[30630] Powertrain Control (ID:1) is trying to send message 516
+[30675] BCM (infected) (ID:5) is trying to send message 516
+[30675] Powertrain Control (ID:1) is trying to send message 516
+[30720] BCM (infected) (ID:5) is trying to send message 516
+[30720] Powertrain Control (ID:1) is trying to send message 516
+Powertrain Control is in _State.ERROR_PASSIVE
+[30803] BCM (infected) (ID:5) sent message 516
+[30803] RECMSG | ABS Brake Control received message 516
+[30803] RECMSG | ADAS received message 516
+[30803] RECMSG | EPS received message 516
+[30804] Powertrain Control (ID:1) is trying to send message 516
+[30805] Powertrain Control (ID:1) is trying to send message 516
+[30806] Powertrain Control (ID:1) is trying to send message 516
+[30807] Powertrain Control (ID:1) is trying to send message 516
+[30808] Powertrain Control (ID:1) is trying to send message 516
+[30809] Powertrain Control (ID:1) is trying to send message 516
+[30810] Powertrain Control (ID:1) is trying to send message 516
+[30811] Powertrain Control (ID:1) is trying to send message 516
+[30812] Powertrain Control (ID:1) is trying to send message 516
+[30895] RECMSG | BCM (infected) received message 516
+[30895] ATTACKER FREQUENCE: 30000
+Next scheduled time: 60895
+[30895] Powertrain Control (ID:1) sent message 516
+[30895] RECMSG | ABS Brake Control received message 516
+[30895] RECMSG | ADAS received message 516
+[30895] RECMSG | EPS received message 516
+[40083] EPS (ID:4) is trying to send message 118
+[40166] RECMSG | BCM (infected) received message 118
+[40166] RECMSG | Powertrain Control received message 118
+[40166] RECMSG | ABS Brake Control received message 118
+[40166] RECMSG | ADAS received message 118
+[40166] EPS (ID:4) sent message 118
+[40167] ABS Brake Control (ID:2) is trying to send message 145
+[40248] RECMSG | BCM (infected) received message 145
+[40248] RECMSG | Powertrain Control received message 145
+[40248] ABS Brake Control (ID:2) sent message 145
+[40248] RECMSG | ADAS received message 145
+[40248] RECMSG | EPS received message 145
+[40249] ABS Brake Control (ID:2) is trying to send message 146
+[40331] RECMSG | BCM (infected) received message 146
+[40331] RECMSG | Powertrain Control received message 146
+[40331] ABS Brake Control (ID:2) sent message 146
+[40331] RECMSG | ADAS received message 146
+[40331] RECMSG | EPS received message 146
+[40332] ABS Brake Control (ID:2) is trying to send message 535
+[40413] RECMSG | BCM (infected) received message 535
+[40413] RECMSG | Powertrain Control received message 535
+[40413] ABS Brake Control (ID:2) sent message 535
+[40413] RECMSG | ADAS received message 535
+[40413] RECMSG | EPS received message 535
+[60166] EPS (ID:4) is trying to send message 118
+[60249] RECMSG | BCM (infected) received message 118
+[60249] RECMSG | Powertrain Control received message 118
+[60249] RECMSG | ABS Brake Control received message 118
+[60249] RECMSG | ADAS received message 118
+[60249] EPS (ID:4) sent message 118
+[60250] ABS Brake Control (ID:2) is trying to send message 145
+[60331] RECMSG | BCM (infected) received message 145
+[60331] RECMSG | Powertrain Control received message 145
+[60331] ABS Brake Control (ID:2) sent message 145
+[60331] RECMSG | ADAS received message 145
+[60331] RECMSG | EPS received message 145
+[60332] ABS Brake Control (ID:2) is trying to send message 146
+[60414] RECMSG | BCM (infected) received message 146
+[60414] RECMSG | Powertrain Control received message 146
+[60414] ABS Brake Control (ID:2) sent message 146
+[60414] RECMSG | ADAS received message 146
+[60414] RECMSG | EPS received message 146
+[60415] ABS Brake Control (ID:2) is trying to send message 535
+[60496] RECMSG | BCM (infected) received message 535
+[60496] RECMSG | Powertrain Control received message 535
+[60496] ABS Brake Control (ID:2) sent message 535
+[60496] RECMSG | ADAS received message 535
+[60496] RECMSG | EPS received message 535
+[60895] BCM (infected) (ID:5) is trying to send message 516
+[60895] Powertrain Control (ID:1) is trying to send message 516
+[60978] BCM (infected) (ID:5) sent message 516
+[60978] RECMSG | ABS Brake Control received message 516
+[60978] RECMSG | ADAS received message 516
+[60978] RECMSG | EPS received message 516
+[60979] Powertrain Control (ID:1) is trying to send message 516
+[60980] Powertrain Control (ID:1) is trying to send message 516
+[60981] Powertrain Control (ID:1) is trying to send message 516
+[60982] Powertrain Control (ID:1) is trying to send message 516
+[60983] Powertrain Control (ID:1) is trying to send message 516
+[60984] Powertrain Control (ID:1) is trying to send message 516
+[60985] Powertrain Control (ID:1) is trying to send message 516
+[60986] Powertrain Control (ID:1) is trying to send message 516
+[60987] Powertrain Control (ID:1) is trying to send message 516
+[61070] RECMSG | BCM (infected) received message 516
+[61070] ATTACKER FREQUENCE: 30000
+Next scheduled time: 91070
+[61070] Powertrain Control (ID:1) sent message 516
+[61070] RECMSG | ABS Brake Control received message 516
+[61070] RECMSG | ADAS received message 516
+[61070] RECMSG | EPS received message 516
+[80249] EPS (ID:4) is trying to send message 118
+[80332] RECMSG | BCM (infected) received message 118
+[80332] RECMSG | Powertrain Control received message 118
+[80332] RECMSG | ABS Brake Control received message 118
+[80332] RECMSG | ADAS received message 118
+[80332] EPS (ID:4) sent message 118
+[80333] ABS Brake Control (ID:2) is trying to send message 145
+[80414] RECMSG | BCM (infected) received message 145
+[80414] RECMSG | Powertrain Control received message 145
+[80414] ABS Brake Control (ID:2) sent message 145
+[80414] RECMSG | ADAS received message 145
+[80414] RECMSG | EPS received message 145
+[80415] ABS Brake Control (ID:2) is trying to send message 146
+[80497] RECMSG | BCM (infected) received message 146
+[80497] RECMSG | Powertrain Control received message 146
+[80497] ABS Brake Control (ID:2) sent message 146
+[80497] RECMSG | ADAS received message 146
+[80497] RECMSG | EPS received message 146
+[80498] ABS Brake Control (ID:2) is trying to send message 535
+[80579] RECMSG | BCM (infected) received message 535
+[80579] RECMSG | Powertrain Control received message 535
+[80579] ABS Brake Control (ID:2) sent message 535
+[80579] RECMSG | ADAS received message 535
+[80579] RECMSG | EPS received message 535
+[91070] BCM (infected) (ID:5) is trying to send message 516
+[91070] Powertrain Control (ID:1) is trying to send message 516
+[91153] BCM (infected) (ID:5) sent message 516
+[91153] RECMSG | ABS Brake Control received message 516
+[91153] RECMSG | ADAS received message 516
+[91153] RECMSG | EPS received message 516
+[91154] Powertrain Control (ID:1) is trying to send message 516
+[91155] Powertrain Control (ID:1) is trying to send message 516
+[91156] Powertrain Control (ID:1) is trying to send message 516
+[91157] Powertrain Control (ID:1) is trying to send message 516
+[91158] Powertrain Control (ID:1) is trying to send message 516
+[91159] Powertrain Control (ID:1) is trying to send message 516
+[91160] Powertrain Control (ID:1) is trying to send message 516
+[91161] Powertrain Control (ID:1) is trying to send message 516
+[91162] Powertrain Control (ID:1) is trying to send message 516
+[91245] RECMSG | BCM (infected) received message 516
+[91245] ATTACKER FREQUENCE: 30000
+Next scheduled time: 121245
+[91245] Powertrain Control (ID:1) sent message 516
+[91245] RECMSG | ABS Brake Control received message 516
+[91245] RECMSG | ADAS received message 516
+[91245] RECMSG | EPS received message 516
+[100332] EPS (ID:4) is trying to send message 118
+[100415] RECMSG | BCM (infected) received message 118
+[100415] RECMSG | Powertrain Control received message 118
+[100415] RECMSG | ABS Brake Control received message 118
+[100415] RECMSG | ADAS received message 118
+[100415] EPS (ID:4) sent message 118
+[100416] ABS Brake Control (ID:2) is trying to send message 145
+[100497] RECMSG | BCM (infected) received message 145
+[100497] RECMSG | Powertrain Control received message 145
+[100497] ABS Brake Control (ID:2) sent message 145
+[100497] RECMSG | ADAS received message 145
+[100497] RECMSG | EPS received message 145
+[100498] ABS Brake Control (ID:2) is trying to send message 146
+[100580] RECMSG | BCM (infected) received message 146
+[100580] RECMSG | Powertrain Control received message 146
+[100580] ABS Brake Control (ID:2) sent message 146
+[100580] RECMSG | ADAS received message 146
+[100580] RECMSG | EPS received message 146
+[100581] ABS Brake Control (ID:2) is trying to send message 535
+[100662] RECMSG | BCM (infected) received message 535
+[100662] RECMSG | Powertrain Control received message 535
+[100662] ABS Brake Control (ID:2) sent message 535
+[100662] RECMSG | ADAS received message 535
+[100662] RECMSG | EPS received message 535
+[120000] ABS Brake Control (ID:2) is trying to send message 534
+[120082] RECMSG | BCM (infected) received message 534
+[120082] RECMSG | Powertrain Control received message 534
+[120082] ABS Brake Control (ID:2) sent message 534
+[120082] RECMSG | ADAS received message 534
+[120082] RECMSG | EPS received message 534
+[120415] EPS (ID:4) is trying to send message 118
+[120498] RECMSG | BCM (infected) received message 118
+[120498] RECMSG | Powertrain Control received message 118
+[120498] RECMSG | ABS Brake Control received message 118
+[120498] RECMSG | ADAS received message 118
+[120498] EPS (ID:4) sent message 118
+[120499] ABS Brake Control (ID:2) is trying to send message 145
+[120580] RECMSG | BCM (infected) received message 145
+[120580] RECMSG | Powertrain Control received message 145
+[120580] ABS Brake Control (ID:2) sent message 145
+[120580] RECMSG | ADAS received message 145
+[120580] RECMSG | EPS received message 145
+[120581] ABS Brake Control (ID:2) is trying to send message 146
+[120663] RECMSG | BCM (infected) received message 146
+[120663] RECMSG | Powertrain Control received message 146
+[120663] ABS Brake Control (ID:2) sent message 146
+[120663] RECMSG | ADAS received message 146
+[120663] RECMSG | EPS received message 146
+[120664] ABS Brake Control (ID:2) is trying to send message 535
+[120745] RECMSG | BCM (infected) received message 535
+[120745] RECMSG | Powertrain Control received message 535
+[120745] ABS Brake Control (ID:2) sent message 535
+[120745] RECMSG | ADAS received message 535
+[120745] RECMSG | EPS received message 535
+[121245] BCM (infected) (ID:5) is trying to send message 516
+[121245] Powertrain Control (ID:1) is trying to send message 516
+[121328] BCM (infected) (ID:5) sent message 516
+[121328] RECMSG | ABS Brake Control received message 516
+[121328] RECMSG | ADAS received message 516
+[121328] RECMSG | EPS received message 516
+[121329] Powertrain Control (ID:1) is trying to send message 516
+[121330] Powertrain Control (ID:1) is trying to send message 516
+[121331] Powertrain Control (ID:1) is trying to send message 516
+[121332] Powertrain Control (ID:1) is trying to send message 516
+[121333] Powertrain Control (ID:1) is trying to send message 516
+[121334] Powertrain Control (ID:1) is trying to send message 516
+[121335] Powertrain Control (ID:1) is trying to send message 516
+[121336] Powertrain Control (ID:1) is trying to send message 516
+[121337] Powertrain Control (ID:1) is trying to send message 516
+[121420] RECMSG | BCM (infected) received message 516
+[121420] ATTACKER FREQUENCE: 30000
+Next scheduled time: 151420
+[121420] Powertrain Control (ID:1) sent message 516
+[121420] RECMSG | ABS Brake Control received message 516
+[121420] RECMSG | ADAS received message 516
+[121420] RECMSG | EPS received message 516
+[140498] EPS (ID:4) is trying to send message 118
+[140581] RECMSG | BCM (infected) received message 118
+[140581] RECMSG | Powertrain Control received message 118
+[140581] RECMSG | ABS Brake Control received message 118
+[140581] RECMSG | ADAS received message 118
+[140581] EPS (ID:4) sent message 118
+[140582] ABS Brake Control (ID:2) is trying to send message 145
+[140663] RECMSG | BCM (infected) received message 145
+[140663] RECMSG | Powertrain Control received message 145
+[140663] ABS Brake Control (ID:2) sent message 145
+[140663] RECMSG | ADAS received message 145
+[140663] RECMSG | EPS received message 145
+[140664] ABS Brake Control (ID:2) is trying to send message 146
+[140746] RECMSG | BCM (infected) received message 146
+[140746] RECMSG | Powertrain Control received message 146
+[140746] ABS Brake Control (ID:2) sent message 146
+[140746] RECMSG | ADAS received message 146
+[140746] RECMSG | EPS received message 146
+[140747] ABS Brake Control (ID:2) is trying to send message 535
+[140828] RECMSG | BCM (infected) received message 535
+[140828] RECMSG | Powertrain Control received message 535
+[140828] ABS Brake Control (ID:2) sent message 535
+[140828] RECMSG | ADAS received message 535
+[140828] RECMSG | EPS received message 535
+[151420] BCM (infected) (ID:5) is trying to send message 516
+[151420] Powertrain Control (ID:1) is trying to send message 516
+[151503] BCM (infected) (ID:5) sent message 516
+[151503] RECMSG | ABS Brake Control received message 516
+[151503] RECMSG | ADAS received message 516
+[151503] RECMSG | EPS received message 516
+[151504] Powertrain Control (ID:1) is trying to send message 516
+[151505] Powertrain Control (ID:1) is trying to send message 516
+[151506] Powertrain Control (ID:1) is trying to send message 516
+[151507] Powertrain Control (ID:1) is trying to send message 516
+[151508] Powertrain Control (ID:1) is trying to send message 516
+[151509] Powertrain Control (ID:1) is trying to send message 516
+[151510] Powertrain Control (ID:1) is trying to send message 516
+[151511] Powertrain Control (ID:1) is trying to send message 516
+[151512] Powertrain Control (ID:1) is trying to send message 516
+[151595] RECMSG | BCM (infected) received message 516
+[151595] ATTACKER FREQUENCE: 30000
+Next scheduled time: 181595
+[151595] Powertrain Control (ID:1) sent message 516
+[151595] RECMSG | ABS Brake Control received message 516
+[151595] RECMSG | ADAS received message 516
+[151595] RECMSG | EPS received message 516
+[160581] EPS (ID:4) is trying to send message 118
+[160664] RECMSG | BCM (infected) received message 118
+[160664] RECMSG | Powertrain Control received message 118
+[160664] RECMSG | ABS Brake Control received message 118
+[160664] RECMSG | ADAS received message 118
+[160664] EPS (ID:4) sent message 118
+[160665] ABS Brake Control (ID:2) is trying to send message 145
+[160746] RECMSG | BCM (infected) received message 145
+[160746] RECMSG | Powertrain Control received message 145
+[160746] ABS Brake Control (ID:2) sent message 145
+[160746] RECMSG | ADAS received message 145
+[160746] RECMSG | EPS received message 145
+[160747] ABS Brake Control (ID:2) is trying to send message 146
+[160829] RECMSG | BCM (infected) received message 146
+[160829] RECMSG | Powertrain Control received message 146
+[160829] ABS Brake Control (ID:2) sent message 146
+[160829] RECMSG | ADAS received message 146
+[160829] RECMSG | EPS received message 146
+[160830] ABS Brake Control (ID:2) is trying to send message 535
+[160911] RECMSG | BCM (infected) received message 535
+[160911] RECMSG | Powertrain Control received message 535
+[160911] ABS Brake Control (ID:2) sent message 535
+[160911] RECMSG | ADAS received message 535
+[160911] RECMSG | EPS received message 535
+[180664] EPS (ID:4) is trying to send message 118
+[180747] RECMSG | BCM (infected) received message 118
+[180747] RECMSG | Powertrain Control received message 118
+[180747] RECMSG | ABS Brake Control received message 118
+[180747] RECMSG | ADAS received message 118
+[180747] EPS (ID:4) sent message 118
+[180748] ABS Brake Control (ID:2) is trying to send message 145
+[180829] RECMSG | BCM (infected) received message 145
+[180829] RECMSG | Powertrain Control received message 145
+[180829] ABS Brake Control (ID:2) sent message 145
+[180829] RECMSG | ADAS received message 145
+[180829] RECMSG | EPS received message 145
+[180830] ABS Brake Control (ID:2) is trying to send message 146
+[180912] RECMSG | BCM (infected) received message 146
+[180912] RECMSG | Powertrain Control received message 146
+[180912] ABS Brake Control (ID:2) sent message 146
+[180912] RECMSG | ADAS received message 146
+[180912] RECMSG | EPS received message 146
+[180913] ABS Brake Control (ID:2) is trying to send message 535
+[180994] RECMSG | BCM (infected) received message 535
+[180994] RECMSG | Powertrain Control received message 535
+[180994] ABS Brake Control (ID:2) sent message 535
+[180994] RECMSG | ADAS received message 535
+[180994] RECMSG | EPS received message 535
+[181595] BCM (infected) (ID:5) is trying to send message 516
+[181595] Powertrain Control (ID:1) is trying to send message 516
+[181678] BCM (infected) (ID:5) sent message 516
+[181678] RECMSG | ABS Brake Control received message 516
+[181678] RECMSG | ADAS received message 516
+[181678] RECMSG | EPS received message 516
+[181679] Powertrain Control (ID:1) is trying to send message 516
+[181680] Powertrain Control (ID:1) is trying to send message 516
+[181681] Powertrain Control (ID:1) is trying to send message 516
+[181682] Powertrain Control (ID:1) is trying to send message 516
+[181683] Powertrain Control (ID:1) is trying to send message 516
+[181684] Powertrain Control (ID:1) is trying to send message 516
+[181685] Powertrain Control (ID:1) is trying to send message 516
+[181686] Powertrain Control (ID:1) is trying to send message 516
+[181687] Powertrain Control (ID:1) is trying to send message 516
+[181770] RECMSG | BCM (infected) received message 516
+[181770] ATTACKER FREQUENCE: 30000
+Next scheduled time: 211770
+[181770] Powertrain Control (ID:1) sent message 516
+[181770] RECMSG | ABS Brake Control received message 516
+[181770] RECMSG | ADAS received message 516
+[181770] RECMSG | EPS received message 516
+[200747] EPS (ID:4) is trying to send message 118
+[200830] RECMSG | BCM (infected) received message 118
+[200830] RECMSG | Powertrain Control received message 118
+[200830] RECMSG | ABS Brake Control received message 118
+[200830] RECMSG | ADAS received message 118
+[200830] EPS (ID:4) sent message 118
+[200831] ABS Brake Control (ID:2) is trying to send message 145
+[200912] RECMSG | BCM (infected) received message 145
+[200912] RECMSG | Powertrain Control received message 145
+[200912] ABS Brake Control (ID:2) sent message 145
+[200912] RECMSG | ADAS received message 145
+[200912] RECMSG | EPS received message 145
+[200913] ABS Brake Control (ID:2) is trying to send message 146
+[200995] RECMSG | BCM (infected) received message 146
+[200995] RECMSG | Powertrain Control received message 146
+[200995] ABS Brake Control (ID:2) sent message 146
+[200995] RECMSG | ADAS received message 146
+[200995] RECMSG | EPS received message 146
+[200996] ABS Brake Control (ID:2) is trying to send message 535
+[201077] RECMSG | BCM (infected) received message 535
+[201077] RECMSG | Powertrain Control received message 535
+[201077] ABS Brake Control (ID:2) sent message 535
+[201077] RECMSG | ADAS received message 535
+[201077] RECMSG | EPS received message 535
+[211770] BCM (infected) (ID:5) is trying to send message 516
+[211770] Powertrain Control (ID:1) is trying to send message 516
+[211853] BCM (infected) (ID:5) sent message 516
+[211853] RECMSG | ABS Brake Control received message 516
+[211853] RECMSG | ADAS received message 516
+[211853] RECMSG | EPS received message 516
+[211854] Powertrain Control (ID:1) is trying to send message 516
+[211855] Powertrain Control (ID:1) is trying to send message 516
+[211856] Powertrain Control (ID:1) is trying to send message 516
+[211857] Powertrain Control (ID:1) is trying to send message 516
+[211858] Powertrain Control (ID:1) is trying to send message 516
+[211859] Powertrain Control (ID:1) is trying to send message 516
+[211860] Powertrain Control (ID:1) is trying to send message 516
+[211861] Powertrain Control (ID:1) is trying to send message 516
+[211862] Powertrain Control (ID:1) is trying to send message 516
+[211945] RECMSG | BCM (infected) received message 516
+[211945] ATTACKER FREQUENCE: 30000
+Next scheduled time: 241945
+[211945] Powertrain Control (ID:1) sent message 516
+[211945] RECMSG | ABS Brake Control received message 516
+[211945] RECMSG | ADAS received message 516
+[211945] RECMSG | EPS received message 516
+[220830] EPS (ID:4) is trying to send message 118
+[220913] RECMSG | BCM (infected) received message 118
+[220913] RECMSG | Powertrain Control received message 118
+[220913] RECMSG | ABS Brake Control received message 118
+[220913] RECMSG | ADAS received message 118
+[220913] EPS (ID:4) sent message 118
+[220914] ABS Brake Control (ID:2) is trying to send message 145
+[220995] RECMSG | BCM (infected) received message 145
+[220995] RECMSG | Powertrain Control received message 145
+[220995] ABS Brake Control (ID:2) sent message 145
+[220995] RECMSG | ADAS received message 145
+[220995] RECMSG | EPS received message 145
+[220996] ABS Brake Control (ID:2) is trying to send message 146
+[221078] RECMSG | BCM (infected) received message 146
+[221078] RECMSG | Powertrain Control received message 146
+[221078] ABS Brake Control (ID:2) sent message 146
+[221078] RECMSG | ADAS received message 146
+[221078] RECMSG | EPS received message 146
+[221079] ABS Brake Control (ID:2) is trying to send message 535
+[221160] RECMSG | BCM (infected) received message 535
+[221160] RECMSG | Powertrain Control received message 535
+[221160] ABS Brake Control (ID:2) sent message 535
+[221160] RECMSG | ADAS received message 535
+[221160] RECMSG | EPS received message 535
+[240082] ABS Brake Control (ID:2) is trying to send message 534
+[240164] RECMSG | BCM (infected) received message 534
+[240164] RECMSG | Powertrain Control received message 534
+[240164] ABS Brake Control (ID:2) sent message 534
+[240164] RECMSG | ADAS received message 534
+[240164] RECMSG | EPS received message 534
+[240913] EPS (ID:4) is trying to send message 118
+[240996] RECMSG | BCM (infected) received message 118
+[240996] RECMSG | Powertrain Control received message 118
+[240996] RECMSG | ABS Brake Control received message 118
+[240996] RECMSG | ADAS received message 118
+[240996] EPS (ID:4) sent message 118
+[240997] ABS Brake Control (ID:2) is trying to send message 145
+[241078] RECMSG | BCM (infected) received message 145
+[241078] RECMSG | Powertrain Control received message 145
+[241078] ABS Brake Control (ID:2) sent message 145
+[241078] RECMSG | ADAS received message 145
+[241078] RECMSG | EPS received message 145
+[241079] ABS Brake Control (ID:2) is trying to send message 146
+[241161] RECMSG | BCM (infected) received message 146
+[241161] RECMSG | Powertrain Control received message 146
+[241161] ABS Brake Control (ID:2) sent message 146
+[241161] RECMSG | ADAS received message 146
+[241161] RECMSG | EPS received message 146
+[241162] ABS Brake Control (ID:2) is trying to send message 535
+[241243] RECMSG | BCM (infected) received message 535
+[241243] RECMSG | Powertrain Control received message 535
+[241243] ABS Brake Control (ID:2) sent message 535
+[241243] RECMSG | ADAS received message 535
+[241243] RECMSG | EPS received message 535
+[241945] BCM (infected) (ID:5) is trying to send message 516
+[241945] Powertrain Control (ID:1) is trying to send message 516
+[242028] BCM (infected) (ID:5) sent message 516
+[242028] RECMSG | ABS Brake Control received message 516
+[242028] RECMSG | ADAS received message 516
+[242028] RECMSG | EPS received message 516
+[242029] Powertrain Control (ID:1) is trying to send message 516
+[242030] Powertrain Control (ID:1) is trying to send message 516
+[242031] Powertrain Control (ID:1) is trying to send message 516
+[242032] Powertrain Control (ID:1) is trying to send message 516
+[242033] Powertrain Control (ID:1) is trying to send message 516
+[242034] Powertrain Control (ID:1) is trying to send message 516
+[242035] Powertrain Control (ID:1) is trying to send message 516
+[242036] Powertrain Control (ID:1) is trying to send message 516
+[242037] Powertrain Control (ID:1) is trying to send message 516
+[242120] RECMSG | BCM (infected) received message 516
+[242120] ATTACKER FREQUENCE: 30000
+Next scheduled time: 272120
+[242120] Powertrain Control (ID:1) sent message 516
+[242120] RECMSG | ABS Brake Control received message 516
+[242120] RECMSG | ADAS received message 516
+[242120] RECMSG | EPS received message 516
+[260996] EPS (ID:4) is trying to send message 118
+[261079] RECMSG | BCM (infected) received message 118
+[261079] RECMSG | Powertrain Control received message 118
+[261079] RECMSG | ABS Brake Control received message 118
+[261079] RECMSG | ADAS received message 118
+[261079] EPS (ID:4) sent message 118
+[261080] ABS Brake Control (ID:2) is trying to send message 145
+[261161] RECMSG | BCM (infected) received message 145
+[261161] RECMSG | Powertrain Control received message 145
+[261161] ABS Brake Control (ID:2) sent message 145
+[261161] RECMSG | ADAS received message 145
+[261161] RECMSG | EPS received message 145
+[261162] ABS Brake Control (ID:2) is trying to send message 146
+[261244] RECMSG | BCM (infected) received message 146
+[261244] RECMSG | Powertrain Control received message 146
+[261244] ABS Brake Control (ID:2) sent message 146
+[261244] RECMSG | ADAS received message 146
+[261244] RECMSG | EPS received message 146
+[261245] ABS Brake Control (ID:2) is trying to send message 535
+[261326] RECMSG | BCM (infected) received message 535
+[261326] RECMSG | Powertrain Control received message 535
+[261326] ABS Brake Control (ID:2) sent message 535
+[261326] RECMSG | ADAS received message 535
+[261326] RECMSG | EPS received message 535
+[272120] BCM (infected) (ID:5) is trying to send message 516
+[272120] Powertrain Control (ID:1) is trying to send message 516
+[272203] BCM (infected) (ID:5) sent message 516
+[272203] RECMSG | ABS Brake Control received message 516
+[272203] RECMSG | ADAS received message 516
+[272203] RECMSG | EPS received message 516
+[272204] Powertrain Control (ID:1) is trying to send message 516
+[272205] Powertrain Control (ID:1) is trying to send message 516
+[272206] Powertrain Control (ID:1) is trying to send message 516
+[272207] Powertrain Control (ID:1) is trying to send message 516
+[272208] Powertrain Control (ID:1) is trying to send message 516
+[272209] Powertrain Control (ID:1) is trying to send message 516
+[272210] Powertrain Control (ID:1) is trying to send message 516
+[272211] Powertrain Control (ID:1) is trying to send message 516
+[272212] Powertrain Control (ID:1) is trying to send message 516
+[272295] RECMSG | BCM (infected) received message 516
+[272295] ATTACKER FREQUENCE: 30000
+Next scheduled time: 302295
+[272295] Powertrain Control (ID:1) sent message 516
+[272295] RECMSG | ABS Brake Control received message 516
+[272295] RECMSG | ADAS received message 516
+[272295] RECMSG | EPS received message 516
+[281079] EPS (ID:4) is trying to send message 118
+[281162] RECMSG | BCM (infected) received message 118
+[281162] RECMSG | Powertrain Control received message 118
+[281162] RECMSG | ABS Brake Control received message 118
+[281162] RECMSG | ADAS received message 118
+[281162] EPS (ID:4) sent message 118
+[281163] ABS Brake Control (ID:2) is trying to send message 145
+[281244] RECMSG | BCM (infected) received message 145
+[281244] RECMSG | Powertrain Control received message 145
+[281244] ABS Brake Control (ID:2) sent message 145
+[281244] RECMSG | ADAS received message 145
+[281244] RECMSG | EPS received message 145
+[281245] ABS Brake Control (ID:2) is trying to send message 146
+[281327] RECMSG | BCM (infected) received message 146
+[281327] RECMSG | Powertrain Control received message 146
+[281327] ABS Brake Control (ID:2) sent message 146
+[281327] RECMSG | ADAS received message 146
+[281327] RECMSG | EPS received message 146
+[281328] ABS Brake Control (ID:2) is trying to send message 535
+[281409] RECMSG | BCM (infected) received message 535
+[281409] RECMSG | Powertrain Control received message 535
+[281409] ABS Brake Control (ID:2) sent message 535
+[281409] RECMSG | ADAS received message 535
+[281409] RECMSG | EPS received message 535
+[300000] ADAS (ID:3) is trying to send message 970
+[300082] RECMSG | BCM (infected) received message 970
+[300082] RECMSG | Powertrain Control received message 970
+[300082] RECMSG | ABS Brake Control received message 970
+[300082] ADAS (ID:3) sent message 970
+[300082] RECMSG | EPS received message 970
+[301162] EPS (ID:4) is trying to send message 118
+[301245] RECMSG | BCM (infected) received message 118
+[301245] RECMSG | Powertrain Control received message 118
+[301245] RECMSG | ABS Brake Control received message 118
+[301245] RECMSG | ADAS received message 118
+[301245] EPS (ID:4) sent message 118
+[301246] ABS Brake Control (ID:2) is trying to send message 145
+[301327] RECMSG | BCM (infected) received message 145
+[301327] RECMSG | Powertrain Control received message 145
+[301327] ABS Brake Control (ID:2) sent message 145
+[301327] RECMSG | ADAS received message 145
+[301327] RECMSG | EPS received message 145
+[301328] ABS Brake Control (ID:2) is trying to send message 146
+[301410] RECMSG | BCM (infected) received message 146
+[301410] RECMSG | Powertrain Control received message 146
+[301410] ABS Brake Control (ID:2) sent message 146
+[301410] RECMSG | ADAS received message 146
+[301410] RECMSG | EPS received message 146
+[301411] ABS Brake Control (ID:2) is trying to send message 535
+[301492] RECMSG | BCM (infected) received message 535
+[301492] RECMSG | Powertrain Control received message 535
+[301492] ABS Brake Control (ID:2) sent message 535
+[301492] RECMSG | ADAS received message 535
+[301492] RECMSG | EPS received message 535
+[302295] BCM (infected) (ID:5) is trying to send message 516
+[302295] Powertrain Control (ID:1) is trying to send message 516
+[302378] BCM (infected) (ID:5) sent message 516
+[302378] RECMSG | ABS Brake Control received message 516
+[302378] RECMSG | ADAS received message 516
+[302378] RECMSG | EPS received message 516
+[302379] Powertrain Control (ID:1) is trying to send message 516
+[302380] Powertrain Control (ID:1) is trying to send message 516
+[302381] Powertrain Control (ID:1) is trying to send message 516
+[302382] Powertrain Control (ID:1) is trying to send message 516
+[302383] Powertrain Control (ID:1) is trying to send message 516
+[302384] Powertrain Control (ID:1) is trying to send message 516
+[302385] Powertrain Control (ID:1) is trying to send message 516
+[302386] Powertrain Control (ID:1) is trying to send message 516
+[302387] Powertrain Control (ID:1) is trying to send message 516
+[302470] RECMSG | BCM (infected) received message 516
+[302470] ATTACKER FREQUENCE: 30000
+Next scheduled time: 332470
+[302470] Powertrain Control (ID:1) sent message 516
+[302470] RECMSG | ABS Brake Control received message 516
+[302470] RECMSG | ADAS received message 516
+[302470] RECMSG | EPS received message 516
+[321245] EPS (ID:4) is trying to send message 118
+[321328] RECMSG | BCM (infected) received message 118
+[321328] RECMSG | Powertrain Control received message 118
+[321328] RECMSG | ABS Brake Control received message 118
+[321328] RECMSG | ADAS received message 118
+[321328] EPS (ID:4) sent message 118
+[321329] ABS Brake Control (ID:2) is trying to send message 145
+[321410] RECMSG | BCM (infected) received message 145
+[321410] RECMSG | Powertrain Control received message 145
+[321410] ABS Brake Control (ID:2) sent message 145
+[321410] RECMSG | ADAS received message 145
+[321410] RECMSG | EPS received message 145
+[321411] ABS Brake Control (ID:2) is trying to send message 146
+[321493] RECMSG | BCM (infected) received message 146
+[321493] RECMSG | Powertrain Control received message 146
+[321493] ABS Brake Control (ID:2) sent message 146
+[321493] RECMSG | ADAS received message 146
+[321493] RECMSG | EPS received message 146
+[321494] ABS Brake Control (ID:2) is trying to send message 535
+[321575] RECMSG | BCM (infected) received message 535
+[321575] RECMSG | Powertrain Control received message 535
+[321575] ABS Brake Control (ID:2) sent message 535
+[321575] RECMSG | ADAS received message 535
+[321575] RECMSG | EPS received message 535
+[332470] BCM (infected) (ID:5) is trying to send message 516
+[332470] Powertrain Control (ID:1) is trying to send message 516
+[332553] BCM (infected) (ID:5) sent message 516
+[332553] RECMSG | ABS Brake Control received message 516
+[332553] RECMSG | ADAS received message 516
+[332553] RECMSG | EPS received message 516
+[332554] Powertrain Control (ID:1) is trying to send message 516
+[332555] Powertrain Control (ID:1) is trying to send message 516
+[332556] Powertrain Control (ID:1) is trying to send message 516
+[332557] Powertrain Control (ID:1) is trying to send message 516
+[332558] Powertrain Control (ID:1) is trying to send message 516
+[332559] Powertrain Control (ID:1) is trying to send message 516
+[332560] Powertrain Control (ID:1) is trying to send message 516
+[332561] Powertrain Control (ID:1) is trying to send message 516
+[332562] Powertrain Control (ID:1) is trying to send message 516
+[332645] RECMSG | BCM (infected) received message 516
+[332645] ATTACKER FREQUENCE: 30000
+Next scheduled time: 362645
+[332645] Powertrain Control (ID:1) sent message 516
+[332645] RECMSG | ABS Brake Control received message 516
+[332645] RECMSG | ADAS received message 516
+[332645] RECMSG | EPS received message 516
+[341328] EPS (ID:4) is trying to send message 118
+[341411] RECMSG | BCM (infected) received message 118
+[341411] RECMSG | Powertrain Control received message 118
+[341411] RECMSG | ABS Brake Control received message 118
+[341411] RECMSG | ADAS received message 118
+[341411] EPS (ID:4) sent message 118
+[341412] ABS Brake Control (ID:2) is trying to send message 145
+[341493] RECMSG | BCM (infected) received message 145
+[341493] RECMSG | Powertrain Control received message 145
+[341493] ABS Brake Control (ID:2) sent message 145
+[341493] RECMSG | ADAS received message 145
+[341493] RECMSG | EPS received message 145
+[341494] ABS Brake Control (ID:2) is trying to send message 146
+[341576] RECMSG | BCM (infected) received message 146
+[341576] RECMSG | Powertrain Control received message 146
+[341576] ABS Brake Control (ID:2) sent message 146
+[341576] RECMSG | ADAS received message 146
+[341576] RECMSG | EPS received message 146
+[341577] ABS Brake Control (ID:2) is trying to send message 535
+[341658] RECMSG | BCM (infected) received message 535
+[341658] RECMSG | Powertrain Control received message 535
+[341658] ABS Brake Control (ID:2) sent message 535
+[341658] RECMSG | ADAS received message 535
+[341658] RECMSG | EPS received message 535
+[360164] ABS Brake Control (ID:2) is trying to send message 534
+[360246] RECMSG | BCM (infected) received message 534
+[360246] RECMSG | Powertrain Control received message 534
+[360246] ABS Brake Control (ID:2) sent message 534
+[360246] RECMSG | ADAS received message 534
+[360246] RECMSG | EPS received message 534
+[361411] EPS (ID:4) is trying to send message 118
+[361494] RECMSG | BCM (infected) received message 118
+[361494] RECMSG | Powertrain Control received message 118
+[361494] RECMSG | ABS Brake Control received message 118
+[361494] RECMSG | ADAS received message 118
+[361494] EPS (ID:4) sent message 118
+[361495] ABS Brake Control (ID:2) is trying to send message 145
+[361576] RECMSG | BCM (infected) received message 145
+[361576] RECMSG | Powertrain Control received message 145
+[361576] ABS Brake Control (ID:2) sent message 145
+[361576] RECMSG | ADAS received message 145
+[361576] RECMSG | EPS received message 145
+[361577] ABS Brake Control (ID:2) is trying to send message 146
+[361659] RECMSG | BCM (infected) received message 146
+[361659] RECMSG | Powertrain Control received message 146
+[361659] ABS Brake Control (ID:2) sent message 146
+[361659] RECMSG | ADAS received message 146
+[361659] RECMSG | EPS received message 146
+[361660] ABS Brake Control (ID:2) is trying to send message 535
+[361741] RECMSG | BCM (infected) received message 535
+[361741] RECMSG | Powertrain Control received message 535
+[361741] ABS Brake Control (ID:2) sent message 535
+[361741] RECMSG | ADAS received message 535
+[361741] RECMSG | EPS received message 535
+[362645] BCM (infected) (ID:5) is trying to send message 516
+[362645] Powertrain Control (ID:1) is trying to send message 516
+[362728] BCM (infected) (ID:5) sent message 516
+[362728] RECMSG | ABS Brake Control received message 516
+[362728] RECMSG | ADAS received message 516
+[362728] RECMSG | EPS received message 516
+[362729] Powertrain Control (ID:1) is trying to send message 516
+[362730] Powertrain Control (ID:1) is trying to send message 516
+[362731] Powertrain Control (ID:1) is trying to send message 516
+[362732] Powertrain Control (ID:1) is trying to send message 516
+[362733] Powertrain Control (ID:1) is trying to send message 516
+[362734] Powertrain Control (ID:1) is trying to send message 516
+[362735] Powertrain Control (ID:1) is trying to send message 516
+[362736] Powertrain Control (ID:1) is trying to send message 516
+[362737] Powertrain Control (ID:1) is trying to send message 516
+[362820] RECMSG | BCM (infected) received message 516
+[362820] ATTACKER FREQUENCE: 30000
+Next scheduled time: 392820
+[362820] Powertrain Control (ID:1) sent message 516
+[362820] RECMSG | ABS Brake Control received message 516
+[362820] RECMSG | ADAS received message 516
+[362820] RECMSG | EPS received message 516
+[381494] EPS (ID:4) is trying to send message 118
+[381577] RECMSG | BCM (infected) received message 118
+[381577] RECMSG | Powertrain Control received message 118
+[381577] RECMSG | ABS Brake Control received message 118
+[381577] RECMSG | ADAS received message 118
+[381577] EPS (ID:4) sent message 118
+[381578] ABS Brake Control (ID:2) is trying to send message 145
+[381659] RECMSG | BCM (infected) received message 145
+[381659] RECMSG | Powertrain Control received message 145
+[381659] ABS Brake Control (ID:2) sent message 145
+[381659] RECMSG | ADAS received message 145
+[381659] RECMSG | EPS received message 145
+[381660] ABS Brake Control (ID:2) is trying to send message 146
+[381742] RECMSG | BCM (infected) received message 146
+[381742] RECMSG | Powertrain Control received message 146
+[381742] ABS Brake Control (ID:2) sent message 146
+[381742] RECMSG | ADAS received message 146
+[381742] RECMSG | EPS received message 146
+[381743] ABS Brake Control (ID:2) is trying to send message 535
+[381824] RECMSG | BCM (infected) received message 535
+[381824] RECMSG | Powertrain Control received message 535
+[381824] ABS Brake Control (ID:2) sent message 535
+[381824] RECMSG | ADAS received message 535
+[381824] RECMSG | EPS received message 535
+[392820] BCM (infected) (ID:5) is trying to send message 516
+[392820] Powertrain Control (ID:1) is trying to send message 516
+[392903] BCM (infected) (ID:5) sent message 516
+[392903] RECMSG | ABS Brake Control received message 516
+[392903] RECMSG | ADAS received message 516
+[392903] RECMSG | EPS received message 516
+[392904] Powertrain Control (ID:1) is trying to send message 516
+[392905] Powertrain Control (ID:1) is trying to send message 516
+[392906] Powertrain Control (ID:1) is trying to send message 516
+[392907] Powertrain Control (ID:1) is trying to send message 516
+[392908] Powertrain Control (ID:1) is trying to send message 516
+[392909] Powertrain Control (ID:1) is trying to send message 516
+[392910] Powertrain Control (ID:1) is trying to send message 516
+[392911] Powertrain Control (ID:1) is trying to send message 516
+[392912] Powertrain Control (ID:1) is trying to send message 516
+[392995] RECMSG | BCM (infected) received message 516
+[392995] ATTACKER FREQUENCE: 30000
+Next scheduled time: 422995
+[392995] Powertrain Control (ID:1) sent message 516
+[392995] RECMSG | ABS Brake Control received message 516
+[392995] RECMSG | ADAS received message 516
+[392995] RECMSG | EPS received message 516
+[400000] ABS Brake Control (ID:2) is trying to send message 357
+[400081] RECMSG | BCM (infected) received message 357
+[400081] RECMSG | Powertrain Control received message 357
+[400081] ABS Brake Control (ID:2) sent message 357
+[400081] RECMSG | ADAS received message 357
+[400081] RECMSG | EPS received message 357
+[401577] EPS (ID:4) is trying to send message 118
+[401660] RECMSG | BCM (infected) received message 118
+[401660] RECMSG | Powertrain Control received message 118
+[401660] RECMSG | ABS Brake Control received message 118
+[401660] RECMSG | ADAS received message 118
+[401660] EPS (ID:4) sent message 118
+[401661] ABS Brake Control (ID:2) is trying to send message 145
+[401742] RECMSG | BCM (infected) received message 145
+[401742] RECMSG | Powertrain Control received message 145
+[401742] ABS Brake Control (ID:2) sent message 145
+[401742] RECMSG | ADAS received message 145
+[401742] RECMSG | EPS received message 145
+[401743] ABS Brake Control (ID:2) is trying to send message 146
+[401825] RECMSG | BCM (infected) received message 146
+[401825] RECMSG | Powertrain Control received message 146
+[401825] ABS Brake Control (ID:2) sent message 146
+[401825] RECMSG | ADAS received message 146
+[401825] RECMSG | EPS received message 146
+[401826] ABS Brake Control (ID:2) is trying to send message 535
+[401907] RECMSG | BCM (infected) received message 535
+[401907] RECMSG | Powertrain Control received message 535
+[401907] ABS Brake Control (ID:2) sent message 535
+[401907] RECMSG | ADAS received message 535
+[401907] RECMSG | EPS received message 535
+[421660] EPS (ID:4) is trying to send message 118
+[421743] RECMSG | BCM (infected) received message 118
+[421743] RECMSG | Powertrain Control received message 118
+[421743] RECMSG | ABS Brake Control received message 118
+[421743] RECMSG | ADAS received message 118
+[421743] EPS (ID:4) sent message 118
+[421744] ABS Brake Control (ID:2) is trying to send message 145
+[421825] RECMSG | BCM (infected) received message 145
+[421825] RECMSG | Powertrain Control received message 145
+[421825] ABS Brake Control (ID:2) sent message 145
+[421825] RECMSG | ADAS received message 145
+[421825] RECMSG | EPS received message 145
+[421826] ABS Brake Control (ID:2) is trying to send message 146
+[421908] RECMSG | BCM (infected) received message 146
+[421908] RECMSG | Powertrain Control received message 146
+[421908] ABS Brake Control (ID:2) sent message 146
+[421908] RECMSG | ADAS received message 146
+[421908] RECMSG | EPS received message 146
+[421909] ABS Brake Control (ID:2) is trying to send message 535
+[421990] RECMSG | BCM (infected) received message 535
+[421990] RECMSG | Powertrain Control received message 535
+[421990] ABS Brake Control (ID:2) sent message 535
+[421990] RECMSG | ADAS received message 535
+[421990] RECMSG | EPS received message 535
+[422995] BCM (infected) (ID:5) is trying to send message 516
+[422995] Powertrain Control (ID:1) is trying to send message 516
+[423078] BCM (infected) (ID:5) sent message 516
+[423078] RECMSG | ABS Brake Control received message 516
+[423078] RECMSG | ADAS received message 516
+[423078] RECMSG | EPS received message 516
+[423079] Powertrain Control (ID:1) is trying to send message 516
+[423080] Powertrain Control (ID:1) is trying to send message 516
+[423081] Powertrain Control (ID:1) is trying to send message 516
+[423082] Powertrain Control (ID:1) is trying to send message 516
+[423083] Powertrain Control (ID:1) is trying to send message 516
+[423084] Powertrain Control (ID:1) is trying to send message 516
+[423085] Powertrain Control (ID:1) is trying to send message 516
+[423086] Powertrain Control (ID:1) is trying to send message 516
+[423087] Powertrain Control (ID:1) is trying to send message 516
+[423170] RECMSG | BCM (infected) received message 516
+[423170] ATTACKER FREQUENCE: 30000
+Next scheduled time: 453170
+[423170] Powertrain Control (ID:1) sent message 516
+[423170] RECMSG | ABS Brake Control received message 516
+[423170] RECMSG | ADAS received message 516
+[423170] RECMSG | EPS received message 516
+[441743] EPS (ID:4) is trying to send message 118
+[441826] RECMSG | BCM (infected) received message 118
+[441826] RECMSG | Powertrain Control received message 118
+[441826] RECMSG | ABS Brake Control received message 118
+[441826] RECMSG | ADAS received message 118
+[441826] EPS (ID:4) sent message 118
+[441827] ABS Brake Control (ID:2) is trying to send message 145
+[441908] RECMSG | BCM (infected) received message 145
+[441908] RECMSG | Powertrain Control received message 145
+[441908] ABS Brake Control (ID:2) sent message 145
+[441908] RECMSG | ADAS received message 145
+[441908] RECMSG | EPS received message 145
+[441909] ABS Brake Control (ID:2) is trying to send message 146
+[441991] RECMSG | BCM (infected) received message 146
+[441991] RECMSG | Powertrain Control received message 146
+[441991] ABS Brake Control (ID:2) sent message 146
+[441991] RECMSG | ADAS received message 146
+[441991] RECMSG | EPS received message 146
+[441992] ABS Brake Control (ID:2) is trying to send message 535
+[442073] RECMSG | BCM (infected) received message 535
+[442073] RECMSG | Powertrain Control received message 535
+[442073] ABS Brake Control (ID:2) sent message 535
+[442073] RECMSG | ADAS received message 535
+[442073] RECMSG | EPS received message 535
+[453170] BCM (infected) (ID:5) is trying to send message 516
+[453170] Powertrain Control (ID:1) is trying to send message 516
+[453253] BCM (infected) (ID:5) sent message 516
+[453253] RECMSG | ABS Brake Control received message 516
+[453253] RECMSG | ADAS received message 516
+[453253] RECMSG | EPS received message 516
+[453254] Powertrain Control (ID:1) is trying to send message 516
+[453255] Powertrain Control (ID:1) is trying to send message 516
+[453256] Powertrain Control (ID:1) is trying to send message 516
+[453257] Powertrain Control (ID:1) is trying to send message 516
+[453258] Powertrain Control (ID:1) is trying to send message 516
+[453259] Powertrain Control (ID:1) is trying to send message 516
+[453260] Powertrain Control (ID:1) is trying to send message 516
+[453261] Powertrain Control (ID:1) is trying to send message 516
+[453262] Powertrain Control (ID:1) is trying to send message 516
+[453345] RECMSG | BCM (infected) received message 516
+[453345] ATTACKER FREQUENCE: 30000
+Next scheduled time: 483345
+[453345] Powertrain Control (ID:1) sent message 516
+[453345] RECMSG | ABS Brake Control received message 516
+[453345] RECMSG | ADAS received message 516
+[453345] RECMSG | EPS received message 516
+[461826] EPS (ID:4) is trying to send message 118
+[461909] RECMSG | BCM (infected) received message 118
+[461909] RECMSG | Powertrain Control received message 118
+[461909] RECMSG | ABS Brake Control received message 118
+[461909] RECMSG | ADAS received message 118
+[461909] EPS (ID:4) sent message 118
+[461910] ABS Brake Control (ID:2) is trying to send message 145
+[461991] RECMSG | BCM (infected) received message 145
+[461991] RECMSG | Powertrain Control received message 145
+[461991] ABS Brake Control (ID:2) sent message 145
+[461991] RECMSG | ADAS received message 145
+[461991] RECMSG | EPS received message 145
+[461992] ABS Brake Control (ID:2) is trying to send message 146
+[462074] RECMSG | BCM (infected) received message 146
+[462074] RECMSG | Powertrain Control received message 146
+[462074] ABS Brake Control (ID:2) sent message 146
+[462074] RECMSG | ADAS received message 146
+[462074] RECMSG | EPS received message 146
+[462075] ABS Brake Control (ID:2) is trying to send message 535
+[462156] RECMSG | BCM (infected) received message 535
+[462156] RECMSG | Powertrain Control received message 535
+[462156] ABS Brake Control (ID:2) sent message 535
+[462156] RECMSG | ADAS received message 535
+[462156] RECMSG | EPS received message 535
+[480000] ADAS (ID:3) is trying to send message 972
+[480000] EPS (ID:4) is trying to send message 130
+[480083] RECMSG | BCM (infected) received message 130
+[480083] RECMSG | Powertrain Control received message 130
+[480083] RECMSG | ABS Brake Control received message 130
+[480083] RECMSG | ADAS received message 130
+[480083] EPS (ID:4) sent message 130
+[480084] ADAS (ID:3) is trying to send message 972
+[480166] RECMSG | BCM (infected) received message 972
+[480166] RECMSG | Powertrain Control received message 972
+[480166] RECMSG | ABS Brake Control received message 972
+[480166] ADAS (ID:3) sent message 972
+[480166] RECMSG | EPS received message 972
+[480246] ABS Brake Control (ID:2) is trying to send message 534
+[480328] RECMSG | BCM (infected) received message 534
+[480328] RECMSG | Powertrain Control received message 534
+[480328] ABS Brake Control (ID:2) sent message 534
+[480328] RECMSG | ADAS received message 534
+[480328] RECMSG | EPS received message 534
+[481909] EPS (ID:4) is trying to send message 118
+[481992] RECMSG | BCM (infected) received message 118
+[481992] RECMSG | Powertrain Control received message 118
+[481992] RECMSG | ABS Brake Control received message 118
+[481992] RECMSG | ADAS received message 118
+[481992] EPS (ID:4) sent message 118
+[481993] ABS Brake Control (ID:2) is trying to send message 145
+[482074] RECMSG | BCM (infected) received message 145
+[482074] RECMSG | Powertrain Control received message 145
+[482074] ABS Brake Control (ID:2) sent message 145
+[482074] RECMSG | ADAS received message 145
+[482074] RECMSG | EPS received message 145
+[482075] ABS Brake Control (ID:2) is trying to send message 146
+[482157] RECMSG | BCM (infected) received message 146
+[482157] RECMSG | Powertrain Control received message 146
+[482157] ABS Brake Control (ID:2) sent message 146
+[482157] RECMSG | ADAS received message 146
+[482157] RECMSG | EPS received message 146
+[482158] ABS Brake Control (ID:2) is trying to send message 535
+[482239] RECMSG | BCM (infected) received message 535
+[482239] RECMSG | Powertrain Control received message 535
+[482239] ABS Brake Control (ID:2) sent message 535
+[482239] RECMSG | ADAS received message 535
+[482239] RECMSG | EPS received message 535
+[483345] BCM (infected) (ID:5) is trying to send message 516
+[483345] Powertrain Control (ID:1) is trying to send message 516
+[483428] BCM (infected) (ID:5) sent message 516
+[483428] RECMSG | ABS Brake Control received message 516
+[483428] RECMSG | ADAS received message 516
+[483428] RECMSG | EPS received message 516
+[483429] Powertrain Control (ID:1) is trying to send message 516
+[483430] Powertrain Control (ID:1) is trying to send message 516
+[483431] Powertrain Control (ID:1) is trying to send message 516
+[483432] Powertrain Control (ID:1) is trying to send message 516
+[483433] Powertrain Control (ID:1) is trying to send message 516
+[483434] Powertrain Control (ID:1) is trying to send message 516
+[483435] Powertrain Control (ID:1) is trying to send message 516
+[483436] Powertrain Control (ID:1) is trying to send message 516
+[483437] Powertrain Control (ID:1) is trying to send message 516
+[483520] RECMSG | BCM (infected) received message 516
+[483520] ATTACKER FREQUENCE: 30000
+Next scheduled time: 513520
+[483520] Powertrain Control (ID:1) sent message 516
+[483520] RECMSG | ABS Brake Control received message 516
+[483520] RECMSG | ADAS received message 516
+[483520] RECMSG | EPS received message 516
+[501992] EPS (ID:4) is trying to send message 118
+[502075] RECMSG | BCM (infected) received message 118
+[502075] RECMSG | Powertrain Control received message 118
+[502075] RECMSG | ABS Brake Control received message 118
+[502075] RECMSG | ADAS received message 118
+[502075] EPS (ID:4) sent message 118
+[502076] ABS Brake Control (ID:2) is trying to send message 145
+[502157] RECMSG | BCM (infected) received message 145
+[502157] RECMSG | Powertrain Control received message 145
+[502157] ABS Brake Control (ID:2) sent message 145
+[502157] RECMSG | ADAS received message 145
+[502157] RECMSG | EPS received message 145
+[502158] ABS Brake Control (ID:2) is trying to send message 146
+[502240] RECMSG | BCM (infected) received message 146
+[502240] RECMSG | Powertrain Control received message 146
+[502240] ABS Brake Control (ID:2) sent message 146
+[502240] RECMSG | ADAS received message 146
+[502240] RECMSG | EPS received message 146
+[502241] ABS Brake Control (ID:2) is trying to send message 535
+[502322] RECMSG | BCM (infected) received message 535
+[502322] RECMSG | Powertrain Control received message 535
+[502322] ABS Brake Control (ID:2) sent message 535
+[502322] RECMSG | ADAS received message 535
+[502322] RECMSG | EPS received message 535
+[513520] BCM (infected) (ID:5) is trying to send message 516
+[513520] Powertrain Control (ID:1) is trying to send message 516
+[513603] BCM (infected) (ID:5) sent message 516
+[513603] RECMSG | ABS Brake Control received message 516
+[513603] RECMSG | ADAS received message 516
+[513603] RECMSG | EPS received message 516
+[513604] Powertrain Control (ID:1) is trying to send message 516
+[513605] Powertrain Control (ID:1) is trying to send message 516
+[513606] Powertrain Control (ID:1) is trying to send message 516
+[513607] Powertrain Control (ID:1) is trying to send message 516
+[513608] Powertrain Control (ID:1) is trying to send message 516
+[513609] Powertrain Control (ID:1) is trying to send message 516
+[513610] Powertrain Control (ID:1) is trying to send message 516
+[513611] Powertrain Control (ID:1) is trying to send message 516
+[513612] Powertrain Control (ID:1) is trying to send message 516
+[513695] RECMSG | BCM (infected) received message 516
+[513695] ATTACKER FREQUENCE: 30000
+Next scheduled time: 543695
+[513695] Powertrain Control (ID:1) sent message 516
+[513695] RECMSG | ABS Brake Control received message 516
+[513695] RECMSG | ADAS received message 516
+[513695] RECMSG | EPS received message 516
+[522075] EPS (ID:4) is trying to send message 118
+[522158] RECMSG | BCM (infected) received message 118
+[522158] RECMSG | Powertrain Control received message 118
+[522158] RECMSG | ABS Brake Control received message 118
+[522158] RECMSG | ADAS received message 118
+[522158] EPS (ID:4) sent message 118
+[522159] ABS Brake Control (ID:2) is trying to send message 145
+[522240] RECMSG | BCM (infected) received message 145
+[522240] RECMSG | Powertrain Control received message 145
+[522240] ABS Brake Control (ID:2) sent message 145
+[522240] RECMSG | ADAS received message 145
+[522240] RECMSG | EPS received message 145
+[522241] ABS Brake Control (ID:2) is trying to send message 146
+[522323] RECMSG | BCM (infected) received message 146
+[522323] RECMSG | Powertrain Control received message 146
+[522323] ABS Brake Control (ID:2) sent message 146
+[522323] RECMSG | ADAS received message 146
+[522323] RECMSG | EPS received message 146
+[522324] ABS Brake Control (ID:2) is trying to send message 535
+[522405] RECMSG | BCM (infected) received message 535
+[522405] RECMSG | Powertrain Control received message 535
+[522405] ABS Brake Control (ID:2) sent message 535
+[522405] RECMSG | ADAS received message 535
+[522405] RECMSG | EPS received message 535
+[542158] EPS (ID:4) is trying to send message 118
+[542241] RECMSG | BCM (infected) received message 118
+[542241] RECMSG | Powertrain Control received message 118
+[542241] RECMSG | ABS Brake Control received message 118
+[542241] RECMSG | ADAS received message 118
+[542241] EPS (ID:4) sent message 118
+[542242] ABS Brake Control (ID:2) is trying to send message 145
+[542323] RECMSG | BCM (infected) received message 145
+[542323] RECMSG | Powertrain Control received message 145
+[542323] ABS Brake Control (ID:2) sent message 145
+[542323] RECMSG | ADAS received message 145
+[542323] RECMSG | EPS received message 145
+[542324] ABS Brake Control (ID:2) is trying to send message 146
+[542406] RECMSG | BCM (infected) received message 146
+[542406] RECMSG | Powertrain Control received message 146
+[542406] ABS Brake Control (ID:2) sent message 146
+[542406] RECMSG | ADAS received message 146
+[542406] RECMSG | EPS received message 146
+[542407] ABS Brake Control (ID:2) is trying to send message 535
+[542488] RECMSG | BCM (infected) received message 535
+[542488] RECMSG | Powertrain Control received message 535
+[542488] ABS Brake Control (ID:2) sent message 535
+[542488] RECMSG | ADAS received message 535
+[542488] RECMSG | EPS received message 535
+[543695] BCM (infected) (ID:5) is trying to send message 516
+[543695] Powertrain Control (ID:1) is trying to send message 516
+[543778] BCM (infected) (ID:5) sent message 516
+[543778] RECMSG | ABS Brake Control received message 516
+[543778] RECMSG | ADAS received message 516
+[543778] RECMSG | EPS received message 516
+[543779] Powertrain Control (ID:1) is trying to send message 516
+[543780] Powertrain Control (ID:1) is trying to send message 516
+[543781] Powertrain Control (ID:1) is trying to send message 516
+[543782] Powertrain Control (ID:1) is trying to send message 516
+[543783] Powertrain Control (ID:1) is trying to send message 516
+[543784] Powertrain Control (ID:1) is trying to send message 516
+[543785] Powertrain Control (ID:1) is trying to send message 516
+[543786] Powertrain Control (ID:1) is trying to send message 516
+[543787] Powertrain Control (ID:1) is trying to send message 516
+[543870] RECMSG | BCM (infected) received message 516
+[543870] ATTACKER FREQUENCE: 30000
+Next scheduled time: 573870
+[543870] Powertrain Control (ID:1) sent message 516
+[543870] RECMSG | ABS Brake Control received message 516
+[543870] RECMSG | ADAS received message 516
+[543870] RECMSG | EPS received message 516
+[562241] EPS (ID:4) is trying to send message 118
+[562324] RECMSG | BCM (infected) received message 118
+[562324] RECMSG | Powertrain Control received message 118
+[562324] RECMSG | ABS Brake Control received message 118
+[562324] RECMSG | ADAS received message 118
+[562324] EPS (ID:4) sent message 118
+[562325] ABS Brake Control (ID:2) is trying to send message 145
+[562406] RECMSG | BCM (infected) received message 145
+[562406] RECMSG | Powertrain Control received message 145
+[562406] ABS Brake Control (ID:2) sent message 145
+[562406] RECMSG | ADAS received message 145
+[562406] RECMSG | EPS received message 145
+[562407] ABS Brake Control (ID:2) is trying to send message 146
+[562489] RECMSG | BCM (infected) received message 146
+[562489] RECMSG | Powertrain Control received message 146
+[562489] ABS Brake Control (ID:2) sent message 146
+[562489] RECMSG | ADAS received message 146
+[562489] RECMSG | EPS received message 146
+[562490] ABS Brake Control (ID:2) is trying to send message 535
+[562571] RECMSG | BCM (infected) received message 535
+[562571] RECMSG | Powertrain Control received message 535
+[562571] ABS Brake Control (ID:2) sent message 535
+[562571] RECMSG | ADAS received message 535
+[562571] RECMSG | EPS received message 535
+[573870] BCM (infected) (ID:5) is trying to send message 516
+[573870] Powertrain Control (ID:1) is trying to send message 516
+[573953] BCM (infected) (ID:5) sent message 516
+[573953] RECMSG | ABS Brake Control received message 516
+[573953] RECMSG | ADAS received message 516
+[573953] RECMSG | EPS received message 516
+[573954] Powertrain Control (ID:1) is trying to send message 516
+[573955] Powertrain Control (ID:1) is trying to send message 516
+[573956] Powertrain Control (ID:1) is trying to send message 516
+[573957] Powertrain Control (ID:1) is trying to send message 516
+[573958] Powertrain Control (ID:1) is trying to send message 516
+[573959] Powertrain Control (ID:1) is trying to send message 516
+[573960] Powertrain Control (ID:1) is trying to send message 516
+[573961] Powertrain Control (ID:1) is trying to send message 516
+[573962] Powertrain Control (ID:1) is trying to send message 516
+[574045] RECMSG | BCM (infected) received message 516
+[574045] ATTACKER FREQUENCE: 30000
+Next scheduled time: 604045
+[574045] Powertrain Control (ID:1) sent message 516
+[574045] RECMSG | ABS Brake Control received message 516
+[574045] RECMSG | ADAS received message 516
+[574045] RECMSG | EPS received message 516
+Powertrain Control is in _State.BUS_OFF
+[582324] EPS (ID:4) is trying to send message 118
+[582407] RECMSG | BCM (infected) received message 118
+[582407] RECMSG | Powertrain Control received message 118
+[582407] RECMSG | ABS Brake Control received message 118
+[582407] RECMSG | ADAS received message 118
+[582407] EPS (ID:4) sent message 118
+[582408] ABS Brake Control (ID:2) is trying to send message 145
+[582489] RECMSG | BCM (infected) received message 145
+[582489] RECMSG | Powertrain Control received message 145
+[582489] ABS Brake Control (ID:2) sent message 145
+[582489] RECMSG | ADAS received message 145
+[582489] RECMSG | EPS received message 145
+[582490] ABS Brake Control (ID:2) is trying to send message 146
+[582572] RECMSG | BCM (infected) received message 146
+[582572] RECMSG | Powertrain Control received message 146
+[582572] ABS Brake Control (ID:2) sent message 146
+[582572] RECMSG | ADAS received message 146
+[582572] RECMSG | EPS received message 146
+[582573] ABS Brake Control (ID:2) is trying to send message 535
+[582654] RECMSG | BCM (infected) received message 535
+[582654] RECMSG | Powertrain Control received message 535
+[582654] ABS Brake Control (ID:2) sent message 535
+[582654] RECMSG | ADAS received message 535
+[582654] RECMSG | EPS received message 535
+[600082] ADAS (ID:3) is trying to send message 970
+[600164] RECMSG | BCM (infected) received message 970
+[600164] RECMSG | Powertrain Control received message 970
+[600164] RECMSG | ABS Brake Control received message 970
+[600164] ADAS (ID:3) sent message 970
+[600164] RECMSG | EPS received message 970
+[600328] ABS Brake Control (ID:2) is trying to send message 534
+[600410] RECMSG | BCM (infected) received message 534
+[600410] RECMSG | Powertrain Control received message 534
+[600410] ABS Brake Control (ID:2) sent message 534
+[600410] RECMSG | ADAS received message 534
+[600410] RECMSG | EPS received message 534
+[602407] EPS (ID:4) is trying to send message 118
+[602490] RECMSG | BCM (infected) received message 118
+[602490] RECMSG | Powertrain Control received message 118
+[602490] RECMSG | ABS Brake Control received message 118
+[602490] RECMSG | ADAS received message 118
+[602490] EPS (ID:4) sent message 118
+[602491] ABS Brake Control (ID:2) is trying to send message 145
+[602572] RECMSG | BCM (infected) received message 145
+[602572] RECMSG | Powertrain Control received message 145
+[602572] ABS Brake Control (ID:2) sent message 145
+[602572] RECMSG | ADAS received message 145
+[602572] RECMSG | EPS received message 145
+[602573] ABS Brake Control (ID:2) is trying to send message 146
+[602655] RECMSG | BCM (infected) received message 146
+[602655] RECMSG | Powertrain Control received message 146
+[602655] ABS Brake Control (ID:2) sent message 146
+[602655] RECMSG | ADAS received message 146
+[602655] RECMSG | EPS received message 146
+[602656] ABS Brake Control (ID:2) is trying to send message 535
+[602737] RECMSG | BCM (infected) received message 535
+[602737] RECMSG | Powertrain Control received message 535
+[602737] ABS Brake Control (ID:2) sent message 535
+[602737] RECMSG | ADAS received message 535
+[602737] RECMSG | EPS received message 535
+[604045] BCM (infected) (ID:5) is trying to send message 516
+[604128] BCM (infected) (ID:5) sent message 516
+[604128] RECMSG | Powertrain Control received message 516
+[604128] RECMSG | ABS Brake Control received message 516
+[604128] RECMSG | ADAS received message 516
+[604128] RECMSG | EPS received message 516
+[622490] EPS (ID:4) is trying to send message 118
+[622573] RECMSG | BCM (infected) received message 118
+[622573] RECMSG | Powertrain Control received message 118
+[622573] RECMSG | ABS Brake Control received message 118
+[622573] RECMSG | ADAS received message 118
+[622573] EPS (ID:4) sent message 118
+[622574] ABS Brake Control (ID:2) is trying to send message 145
+[622655] RECMSG | BCM (infected) received message 145
+[622655] RECMSG | Powertrain Control received message 145
+[622655] ABS Brake Control (ID:2) sent message 145
+[622655] RECMSG | ADAS received message 145
+[622655] RECMSG | EPS received message 145
+[622656] ABS Brake Control (ID:2) is trying to send message 146
+[622738] RECMSG | BCM (infected) received message 146
+[622738] RECMSG | Powertrain Control received message 146
+[622738] ABS Brake Control (ID:2) sent message 146
+[622738] RECMSG | ADAS received message 146
+[622738] RECMSG | EPS received message 146
+[622739] ABS Brake Control (ID:2) is trying to send message 535
+[622820] RECMSG | BCM (infected) received message 535
+[622820] RECMSG | Powertrain Control received message 535
+[622820] ABS Brake Control (ID:2) sent message 535
+[622820] RECMSG | ADAS received message 535
+[622820] RECMSG | EPS received message 535
+[634128] BCM (infected) (ID:5) is trying to send message 516
+[634211] BCM (infected) (ID:5) sent message 516
+[634211] RECMSG | Powertrain Control received message 516
+[634211] RECMSG | ABS Brake Control received message 516
+[634211] RECMSG | ADAS received message 516
+[634211] RECMSG | EPS received message 516
+[642573] EPS (ID:4) is trying to send message 118
+[642656] RECMSG | BCM (infected) received message 118
+[642656] RECMSG | Powertrain Control received message 118
+[642656] RECMSG | ABS Brake Control received message 118
+[642656] RECMSG | ADAS received message 118
+[642656] EPS (ID:4) sent message 118
+[642657] ABS Brake Control (ID:2) is trying to send message 145
+[642738] RECMSG | BCM (infected) received message 145
+[642738] RECMSG | Powertrain Control received message 145
+[642738] ABS Brake Control (ID:2) sent message 145
+[642738] RECMSG | ADAS received message 145
+[642738] RECMSG | EPS received message 145
+[642739] ABS Brake Control (ID:2) is trying to send message 146
+[642821] RECMSG | BCM (infected) received message 146
+[642821] RECMSG | Powertrain Control received message 146
+[642821] ABS Brake Control (ID:2) sent message 146
+[642821] RECMSG | ADAS received message 146
+[642821] RECMSG | EPS received message 146
+[642822] ABS Brake Control (ID:2) is trying to send message 535
+[642903] RECMSG | BCM (infected) received message 535
+[642903] RECMSG | Powertrain Control received message 535
+[642903] ABS Brake Control (ID:2) sent message 535
+[642903] RECMSG | ADAS received message 535
+[642903] RECMSG | EPS received message 535
+[662656] EPS (ID:4) is trying to send message 118
+[662739] RECMSG | BCM (infected) received message 118
+[662739] RECMSG | Powertrain Control received message 118
+[662739] RECMSG | ABS Brake Control received message 118
+[662739] RECMSG | ADAS received message 118
+[662739] EPS (ID:4) sent message 118
+[662740] ABS Brake Control (ID:2) is trying to send message 145
+[662821] RECMSG | BCM (infected) received message 145
+[662821] RECMSG | Powertrain Control received message 145
+[662821] ABS Brake Control (ID:2) sent message 145
+[662821] RECMSG | ADAS received message 145
+[662821] RECMSG | EPS received message 145
+[662822] ABS Brake Control (ID:2) is trying to send message 146
+[662904] RECMSG | BCM (infected) received message 146
+[662904] RECMSG | Powertrain Control received message 146
+[662904] ABS Brake Control (ID:2) sent message 146
+[662904] RECMSG | ADAS received message 146
+[662904] RECMSG | EPS received message 146
+[662905] ABS Brake Control (ID:2) is trying to send message 535
+[662986] RECMSG | BCM (infected) received message 535
+[662986] RECMSG | Powertrain Control received message 535
+[662986] ABS Brake Control (ID:2) sent message 535
+[662986] RECMSG | ADAS received message 535
+[662986] RECMSG | EPS received message 535
+[664211] BCM (infected) (ID:5) is trying to send message 516
+[664294] BCM (infected) (ID:5) sent message 516
+[664294] RECMSG | Powertrain Control received message 516
+[664294] RECMSG | ABS Brake Control received message 516
+[664294] RECMSG | ADAS received message 516
+[664294] RECMSG | EPS received message 516
+[682739] EPS (ID:4) is trying to send message 118
+[682822] RECMSG | BCM (infected) received message 118
+[682822] RECMSG | Powertrain Control received message 118
+[682822] RECMSG | ABS Brake Control received message 118
+[682822] RECMSG | ADAS received message 118
+[682822] EPS (ID:4) sent message 118
+[682823] ABS Brake Control (ID:2) is trying to send message 145
+[682904] RECMSG | BCM (infected) received message 145
+[682904] RECMSG | Powertrain Control received message 145
+[682904] ABS Brake Control (ID:2) sent message 145
+[682904] RECMSG | ADAS received message 145
+[682904] RECMSG | EPS received message 145
+[682905] ABS Brake Control (ID:2) is trying to send message 146
+[682987] RECMSG | BCM (infected) received message 146
+[682987] RECMSG | Powertrain Control received message 146
+[682987] ABS Brake Control (ID:2) sent message 146
+[682987] RECMSG | ADAS received message 146
+[682987] RECMSG | EPS received message 146
+[682988] ABS Brake Control (ID:2) is trying to send message 535
+[683069] RECMSG | BCM (infected) received message 535
+[683069] RECMSG | Powertrain Control received message 535
+[683069] ABS Brake Control (ID:2) sent message 535
+[683069] RECMSG | ADAS received message 535
+[683069] RECMSG | EPS received message 535
+[694294] BCM (infected) (ID:5) is trying to send message 516
+[694377] BCM (infected) (ID:5) sent message 516
+[694377] RECMSG | Powertrain Control received message 516
+[694377] RECMSG | ABS Brake Control received message 516
+[694377] RECMSG | ADAS received message 516
+[694377] RECMSG | EPS received message 516
+Exiting...

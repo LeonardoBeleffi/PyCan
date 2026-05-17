@@ -1,3 +1,6 @@
 [
-  { "id": 1, "name": "Wheel",  "messages": { "10": {"frequence": 20}, "100": {"frequence": 100} } }
+  { "id": 1, "name": "Powertrain Control",  "messages": { "516": {"frequence": 30} } },
+  { "id": 2, "name": "ABS Brake Control",  "messages": { "357": {"frequence": 400},"535": {"frequence": 20},"145": {"frequence": 20}, "146": {"frequence": 20},"534": {"frequence": 120}} },
+  { "id": 3, "name": "ADAS",  "messages": { "970": {"frequence": 300},"972": {"frequence": 480}} },
+  { "id": 4, "name": "EPS",  "messages": { "130": {"frequence": 480},"118": {"frequence": 20}} }
 ]

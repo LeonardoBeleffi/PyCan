@@ -114,6 +114,8 @@ class AttackerEcu(Ecu):
         self.last_target_time = 0
         self.FIXED_DATA_PACKET_LENGTH = 51
 
+        self._victim_messages_error_passive = 0 
+
         if not self.target_id in messages.keys():
             raise ValueError("target_id must be one of the sent messages")
 
@@ -137,11 +139,12 @@ class AttackerEcu(Ecu):
 
             # update target message frequence
             if rcv_msg.id == self.target_id:  
-                self._messages[rcv_msg.id]["frequence"] = self._time - self.last_target_time - (len(rcv_msg.data)*8) - self.FIXED_DATA_PACKET_LENGTH
+
                 self.last_target_time = self._time
                 self._messages[rcv_msg.id]["timer"] = self._time
                 print(f"[{self._time}] ATTACKER FREQUENCE: {self._messages[rcv_msg.id]["frequence"]}")
                 print(f"Next scheduled time: {self._messages[rcv_msg.id]["timer"]+self._messages[rcv_msg.id]["frequence"]}")
+
 
 
 # workflow modification:
