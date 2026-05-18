@@ -122,79 +122,79 @@ class CanFrame:
     def decode_message(msg: deque[int]) -> CanMessage:
         """
         Decodes a complete, stuffed CAN frame into its message ID and data payload.
-    
+
         Supports both base (11-bit ID) and extended (29-bit ID) frames.
-    
+
         Frame layouts (logical / unstuffed indices):
-    
+
             Base frame (IDE=0):
                 SOF(0) | ID(1-11) | RTR(12) | IDE(13) | r0(14) | DLC(15-18)
                 | Data(19 … 19+8*dlc-1) | CRC | tail
-    
+
             Extended frame (IDE=1):
                 SOF(0) | BaseID(1-11) | SRR(12) | IDE(13) | ExtID(14-31)
                 | RTR(32) | r1(33) | r0(34) | DLC(35-38)
                 | Data(39 … 39+8*dlc-1) | CRC | tail
-    
+
         Args:
             msg: stuffed bits of a complete CAN frame.
-    
+
         Returns:
             CanMessage.
-    
+
         Raises:
             ValueError: if msg contains values other than 0 or 1.
             ValueError: if the frame is too short to decode.
         """
         bits = CanFrame._destuff_and_split(msg)
-    
+
         def bits_to_int(bit_slice: list[int]) -> int:
             return int("".join(str(b) for b in bit_slice), 2)
-    
+
         # ── frame type ────────────────────────────────────────────────────────────
         if len(bits) < 19:
             raise ValueError(f"Frame too short to decode: only {len(bits)} logical bits.")
-    
+
         ide = bits[13]
-    
+
         # ── base frame ────────────────────────────────────────────────────────────
         if ide == 0:
             if len(bits) < 19:
                 raise ValueError("Base frame too short to read DLC.")
-    
+
             msg_id   = bits_to_int(bits[1:12])       # 11-bit ID
             dlc      = min(bits_to_int(bits[15:19]), 8)
             data_start = 19
             data_end   = data_start + 8 * dlc
-    
+
             if len(bits) < data_end:
                 raise ValueError(
                     f"Base frame too short: need {data_end} logical bits, got {len(bits)}."
                 )
-    
+
         # ── extended frame ────────────────────────────────────────────────────────
         else:
             if len(bits) < 39:
                 raise ValueError("Extended frame too short to read DLC.")
-    
+
             base_id  = bits_to_int(bits[1:12])        # 11 MSBs
             ext_id   = bits_to_int(bits[14:32])        # 18 LSBs
             msg_id   = (base_id << 18) | ext_id        # full 29-bit ID
             dlc      = min(bits_to_int(bits[35:39]), 8)
             data_start = 39
             data_end   = data_start + 8 * dlc
-    
+
             if len(bits) < data_end:
                 raise ValueError(
                     f"Extended frame too short: need {data_end} logical bits, got {len(bits)}."
                 )
-    
+
         # ── data bytes ────────────────────────────────────────────────────────────
         msg_data = bytearray()
         for i in range(dlc):
             byte_start = data_start + 8 * i
             msg_data.append(bits_to_int(bits[byte_start : byte_start + 8]))
-    
+
         return CanMessage(msg_id, msg_data)
 
     @staticmethod
@@ -233,14 +233,14 @@ class CanFrame:
         """
         Returns the stuffed index corresponding to a given logical (unstuffed)
         bit position. Stuff bits are skipped and do not count toward logical_target.
-    
+
         Returns -1 if the logical position is not reached (message too short).
         """
         logical_count = 0
         consecutive   = 1
         last_bit      = None
         expect_stuff  = False
-    
+
         for stuffed_idx, bit in enumerate(msg):
             if expect_stuff:
                 # This is a stuff bit — skip it logically, but still track the run
@@ -248,23 +248,23 @@ class CanFrame:
                 last_bit     = bit
                 consecutive  = 1
                 continue
-    
+
             if logical_count == logical_target:
                 return stuffed_idx
-    
+
             logical_count += 1
-    
+
             if bit == last_bit:
                 consecutive += 1
             else:
                 consecutive = 1
                 last_bit    = bit
-    
+
             if consecutive == 5:
                 expect_stuff = True
-    
+
         return -1  # logical_target beyond the message
-    
+
     @staticmethod
     def is_frame_extended(msg: deque[int]) -> bool:
         assert len(msg) > 13, "Frame Not Valid"
@@ -296,32 +296,32 @@ class CanFrame:
             if consecutive_bits > 5:
                 return True
         return False
-    
+
     @staticmethod
     def is_bit_arbitration(msg: deque[int], index: int) -> bool:
         """
         Returns True if `index` (position in the STUFFED message) falls within
         the arbitration field of the frame.
-    
+
         Arbitration field:
             Base frame     — SOF + 11-bit ID + RTR         → logical indices 0-12
             Extended frame — SOF + 11-bit ID + SRR + IDE
                                + 18-bit ext. ID + RTR      → logical indices 0-32
-    
+
         The IDE bit sits at logical index 13 in both frame types:
             Base frame:     IDE = 0 (dominant)
             Extended frame: IDE = 1 (recessive)
         """
         ide_stuffed_pos = CanFrame._logical_to_stuffed_index(msg, 13)
         assert ide_stuffed_pos != -1, "Frame too short to determine type (IDE bit not reached)"
-    
+
         if msg[ide_stuffed_pos] == 1:
             # Extended frame — arbitration ends at logical index 32
             arb_end = CanFrame._logical_to_stuffed_index(msg, 32)
         else:
             # Base frame — arbitration ends at logical index 12
             arb_end = CanFrame._logical_to_stuffed_index(msg, 12)
-    
+
         assert arb_end != -1, "Frame too short to contain full arbitration field"
         return index <= arb_end
 
@@ -365,7 +365,7 @@ class CanFrame:
         Returns a logical bit list where:
           - the stuffable region (SOF → CRC) has been destuffed, and
           - the fixed tail (CRC delimiter onward) is appended as-is.
-    
+
         This is the correct input for any function that works on logical
         (unstuffed) indices, because the tail is never stuffed and must
         not be processed by the destuffing logic.
@@ -376,33 +376,33 @@ class CanFrame:
         consecutive:             int             = 1
         last_bit:                int | None      = None
         expect_stuff:            bool            = False
-    
+
         for stuffed_idx, bit in enumerate(msg):
-    
+
             # Once we know the stuffable boundary in stuffed-space, stop destuffing
             if stuffable_limit_stuffed != -1 and stuffed_idx >= stuffable_limit_stuffed:
                 # Append the remainder of the message (tail) raw, then exit
                 logical_bits += list(msg)[stuffed_idx:]
                 return logical_bits
-    
+
             if expect_stuff:
                 # Stuff bit: drop from logical stream, reset run
                 expect_stuff = False
                 last_bit     = bit
                 consecutive  = 1
                 continue
-    
+
             logical_bits.append(bit)
-    
+
             if bit == last_bit:
                 consecutive += 1
             else:
                 consecutive = 1
                 last_bit    = bit
-    
+
             if consecutive == 5:
                 expect_stuff = True
-    
+
             # Try to resolve the stuffable region boundary
             if stuffable_limit_logical is None:
                 stuffable_limit_logical = CanFrame._try_get_stuffable_region_limit(logical_bits)
@@ -412,13 +412,13 @@ class CanFrame:
                     stuffable_limit_stuffed = CanFrame._logical_to_stuffed_index(
                         msg, stuffable_limit_logical
                     )
-    
+
         return logical_bits  # Message incomplete — return what we have
-    
+
     @staticmethod
     def is_form_error(msg: deque[int]) -> bool:
         bits = CanFrame._destuff_and_split(msg)  # ← only change to the original
-    
+
         # need at least enough to read DLC
         if len(bits) < 19:
             return False
@@ -486,12 +486,12 @@ class CanFrame:
         logical end index of the stuffable region (one past the last CRC bit).
         Returns None if not enough logical bits have arrived yet to determine
         the frame type and DLC.
-    
+
         Stuffable region layout:
             Base frame:     SOF(1) + ID(11) + RTR(1) + IDE(1) + r0(1) + DLC(4)
                             + Data(8*dlc) + CRC(15)
                             → ends at logical index 34 + 8*dlc  (exclusive)
-    
+
             Extended frame: SOF(1) + ID(11) + SRR(1) + IDE(1) + ExtID(18) + RTR(1)
                             + r1(1) + r0(1) + DLC(4) + Data(8*dlc) + CRC(15)
                             → ends at logical index 54 + 8*dlc  (exclusive)
@@ -499,86 +499,86 @@ class CanFrame:
         # Need at least IDE bit (logical index 13) to determine frame type
         if len(logical_bits) < 14:
             return None
-    
+
         is_extended = logical_bits[13] == 1
         dlc_start   = 35 if is_extended else 15
         data_start  = 39 if is_extended else 19
-    
+
         # Need all 4 DLC bits
         if len(logical_bits) < dlc_start + 4:
             return None
-    
+
         dlc_bits = logical_bits[dlc_start : dlc_start + 4]
         dlc      = (dlc_bits[0] << 3) | (dlc_bits[1] << 2) | (dlc_bits[2] << 1) | dlc_bits[3]
         dlc      = min(dlc, 8)  # DLC > 8 is treated as 8 per CAN spec
-    
+
         return data_start + 8 * dlc + 15  # exclusive
-    
-    
+
+
     @staticmethod
     def is_bit_stuffing_wrong(msg: deque[int]) -> bool:
         """
         Returns True if a bit stuffing violation is detected in the stuffable
         region of a (possibly incomplete) CAN frame.
-    
+
         Bit stuffing applies only to: SOF + Arbitration + Control + Data + CRC.
         The fixed tail (CRC delimiter onward) is never stuffed and is not checked.
-    
+
         The function walks the message bit by bit, simultaneously:
           - checking for stuffing violations as they appear, and
           - parsing frame structure to know where the stuffable region ends.
-    
+
         Returns False if no violation is found in the bits seen so far —
         this includes incomplete frames where the violation may not have
         arrived yet.
-    
+
         Args:
             msg: stuffed bits of the full frame (may be incomplete).
-    
+
         Raises:
             ValueError: if msg contains values other than 0 or 1.
         """
         if any(b not in (0, 1) for b in msg):
             raise ValueError("Message must contain only bits (0 or 1).")
-    
+
         logical_bits:           list[int] = []
         consecutive:            int       = 1
         last_bit:               int | None = None
         expect_stuff:           bool      = False
         stuffable_limit_logical: int | None = None  # exclusive logical end of stuffable region
-    
+
         for bit in msg:
             # Stop checking once we have walked past the stuffable region
             if stuffable_limit_logical is not None and len(logical_bits) >= stuffable_limit_logical:
                 break
-    
+
             if expect_stuff:
                 expected_stuff_bit = 1 - last_bit
                 if bit != expected_stuff_bit:
                     return True  # Stuffing violation — 6 consecutive identical bits
-    
+
                 # Valid stuff bit: drop it from logical stream, reset run counter
                 expect_stuff = False
                 last_bit     = bit
                 consecutive  = 1
                 continue
-    
+
             # Normal (non-stuff) bit — add to logical stream
             logical_bits.append(bit)
-    
+
             if bit == last_bit:
                 consecutive += 1
             else:
                 consecutive = 1
                 last_bit    = bit
-    
+
             if consecutive == 5:
                 expect_stuff = True  # Next bit must be a stuff bit
-    
+
             # Attempt to resolve the stuffable region boundary once we have enough context
             if stuffable_limit_logical is None:
                 stuffable_limit_logical = CanFrame._try_get_stuffable_region_limit(logical_bits)
-    
+
         return False
 
     @staticmethod

@@ -8,7 +8,7 @@ import canSettings
 def load_ecus(path: str) -> list[Ecu]:
     with open(path) as f:
         return [Ecu(d["id"], d["name"], {int(k): v for k, v in d["messages"].items()}) for d in json.load(f)]
-    
+
 
 def load_attacker_ecus(path: str) -> list[AttackerEcu]:
     with open(path) as f:
@@ -34,3 +34,4 @@ if __name__ == "__main__":
 
     canbus = Canbus(sleep_time,ecus)
     canbus.startSimulation()
+
