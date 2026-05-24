@@ -25,6 +25,10 @@ class Ecu:
 
         for msg_id in self._messages.keys():
             self._messages[msg_id]["timer"] = 0
+
+            if "delay" in self._messages[msg_id].keys():
+                self._messages[msg_id]["timer"] = self._messages[msg_id]["delay"] * 1000
+
             # use microseconds instead of milliseconds
             self._messages[msg_id]["frequence"] = self._messages[msg_id]["frequence"] * 1000
 
@@ -103,6 +107,7 @@ class AttackerEcu(Ecu):
         self.successful_victim_messages = 0
         self.skip_victim_frame = skip_victim_frame
 
+        print(f"{self._name} skip {self.skip_victim_frame} messages")
 
         if not self.target_id in messages.keys():
             raise ValueError("target_id must be one of the sent messages")
@@ -121,13 +126,17 @@ class AttackerEcu(Ecu):
         # choose the message, but skip malicious ones from time to time
         while msg_id == -1:
             msg_id = self.get_next_message_id()
+            
+            if msg_id != math.inf:
+                print(f"[{self._time}] {self._name} (ID:{self._id}) selected message {msg_id}")
 
             if msg_id == self.target_id:
                 if self.successful_victim_messages < self.skip_victim_frame:
                     self._messages[msg_id]["timer"] = self._time
                     msg_id = -1
-                else:
-                    self.successful_victim_messages = 0
+
+                print(f"[{self._time}] {self._name} (ID:{self._id}) waited {self.successful_victim_messages}/{self.skip_victim_frame}")
+                
 
         # put message in the controller
         if bus_idle and msg_id != math.inf and msg_id >= 0:
@@ -147,6 +156,14 @@ class AttackerEcu(Ecu):
             msg_id = self._controller.get_last_message_id()
             print(f"[{self._time}] {self._name} (ID:{self._id}) sent message {msg_id}")
             self._messages[msg_id]["timer"] = self._time
+
+            # reset victim sent counter
+            if self.target_id == msg_id:
+                self.successful_victim_messages = 0
+
+
+        if self._controller.get_last_message_id() == self.target_id and (len(self._controller._error_buffer) > 0 or rBit):
+            self.successful_victim_messages = 0
 
         rcv_msg = self._controller.get_full_message()
         if  rcv_msg != None:

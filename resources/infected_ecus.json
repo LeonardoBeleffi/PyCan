@@ -1,3 +1,3 @@
 [
-  { "id": 5, "target": 516,"name": "BCM (infected)",  "messages": { "516": {"frequence": 30},"145": {"frequence": 11} } }
+  { "id": 5, "target": 516,"name": "BCM (infected)",  "messages": { "516": {"frequence": 30, "delay":0},"100": {"frequence": 10,"delay":5},"101": {"frequence": 10,"delay":5} } }
 ]

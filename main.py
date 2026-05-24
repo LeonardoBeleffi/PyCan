@@ -19,10 +19,11 @@ if __name__ == "__main__":
     # get command line arguments
     parser = argparse.ArgumentParser()
     parser.add_argument("--time",     type=float, default=1.0,  help="Sleep time in seconds")
-    parser.add_argument("--skip-attack",     type=int, default=2,  help="Sleep time in seconds")
+    parser.add_argument("--skip-attack",     type=int, default=2,  help="Number of victim frames to wait until next message attack")
     parser.add_argument("--debug",    action="store_true",       help="Enable debug mode")
     parser.add_argument("--no-sleep", action="store_true",       help="Set sleep time to 0")
     parser.add_argument("--error-debug", action="store_true",       help="Enable print for error counters and status")
+    parser.add_argument("--report-file",    type=str, default="",       help="Generate a csv report file regarding TEC errors")
     args = parser.parse_args()
 
     canSettings.DEBUG = args.debug
@@ -33,6 +34,6 @@ if __name__ == "__main__":
     ecus = load_ecus(os.path.join("resources","ecus.json"))
     ecus = ecus + load_attacker_ecus(os.path.join("resources","infected_ecus.json"), args.skip_attack)
 
-    canbus = Canbus(sleep_time,ecus)
+    canbus = Canbus(sleep_time,ecus, args.report_file)
     canbus.startSimulation()
 
