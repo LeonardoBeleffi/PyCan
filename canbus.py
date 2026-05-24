@@ -1,4 +1,5 @@
 from ecu import Ecu
+from csv import DictWriter
 import canSettings
 import time
 
@@ -10,7 +11,7 @@ class Canbus:
         ecus (list[Ecu]): The ecus registered to this CAN BUS.
     """
 
-    def __init__(self, sleep_us: int, ecus: list[Ecu]):
+    def __init__(self, sleep_us: int, ecus: list[Ecu], report_file: str = ""):
         self._sleep_us = sleep_us
         self.IDLE_COUNTER_THRESHOLD = 11
         self.__idle_counter = self.IDLE_COUNTER_THRESHOLD
@@ -20,6 +21,20 @@ class Canbus:
             assert isinstance(ecu, Ecu), ("A list of ecus was expected, but " +
                                           "at least one item was not an Ecu")
         self._ecus = set(ecus)
+
+        # create report file
+        if report_file != "":
+            self._report_file = report_file
+            self.report_rows = {}
+            for ecu in self._ecus:
+                self.report_rows[ecu._id]={"ID":ecu._id,"NAME":ecu._name,"TEC":0, "TIME":0}
+
+            with open(self._report_file,"w") as f:
+                writer = DictWriter(f, fieldnames=self.report_rows[next(iter(self.report_rows))])
+                writer.writeheader()
+                
+                for row in self.report_rows.values():
+                    writer.writerow(row)
 
     def isIdle(self) -> bool:
         """Bus Idle condition check
@@ -44,6 +59,7 @@ class Canbus:
                 self.__update_current_bit()
                 self._send_updated_bit_value_to_ecus()
 
+                self.update_report()
                 time.sleep(self._sleep_us/1_000.0)
 
         except KeyboardInterrupt:
@@ -86,3 +102,14 @@ class Canbus:
             #print(ecu._name, "+++++++++++++++++++++++++++++++")
             ecu.rx_bit(self.last_bit)
 
+
+    def update_report(self):
+        if self._report_file != "":
+            with open(self._report_file, "a") as f:
+                writer = DictWriter(f, fieldnames=self.report_rows[next(iter(self.report_rows))])
+
+                for ecu in self._ecus:
+                    if ecu._controller._tec != self.report_rows[ecu._id]["TEC"]:
+                        self.report_rows[ecu._id]["TEC"] = ecu._controller._tec
+                        self.report_rows[ecu._id]["TIME"] = ecu._time
+                        writer.writerow(self.report_rows[ecu._id]) 

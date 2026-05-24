@@ -31,7 +31,11 @@ class CanController:
         self._error_buffer = deque()
         self._name = name
         self._bit_since_last_msg = 0
-
+        
+        
+        self._time = 0 # for printing purpose
+        
+        
         self.reset_state()
         self.clear_tx_buffer()
         self.clear_rx_buffer()
@@ -155,8 +159,8 @@ class CanController:
         self._review_current_state()
 
         if sending:
-            print(f"{self._name} TEC: {self._tec}")
-            print(f"{self._name} state: {self._state}")
+            print(f"[{self._time}] {self._name} TEC: {self._tec}")
+            print(f"[{self._time}] {self._name} state: {self._state}")
 
     def _review_current_state(self) -> None:
         if self._tec >= 255:
@@ -241,6 +245,10 @@ class CanController:
         if self._index_cur_bit == len(self._tx_buffer) - 1:
             self._bit_since_last_msg = 0
             self._tec = max(0, self._tec - 1)
+            
+            print(f"[{self._time}] {self._name} TEC: {self._tec}")
+            print(f"[{self._time}] {self._name} state: {self._state}")
+            
             self._review_current_state()
             self.clear_tx_buffer()
             return True

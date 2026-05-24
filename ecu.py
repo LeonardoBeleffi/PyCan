@@ -59,6 +59,7 @@ class Ecu:
         if time_delta < 0:
             time_delta = 0
         self._time += time_delta
+        self._controller._time += time_delta
 
     # returns the id of the next message to send
     def get_next_message_id(self):
@@ -82,7 +83,7 @@ class Ecu:
         # update error state
         if self._error_state != self._controller.get_error_state():
             self._error_state = self._controller.get_error_state()
-            print(f"{self._name} is in {self._error_state}")
+            print(f"[{self._time}] {self._name} is in {self._error_state}")
 
 
         # cannot send messages to controller because the bus is not idle
