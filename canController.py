@@ -89,7 +89,7 @@ class CanController:
         if not self._tx_buffer or self._state == _State.BUS_OFF:
             return 1
 
-        if self._state == _State.ERROR_PASSIVE and self._bit_since_last_msg < 8:
+        if self._state == _State.ERROR_PASSIVE and self._bit_since_last_msg < 8 and not self._tx_buffer:
             return 1
 
         self._index_cur_bit += 1
