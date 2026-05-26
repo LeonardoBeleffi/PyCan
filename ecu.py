@@ -146,7 +146,7 @@ class AttackerEcu(Ecu):
 
     def _create_message(self, msg_id):
         msg = super()._create_message(msg_id)
-        msg.data[0] = msg.data[0] - 32
+        msg.data[0] = msg.data[0] + 64
         return msg
 
     def rx_bit(self, bit):
